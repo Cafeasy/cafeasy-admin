@@ -1,0 +1,23 @@
+{
+  "name": "cafeasy-admin",
+  "version": "1.0.0",
+  "description": "cafeasy-admin",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cafeasy/cafeasy-admin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cafeasy/cafeasy-admin/issues"
+  },
+  "homepage": "https://github.com/Cafeasy/cafeasy-admin#readme",
+  "dependencies": {
+    "mongoose": "^7.2.2",
+    "nodemon": "^2.0.22"
+  }
+}
