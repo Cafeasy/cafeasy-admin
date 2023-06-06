@@ -1,38 +1,49 @@
 .App {
-  text-align: center;
+  background-color: white;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+label {
+  font-size: 12px;
+  font-weight: 600;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  color: darkgrey;
+  text-decoration: none;
+  font-size: 14px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a:hover {
+  color: white;
+}
+
+.Logform-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Logform {
+  background-color: #1F2937;
+  width: 420px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  border-radius: 20px;
+}
+
+.Logform-content {
+  padding-left: 10%;
+  padding-right: 12%;
+}
+
+.Logform-title{
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 20px;
+  color: white;
+  font-weight: 800;
 }
