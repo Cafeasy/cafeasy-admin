@@ -9,7 +9,7 @@ function Sidebarcomp () {
                     <li
                         key={key}
                         onClick={() => {
-                            Window.location.pathname = val.link;
+                            Window.location.pathname  = val.link;
                         } }
                     >
                         {""}
