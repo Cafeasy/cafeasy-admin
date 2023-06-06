@@ -1,4 +1,4 @@
-import Sidebarcomp from "../Sidebarpage/Sidebarcomp"
+import Sidebarcomp from "../Homepage/Sidebarcomp"
 
 const Sidebarpage = () => {
     return (
