@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Navigate, Route } from "react-router-dom";
+import {useAuth} from 'react';
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import Sidebarpage from "./Homepage/Sidebarpage";
@@ -10,17 +11,23 @@ import './App.css';
 
 function App() {
   return (
-  <>
     <Router>
       <Routes>
           <Route exact path="/" element={<Loginpage />} />
-          <Route exact path="/Signuppage" element={<Signuppage />} />
-          <Route exact path="/Sidebarpage" element={<Sidebarpage />} />
-          <Route exact path="/pembukuan" element={<Pembukuancomp />} />
       </Routes>
   </Router>
-  </>
-  );
+  )
+}
+
+function Layout() {
+  const {isAuth} = useAuth()
+  
+  if (!isAuth) return <Navigate to="/" />
+  return (
+    <main>
+      <Sidebarpage />
+  </main>
+  )
 }
 
 export default App;
