@@ -2,9 +2,9 @@ require("../config/database");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const adminModel = new Schema({
+const adminSchema = new Schema({
 
-    id: {
+    idAdmin: {
         type: String, required: true
     },
     username: {
@@ -13,8 +13,23 @@ const adminModel = new Schema({
     password: {
         type: String, required: true
     },
+    namaCafe: {
+        type: String, required: true
+    },
+    alamatCafe: {
+        type: String, required: true
+    },
+    deskripsiCafe: {
+        type: String, required: true
+    },
+    namaPemilikCafe: {
+        type: String, required: true
+    },
+    noHpCafe: {
+        type: Number, required: true
+    }
 
 },{versionKey : false,})
 
 
-module.exports = mongoose.model('Admin', adminModel, 'admin');
+module.exports = mongoose.model('DataAdmin', adminSchema, 'dataAdmin');
