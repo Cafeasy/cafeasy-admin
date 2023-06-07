@@ -12,13 +12,13 @@ export const Sidebardata = [
   },
   {
     title: 'Update Pembukuan',
-    path: '/reports',
+    path: '/pembukuan',
     icon: <RiIcons.RiFileUploadFill />,
     cName: 'nav-text'
   },
   {
     title: 'Update Persediaan',
-    path: '/products',
+    path: '/dsds',
     icon: <MdIcons.MdOutlineInventory />,
     cName: 'nav-text'
   },
