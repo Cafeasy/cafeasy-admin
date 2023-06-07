@@ -1,8 +1,10 @@
 import React from "react"
+import logodannama from "../Photos/logodannama.png";
 
 function Logincomp() {
     return (
     <div className="Logform-container">
+
         <form className="Logform">
           <div className="Logform-content">
             <h3 className="Logform-title">Masuk</h3>
