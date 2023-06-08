@@ -40,20 +40,8 @@ export default function Createcrud() {
                     <div className='container'>
                             <div className='col-lg-12'>
                                 <div className='form-group'>
-                                    <label>Email</label>
-                                    <input type='email' value={email} onChange={e=>emailchange(e.target.value)} className='form-control' required></input>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className='form-group'>
                                     <label>Name</label>
                                     <input type='text' value={name} onChange={e=>namechange(e.target.value)} className='form-control' required></input>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className='form-group'>
-                                    <label>Phone Number</label>
-                                    <input type='number' value={phone} onChange={e=>phonechange(e.target.value)} className='form-control' required></input>
                                 </div>
                             </div>
                             <div className='col-lg-12'>

@@ -21,12 +21,12 @@ const Editcrud = () => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    await axios.put(`http://localhost:3003/users/${id}`, user);
+    await axios.put(`http://localhost:3000/users/${id}`, user);
     history.push("/");
   };
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:3003/users/${id}`);
+    const result = await axios.get(`http://localhost:3001/users/${id}`);
     setUser(result.data);
   };
   return (
@@ -38,49 +38,9 @@ const Editcrud = () => {
             <input
               type="text"
               className="form-control form-control-lg"
-              placeholder="Enter Your Name"
+              placeholder="Enter Name Menu"
               name="name"
               value={name}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Enter Your Username"
-              name="username"
-              value={username}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control form-control-lg"
-              placeholder="Enter Your E-mail Address"
-              name="email"
-              value={email}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Enter Your Phone Number"
-              name="phone"
-              value={phone}
-              onChange={e => onInputChange(e)}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Enter Your Website Name"
-              name="website"
-              value={website}
               onChange={e => onInputChange(e)}
             />
           </div>
