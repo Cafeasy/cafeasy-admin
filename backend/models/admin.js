@@ -27,6 +27,9 @@ const adminSchema = new Schema({
     },
     noHpCafe: {
         type: Number, required: true
+    },
+    fotoCafe: {
+        type: String, required: true
     }
 
 },{versionKey : false,})

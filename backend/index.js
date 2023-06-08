@@ -7,10 +7,33 @@ const cookieSession = require("cookie-session");
 const port = process.env.PORT || 8000
 const app = express();
 const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
+
+const multer = require('multer');
+const cookieParser = require("cookie-parser");
+
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, new Date().getTime() + '-' + file.originalname)
+    }
+})
+
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('fotoCafe'));
 
 //connect ke db
 require('./config/database');
+
+app.use(cookieParser());
 
 app.use(
     cookieSession({
@@ -32,6 +55,18 @@ app.use(
         credentials: true,
     })
 );
+
+app.use(express.json());
+
+app.use((error, req, res, next) => {
+    const status = error.errorStatus || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({
+        message: message,
+        data: data
+    })
+})
 
 app.listen(port, () => console.log(`Listenting on port ${port}..., server up n running`));
 // app.listen(4000);
