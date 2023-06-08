@@ -20,7 +20,8 @@ router.post('/registerAdmin', [
     body('namaPemilikCafe').isLength({min: 3}).withMessage('Nama Pemilik minimal 3 karakter'),
     body('noHpCafe').isLength({min: 9}).withMessage('Nomor Hp terkait minimal 9 karakter')],
     adminController.createAdmin);
-router.post('/loginAdmin', adminController.loginAdmin);
+router.post('/login', adminController.loginAdmin);
+router.post('/logout', authenticate, adminController.logoutAdmin);
 router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);

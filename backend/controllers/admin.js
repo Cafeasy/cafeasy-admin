@@ -101,7 +101,7 @@ exports.loginAdmin = (req, res, next) => {
                     //     token
                     // })
                     res
-                    .status(201)
+                    .status(200)
                     .cookie('token', token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: false });  // maxAge: 2 hours
                     res.redirect('/')
                 } else {
@@ -116,4 +116,9 @@ exports.loginAdmin = (req, res, next) => {
             })
         }
     })
+}
+
+exports.logoutAdmin = (req,res,next) => {
+    res.clearCookie('token');
+    res.send('berhasil logout')
 }
