@@ -6,19 +6,19 @@ import * as MdIcons from 'react-icons/md';
 export const Sidebardata = [
   {
     title: 'Kelola Fitur',
-    path: '/',
+    path: '/Kelola',
     icon: <FaIcons.FaUserEdit />,
     cName: 'nav-text'
   },
   {
     title: 'Update Pembukuan',
-    path: '/pembukuan',
+    path: '/Pembukuan',
     icon: <RiIcons.RiFileUploadFill />,
     cName: 'nav-text'
   },
   {
     title: 'Update Persediaan',
-    path: '/dsds',
+    path: '/Persediaan',
     icon: <MdIcons.MdOutlineInventory />,
     cName: 'nav-text'
   },

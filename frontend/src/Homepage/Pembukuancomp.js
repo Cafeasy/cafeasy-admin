@@ -2,10 +2,10 @@ import React from 'react';
 
 function Pembukuancomp() {
   return (
-    <div className='pembukuan'>
-      <h1>Repsasaas</h1>
+    <div className='Pembukuan'>
+      <h1>Pembukuan</h1>
     </div>
   );
 }
 
-export default Pembukuancomp;
+export default Pembukuancomp;
