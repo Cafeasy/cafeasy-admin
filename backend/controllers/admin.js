@@ -69,7 +69,8 @@ exports.createAdmin = (req, res, next) => {
 exports.getProfileAdmin = (req, res, next) => {
     const idAdmin = req.params.idAdmin;
 
-    DataAdmin.find({idAdmin: `${idAdmin}`}).then(result => {
+    DataAdmin.find({idAdmin: `${idAdmin}`})
+    .then(result => {
         res.status(200).json({
             message: "Data profil admin berhasil dipanggil",
             data: result
@@ -94,12 +95,15 @@ exports.loginAdmin = (req, res, next) => {
                 }
                 if(result) {
                     let token = jwt.sign({name: admin.name}, process.env.JWT_SECRET, {expiresIn: '12h'});
-                    res.json({
-                        status:'ok',
-                        message: 'Login sukses',
-                        token
-                    })
-                    res.cookie('token',jwt.token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: false });  // maxAge: 2 hours
+                    // res.json({
+                    //     status:'ok',
+                    //     message: 'Login sukses',
+                    //     token
+                    // })
+                    res
+                    .status(201)
+                    .cookie('token', token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: false });  // maxAge: 2 hours
+                    res.redirect('/')
                 } else {
                     res.json({
                         message: 'password salah!'
