@@ -5,6 +5,8 @@ import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import Sidebarpage from "./Homepage/Sidebarpage";
 import Pembukuancomp from './Homepage/Pembukuancomp';
+import Kelolacomp from './Homepage/Kelolacomp';
+import Persediaancomp from './Homepage/Persediaancomp';
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import './App.css';
@@ -12,21 +14,13 @@ import './App.css';
 function App() {
   return (
     <Router>
+      <Sidebarpage />
       <Routes>
-          <Route exact path="/" element={<Loginpage />} />
+          <Route exact path="Pembukuan" element={<Pembukuancomp />} />
+          <Route exact path="Kelola" element={<Kelolacomp />} />
+          <Route exact path="Persediaan" element={<Persediaancomp />} />
       </Routes>
   </Router>
-  )
-}
-
-function Layout() {
-  const {isAuth} = useAuth()
-  
-  if (!isAuth) return <Navigate to="/" />
-  return (
-    <main>
-      <Sidebarpage />
-  </main>
   )
 }
 
