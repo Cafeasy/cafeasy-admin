@@ -59,7 +59,7 @@ const Signupcomp = () => {
                   <label>Email</label>
                       <input
                           value={email}
-                          onChange={(e) => setUsername(e.target.value)}
+                          onChange={(e) => setEmail(e.target.value)}
                           type="email"
                           id="email"  
                           className="form-control mt-1"
@@ -129,13 +129,13 @@ const Signupcomp = () => {
             <br></br>
             <div className='row'>
             <div className='col-sm'>
-                    <label>Nama Pendaftar</label>
+                    <label>Nama Pemilik Cafe</label>
                     <input
                         value={namaPemilikCafe}
                         onChange={(e) => setNamaPemilik(e.target.value)}
                         type="text"
                         className="form-control mt-1"
-                        placeholder="Masukan Nama Pendaftar"
+                        placeholder="Masukan Nama Pemilik"
                     />
             </div>
             <div className='col-sm'>

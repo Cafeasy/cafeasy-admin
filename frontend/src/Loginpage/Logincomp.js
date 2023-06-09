@@ -1,10 +1,33 @@
 import React, {useState} from "react"
 import logodannama from "../Photos/logodannama.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
-function Logincomp() {
+const Logincomp = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [msg, setMsg] = useState('');
+  const Navigate = useNavigate();
+
+  const Logincomp = async(e) =>{
+    e.preventDefault();
+    try {
+      await axios.post(process.env.REACT_APP_API_URL,{
+        username: username,
+        password: password,
+      });
+      Navigate("/Sidebarpage");
+    } catch (error) {
+        if (error.response) {
+          setMsg(error.response.data.msg);
+        }
+    }
+}
+
     return (
     <div className="Logform-container">
-        <form className="Logform">
+        <form onClick={Logincomp} className="Logform">
           <div className="Logform-content">
             <h3 className="Logform-title">Masuk</h3>
               
@@ -20,6 +43,8 @@ function Logincomp() {
               <div class="form-group mt-3">
                 <label>Username</label>
                 <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   type="username"
                   className="form-control mt-1"
                   placeholder="Masukan Email"
@@ -29,6 +54,8 @@ function Logincomp() {
               <div className="inputbutton">
                 <label>Sandi</label>
                 <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   className="form-control mt-1"
                   placeholder="Masukan Sandi"
