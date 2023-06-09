@@ -22,7 +22,8 @@ const Persediaancomp = () => {
   return (
     <div className="container">
     <div className="py-4">
-      <h3> UPDATE PERSEDIAAN STOK </h3>
+      <br></br>
+      <h3 className="title-crud"> UPDATE PERSEDIAAN STOK </h3>
       <br></br> <br></br>
       <table class="table border shadow">
         <thead class="thead-dark">

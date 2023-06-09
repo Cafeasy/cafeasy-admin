@@ -64,16 +64,6 @@ a:hover {
   font-family: 'Lato', sans-serif;
 }
 
-.home,
-.reports,
-.products {
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-
 .gambarlog {
   position: absolute;
   width: 400px;

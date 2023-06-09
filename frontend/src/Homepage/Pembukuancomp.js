@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import '../Crud/Crud.css';
 
 const Pembukuancomp = () => {
   const [users, setUser] = useState([]);
@@ -23,7 +23,8 @@ const Pembukuancomp = () => {
   return (
     <div className="container">
     <div className="py-4">
-      <h3> UPDATE PEMBUKUAN TRANSAKSI </h3>
+    <br></br>
+      <h3 className="title-crud"> UPDATE PEMBUKUAN TRANSAKSI </h3>
       <br></br> <br></br>
       <table class="table border shadow">
         <thead class="thead-dark">

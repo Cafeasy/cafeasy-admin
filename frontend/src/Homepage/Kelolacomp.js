@@ -22,7 +22,8 @@ const Kelolacomp = () => {
   return (
     <div className="container">
     <div className="py-4">
-      <h3> DESKRIPSI MENU </h3>
+      <br></br>
+      <h3 className="title-crud"> DESKRIPSI MENU </h3>
       <br></br> <br></br>
       <table class="table border shadow">
         <thead class="thead-dark">

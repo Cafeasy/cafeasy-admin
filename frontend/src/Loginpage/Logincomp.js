@@ -30,7 +30,7 @@ const Logincomp = () => {
         <form onClick={Logincomp} className="Logform">
           <div className="Logform-content">
             <h3 className="Logform-title">Masuk</h3>
-              
+            <div className="click-button">
               <div className='row'>
                   <div className='col-md-3'>
                       <a href="#">Login</a>
@@ -38,6 +38,7 @@ const Logincomp = () => {
                   <div className='col-md-6'>
                       <a href="#">Daftar</a>
                   </div>
+              </div>
               </div>
               
               <div class="form-group mt-3">
