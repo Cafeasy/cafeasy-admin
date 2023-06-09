@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import { BrowserRouter as Router, Routes, Navigate, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Navigate, Route  } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import Sidebarpage from "./Homepage/Sidebarpage";
@@ -10,7 +11,9 @@ import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import './App.css';
 
-function App() {
+
+const App = () => {
+
   return (
     <div className="routes">
       <BrowserRouter>
@@ -31,5 +34,4 @@ function App() {
   </div>
   );
 }
-
 export default App;

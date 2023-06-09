@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import logodannama from "../Photos/logodannama.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
+import { Navigate } from 'react-router-dom';
 
 const Logincomp = () => {
   const [username, setUsername] = useState('');
@@ -72,7 +73,7 @@ const Logincomp = () => {
                   </div>
                 </div>
               <div class="d-grid gap-2 mt-3">
-                <button 
+                <button
                 type="submit" 
                 className="btn btn-primary">
                 Masuk</button>
