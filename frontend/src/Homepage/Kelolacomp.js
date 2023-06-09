@@ -10,58 +10,52 @@ const Kelolacomp = () => {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:3000/users");
+    const result = await axios.get(process.env.REACT_APP_API_URL);
     setUser(result.data.reverse());
   };
 
   const deleteUser = async id => {
-    await axios.delete(`http://localhost:3000/users/${id}`);
+    await axios.delete(process.env.REACT_APP_API_URL$);
     loadUsers();
   };
 
   return (
     <div className="container">
-      <div className="py-4">
-        <h1>Home Page</h1>
-        <div className="tabel">
-        <table class="table border shadow">
-          <thead class="thead-dark">
+    <div className="py-4">
+      <h3> DESKRIPSI MENU </h3>
+      <br></br> <br></br>
+      <table class="table border shadow">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name Menu</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
             <tr>
-              <th scope="col">No</th>
-              <th scope="col">Name Menu</th>
-              <th>Action</th>
+              <th scope="row">{index + 1}</th>
+              <td>{user.name}</td>
+              <td>{user.username}</td>
+              <td>
+              <Link
+                  class="btn btn-outline-primary mr-2"
+                  to={`/users/edit/${user.id}`}
+                >
+                  Edit
+                </Link>
+                <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
+                  Detail
+                </Link>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row">{index + 1}</th>
-                <td>{user.name}</td>
-                <td>
-                  <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
-                    View
-                  </Link>
-                  <Link
-                    class="btn btn-outline-primary mr-2"
-                    to={`/users/edit/${user.id}`}
-                  >
-                    Edit
-                  </Link>
-                  <Link
-                    class="btn btn-danger"
-                    onClick={() => deleteUser(user.id)}
-                  >
-                    Delete
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
-  );
-}
+  </div>
+);
+};
 
 export default Kelolacomp;

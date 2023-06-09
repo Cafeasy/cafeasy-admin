@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import { BrowserRouter as Router, Routes, Navigate, Route, BrowserRouter } from "react-router-dom";
-import {useAuth} from 'react';
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import Sidebarpage from "./Homepage/Sidebarpage";
