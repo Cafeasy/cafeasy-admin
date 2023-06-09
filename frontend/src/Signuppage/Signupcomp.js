@@ -122,7 +122,7 @@ const Signupcomp = () => {
                         onChange={(e) => setDeskripsi(e.target.value)}
                         type="text"
                         className="form-control mt-1"
-                        placeholder="Masukan Alamat"
+                        placeholder="Masukan Deskripsi"
                     />
             </div>
 
@@ -144,6 +144,7 @@ const Signupcomp = () => {
                         value={noHpCafe}
                         onChange={(e) => setNoHp(e.target.value)}
                         type="tel"
+                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                         className="form-control mt-1"
                         placeholder="Masukan Nama Pendaftar"
                     />
