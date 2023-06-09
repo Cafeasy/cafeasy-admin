@@ -25,4 +25,5 @@ router.post('/logout', authenticate, adminController.logoutAdmin);
 router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
+router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);
 module.exports = router;

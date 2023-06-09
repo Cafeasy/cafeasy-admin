@@ -1,75 +1,72 @@
-const fs = require('fs').promises;
+require('dotenv');
 const path = require('path');
 const process = require('process');
-const { authenticate } = require('@google-cloud/local-auth');
+
 const { google } = require('googleapis');
-const sheets = google.sheets('v4');
-// If modifying these scopes, delete token.json.
+
+
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-// The file token.json stores the user's access and refresh tokens, and is
-// created automatically when the authorization flow completes for the first
-// time.
-const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
-async function loadSavedCredentialsIfExist() {
-    try {
-        const content = await fs.readFile(TOKEN_PATH);
-        const credentials = JSON.parse(content);
-        return google.auth.fromJSON(credentials);
-    } catch (err) {
-        return null;
-    }
-}
 
-async function saveCredentials(client) {
-    const content = await fs.readFile(CREDENTIALS_PATH);
-    const keys = JSON.parse(content);
-    const key = keys.installed || keys.web;
-    const payload = JSON.stringify({
-        type: 'authorized_user',
-        client_id: key.client_id,
-        client_secret: key.client_secret,
-        refresh_token: client.credentials.refresh_token,
-    });
-    await fs.writeFile(TOKEN_PATH, payload);
-}
+const keyFile = process.env.SPREADSHEET_SERVICE_ACCOUNT_KEY;
+const spreadsheetId = process.env.SPREADSHEET_ID;
+const rangeSheet = process.env.SPREADSHEET_RANGE;
 
-async function authorize() {
-    let client = await loadSavedCredentialsIfExist();
-    if (client) {
-        return client;
-    }
-    client = await authenticate({
+async function authentication() {
+    const auth = new google.auth.GoogleAuth({
+        keyFile: keyFile.toString(),
         scopes: SCOPES,
-        keyfilePath: CREDENTIALS_PATH,
     });
-    if (client.credentials) {
-        await saveCredentials(client);
-    }
-    return client;
+    const authClient = await auth.getClient();
+    return google.sheets({
+        version: 'v4',
+        auth: authClient,
+    });
 }
 
-
-async function getDataSpreadSheet(req, res) {
-    const auth = await authenticate({
-        scopes: SCOPES,
-        keyfilePath: CREDENTIALS_PATH,
+async function readSpreadsheet(client, sheetId, range) {
+    const res = await client.spreadsheets.values.get({
+        spreadsheetId: sheetId,
+        range: range
     });
-    try {
-        const result = await sheets.spreadsheets.get({
-            spreadsheetId: '1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk',
-            range: 'Pembukuan Harian!A:Z',
-            includeGridData: false,
-            auth: auth
-        }).data;
-        console.log(result.data.values)
-        res.status(200).json({ message: "success load data", data: result })
-    } catch (err) {
-        res.status(404).json({ message: "failed to get data", data: err })
-    }
+    return res.data.values;
 }
+
+async function _writeSpreadsheet(client, sheetId, range, data) {
+    await client.spreadsheets.values.append({
+        spreadsheetId: sheetId,
+        range: range,
+        valueInputOption: 'RAW',
+        insertDataOption: 'OVERWRITE',
+        resource: {
+            "majorDimension": "ROWS",
+            "values": data
+        },
+    });
+
+}
+
 
 exports.getSpreadsheet = async (req, res) => {
-    await getDataSpreadSheet(req, res);
+    const client = await authentication();
+    try {
+        const result = await readSpreadsheet(client, spreadsheetId, rangeSheet);
+        res.status(200).json({ message: "Success Retreive data", data: result })
+    } catch (err) {
+        res.status(404).json({ message: "Failed Retreive data", data: err })
+    }
+
+}
+exports.writeSpreadsheet = async (req, res) => {
+    const client = await authentication();
+    const newData = new Set([req.body.data]);
+    const data = Array.from(newData);
+    try {
+        await _writeSpreadsheet(client, spreadsheetId, rangeSheet, data);
+        console.log(data);
+        res.status(200).json({ message: "Success Insert data", data: data })
+    } catch (err) {
+        res.status(404).json({ message: "Failed Insert data", data: err })
+    }
+
 }
