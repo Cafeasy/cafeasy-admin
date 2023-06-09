@@ -1,11 +1,36 @@
-import React from "react"
+import React, {useState} from "react"
 import logodannama from "../Photos/logodannama.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"
 
-function Signupcomp() {
+const Signupcomp = () => {
+    const [username, setUsername] = useState('');
+    const [noHpCafe, setNoHp] = useState('');
+    const [password, setPassword] = useState('');
+    const [confpassword, setConfPassword] = useState('');
+    const [msg, setMsg] = useState('');
+    const Navigate = useNavigate();
+
+    const Signupcomp = async(e) =>{
+        e.preventDefault();
+        try {
+          await axios.post('http://localhost:5000/users',{
+            username: username,
+            noHpCafe: noHpCafe,
+            password: noHpCafe,
+            confpassword: confpassword
+          });
+          Navigate("/");
+        } catch (error) {
+            if (error.response) {
+              setMsg(error.response.data.msg);
+            }
+        }
+    }
+
     return (
     <div className="Logform-container">
-
-      <form className="Logform">
+      <form onClick={Signupcomp} className="Logform">
         <div className="Logform-content">
           <h3 className="Logform-title">Daftar</h3>
             
@@ -19,8 +44,10 @@ function Signupcomp() {
             </div>
             
             <div class="form-group mt-3">
-                <label>Email</label>
+                <label>Username</label>
                     <input
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                         type="email"
                         className="form-control mt-1"
                         placeholder="Masukan Email"
@@ -29,6 +56,8 @@ function Signupcomp() {
             <div class="form-group mt-3">
                 <label>No Telepon</label>
                     <input
+                        value={noHpCafe}
+                        onChange={(e) => setNoHp(e.target.value)}
                         type="email"
                         className="form-control mt-1"
                         placeholder="Masukan No. Telepon"
@@ -37,6 +66,8 @@ function Signupcomp() {
             <div class="form-group mt-3">
                     <label>Sandi</label>
                     <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         type="password"
                         id="password"
                         className="form-control mt-1"
@@ -47,6 +78,8 @@ function Signupcomp() {
             <div class="form-group mt-3">
                     <label>Konfirmasi Sandi</label>
                     <input
+                        value={confpassword}
+                        onChange={(e) => setConfPassword(e.target.value)}
                         type="password"
                         id="password"
                         className="form-control mt-1"

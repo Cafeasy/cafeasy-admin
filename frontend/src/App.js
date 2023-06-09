@@ -14,11 +14,9 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <Sidebarpage />
       <Routes>
-          <Route exact path="Pembukuan" element={<Pembukuancomp />} />
-          <Route exact path="Kelola" element={<Kelolacomp />} />
-          <Route exact path="Persediaan" element={<Persediaancomp />} />
+          <Route exact path="/" element={<Loginpage />}></Route>
+          <Route exact path="/registerAdmin" element={<Signuppage />}></Route>
       </Routes>
   </Router>
   )
