@@ -102,7 +102,7 @@ exports.loginAdmin = (req, res, next) => {
                     // })
                     res
                     .status(200)
-                    .cookie('token', token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: false });  // maxAge: 2 hours
+                    .cookie('token', token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: true });  // maxAge: 2 hours
                     res.redirect('/')
                 } else {
                     res.json({
