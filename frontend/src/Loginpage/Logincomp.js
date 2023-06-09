@@ -18,9 +18,9 @@ function Logincomp() {
               </div>
               
               <div class="form-group mt-3">
-                <label>Email</label>
+                <label>Username</label>
                 <input
-                  type="email"
+                  type="username"
                   className="form-control mt-1"
                   placeholder="Masukan Email"
                 />

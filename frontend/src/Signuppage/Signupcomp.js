@@ -4,21 +4,31 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"
 
 const Signupcomp = () => {
+    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
-    const [noHpCafe, setNoHp] = useState('');
     const [password, setPassword] = useState('');
-    const [confpassword, setConfPassword] = useState('');
+    const [namaCafe, setNamaCafe] = useState('');
+    const [alamatCafe, setAlamat] = useState('');
+    const [deskripsiCafe, setDeskripsi] = useState('');
+    const [namaPemilikCafe, setNamaPemilik] = useState('');
+    const [noHpCafe, setNoHp] = useState('');
+    const [fotoCafe, setFoto] = useState('');
     const [msg, setMsg] = useState('');
     const Navigate = useNavigate();
 
     const Signupcomp = async(e) =>{
         e.preventDefault();
         try {
-          await axios.post('http://localhost:5000/users',{
+          await axios.post(process.env.REACT_APP_API_URL,{
+            email: email,
             username: username,
+            password: password,
+            namaCafe: namaCafe,
+            alamatCafe: alamatCafe,
+            deskripsiCafe: deskripsiCafe,
+            namaPemilikCafe: namaPemilikCafe,
             noHpCafe: noHpCafe,
-            password: noHpCafe,
-            confpassword: confpassword
+            fotoCafe: fotoCafe,
           });
           Navigate("/");
         } catch (error) {
@@ -42,50 +52,113 @@ const Signupcomp = () => {
                     <a href="#">Daftar</a>
                 </div>
             </div>
-            
-            <div class="form-group mt-3">
-                <label>Username</label>
+            <br></br>
+
+            <div className='row'>
+              <div className='col-sm'>
+                  <label>Email</label>
+                      <input
+                          value={email}
+                          onChange={(e) => setUsername(e.target.value)}
+                          type="email"
+                          id="email"  
+                          className="form-control mt-1"
+                          placeholder="Masukan Email"
+                          required
+                      />
+                  </div>
+                  <div className='col-sm'>
+                  <label>Username</label>
+                      <input
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          type="text"
+                          className="form-control mt-1"
+                          placeholder="Masukan Email"
+                      />
+                  </div>
+                </div>
+
+              <br></br>
+
+                <div className='row'>
+                  <div className='col-sm'>
+                    <label>Sandi</label>
+                        <input
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            className="form-control mt-1"
+                            placeholder="Masukan Sandi"
+                        />
+                            <i class="bi bi-eye-slash" id="togglePassword"></i>
+                    </div>
+                <div className='col-sm'>
+                    <label>Nama Cafe</label>
                     <input
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        type="email"
+                        value={namaCafe}
+                        onChange={(e) => setNamaCafe(e.target.value)}
+                        type="text"
                         className="form-control mt-1"
-                        placeholder="Masukan Email"
+                        placeholder="Masukan Nama Cafe"
                     />
                 </div>
+              </div>
+
             <div class="form-group mt-3">
-                <label>No Telepon</label>
+                    <label>Alamat Cafe</label>
+                    <textarea
+                        value={alamatCafe}
+                        onChange={(e) => setAlamat(e.target.value)}
+                        type="text"
+                        className="form-control mt-1"
+                        placeholder="Masukan Alamat"
+                    />
+            </div>
+            <div class="form-group mt-3">
+                    <label>Deskripsi Cafe</label>
+                    <textarea
+                        value={deskripsiCafe}
+                        onChange={(e) => setDeskripsi(e.target.value)}
+                        type="text"
+                        className="form-control mt-1"
+                        placeholder="Masukan Alamat"
+                    />
+            </div>
+
+            <br></br>
+            <div className='row'>
+            <div className='col-sm'>
+                    <label>Nama Pendaftar</label>
+                    <input
+                        value={namaPemilikCafe}
+                        onChange={(e) => setNamaPemilik(e.target.value)}
+                        type="text"
+                        className="form-control mt-1"
+                        placeholder="Masukan Nama Pendaftar"
+                    />
+            </div>
+            <div className='col-sm'>
+                    <label>No Telepon</label>
                     <input
                         value={noHpCafe}
                         onChange={(e) => setNoHp(e.target.value)}
-                        type="email"
+                        type="tel"
                         className="form-control mt-1"
-                        placeholder="Masukan No. Telepon"
+                        placeholder="Masukan Nama Pendaftar"
                     />
-                </div>
-            <div class="form-group mt-3">
-                    <label>Sandi</label>
-                    <input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        id="password"
-                        className="form-control mt-1"
-                        placeholder="Masukan Password"
-                    />
-                    <i class="bi bi-eye-slash" id="togglePassword"></i>
             </div>
+            </div>
+            
             <div class="form-group mt-3">
-                    <label>Konfirmasi Sandi</label>
+                    <label>Foto Cafe</label>
                     <input
-                        value={confpassword}
-                        onChange={(e) => setConfPassword(e.target.value)}
-                        type="password"
-                        id="password"
+                        value={fotoCafe}
+                        onChange={(e) => setFoto(e.target.value)}
+                        type="file"
                         className="form-control mt-1"
-                        placeholder="Konfirmasi Sandi"
+                        placeholder="Masukan Alamat"
                     />
-                    <i class="bi bi-eye-slash" id="togglePassword"></i>
             </div>
 
           <br></br>
