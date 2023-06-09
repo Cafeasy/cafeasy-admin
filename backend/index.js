@@ -69,5 +69,4 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(port, () => console.log(`Listenting on port ${port}..., server up n running`));
-// app.listen(4000);
 app.use("/", router);

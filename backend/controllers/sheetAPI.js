@@ -1,36 +1,27 @@
-require('dotenv');
+const fs = require('fs').promises;
+const path = require('path');
+const process = require('process');
+const { authenticate } = require('@google-cloud/local-auth');
 const { google } = require('googleapis');
 const sheets = google.sheets('v4');
-const path = require('path');
-const {authenticate} = require('@google-cloud/local-auth');
+// If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-
+// The file token.json stores the user's access and refresh tokens, and is
+// created automatically when the authorization flow completes for the first
+// time.
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
-exports.getSpreadsheet = (req, res) => {
-
-
-    async function main() {
-        const authClient = await authorize();
-        const request = {
-            spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID,
-            ranges: [SPREADSHEET_RANGE],
-            includeGridData: false,
-            auth: authClient,
-        };
-
-        try {
-            const response = (await sheets.spreadsheets.get(request)).data;
-            res.status(200).json({ message: "Berhasil Get Spreadsheet", data: response })
-            console.log(JSON.stringify(response, null, 2));
-        } catch (err) {
-            res.status(400).json({ message: "Gagal Get Spreadsheet", data: err })
-            console.error(err);
-        }
+async function loadSavedCredentialsIfExist() {
+    try {
+        const content = await fs.readFile(TOKEN_PATH);
+        const credentials = JSON.parse(content);
+        return google.auth.fromJSON(credentials);
+    } catch (err) {
+        return null;
     }
-    main();
 }
+
 async function saveCredentials(client) {
     const content = await fs.readFile(CREDENTIALS_PATH);
     const keys = JSON.parse(content);
@@ -44,17 +35,7 @@ async function saveCredentials(client) {
     await fs.writeFile(TOKEN_PATH, payload);
 }
 
-async function loadSavedCredentialsIfExist() {
-    try {
-        const content = await fs.readFile(TOKEN_PATH);
-        const credentials = JSON.parse(content);
-        return google.auth.fromJSON(credentials);
-    } catch (err) {
-        return null;
-    }
-}
 async function authorize() {
-
     let client = await loadSavedCredentialsIfExist();
     if (client) {
         return client;
@@ -67,4 +48,28 @@ async function authorize() {
         await saveCredentials(client);
     }
     return client;
+}
+
+
+async function getDataSpreadSheet(req, res) {
+    const auth = await authenticate({
+        scopes: SCOPES,
+        keyfilePath: CREDENTIALS_PATH,
+    });
+    try {
+        const result = await sheets.spreadsheets.get({
+            spreadsheetId: '1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk',
+            range: 'Pembukuan Harian!A:Z',
+            includeGridData: false,
+            auth: auth
+        }).data;
+        console.log(result.data.values)
+        res.status(200).json({ message: "success load data", data: result })
+    } catch (err) {
+        res.status(404).json({ message: "failed to get data", data: err })
+    }
+}
+
+exports.getSpreadsheet = async (req, res) => {
+    await getDataSpreadSheet(req, res);
 }
