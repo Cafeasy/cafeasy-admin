@@ -1,5 +1,5 @@
 const TransaksiPelanggan = require("../models/modelTransaksi");
-const Riwayatpesanan = require('../models/modelRiwayatPesanan');
+const RiwayatTransaksi = require('../models/modelRiwayatTransaksi');
 
 exports.getAllTransaksiPelanggan = async (req, res, next) => {
     TransaksiPelanggan.find({})
@@ -92,7 +92,7 @@ exports.updateStatusBayarCash = async (req, res, next) => {
     var totalHarga = obyekTransaksi.totalHarga;
     var statusBayar = obyekTransaksi.statusBayar;
 
-    const insertRiwayatTransaksi = new Riwayatpesanan({
+    const insertRiwayatTransaksi = new RiwayatTransaksi({
         idTransaksi: idTransaksi,
         idPelanggan: idPelanggan,
         namaPelanggan: namaPelanggan,
