@@ -9,6 +9,7 @@ const authenticate = require('../auth/authenticate');
 
 //here for call all controllers
 const adminController = require('../controllers/controllerAdmin');
+const transaksiController = require('../controllers/controllerTransaksi');
 const Spreadsheet = require('../controllers/sheetAPI');
 
 //here for routing
@@ -27,6 +28,14 @@ router.post('/logout', authenticate, adminController.logoutAdmin);
 //routes profile
 router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
 router.put('/updateProfile/:idAdmin', authenticate, adminController.updateProfileAdmin);
+router.put('/updateProfilePicture/:idAdmin', authenticate, adminController.updateProfilePicture);
+
+//routes transaksi
+router.get('/transaksi', authenticate, transaksiController.getAllTransaksiPelanggan);
+router.get('/detailTransaksi/:idTransaksi', authenticate, transaksiController.getDetailTransaksi);
+router.delete('/deleteAllTransaksi', authenticate, transaksiController.deleteAllTransaksi);
+router.delete('/deleteTransaksiById/:idTransaksi', authenticate, transaksiController.deleteTransaksiById);
+router.put('/updateStatusBayarCash/:idTransaksi', authenticate, transaksiController.updateStatusBayarCash);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);

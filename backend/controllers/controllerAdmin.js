@@ -135,7 +135,6 @@ exports.updateProfileAdmin = (req, res, next) => {
     const deskripsiCafe = req.body.deskripsiCafe;
     const namaPemilikCafe = req.body.namaPemilikCafe;
     const noHpCafe = req.body.noHpCafe;
-    const fotoCafe = req.file.path;
 
     DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
     { $set: { 
@@ -147,10 +146,26 @@ exports.updateProfileAdmin = (req, res, next) => {
         deskripsiCafe: `${deskripsiCafe}`,
         namaPemilikCafe: `${namaPemilikCafe}`,
         noHpCafe: `${noHpCafe}`,
-        fotoCafe: fotoCafe} }, { new: true })
+        } }, { new: true })
         .then(result => {
             res.status(200).json({
-                message: 'Berhasil update profile admin',
+                message: 'Berhasil update data profile admin',
+                data: result
+            })
+        })
+        .catch(err => {
+            next(err);
+        })
+}
+
+exports.updateProfilePicture = (req, res, next) => {
+    const idAdmin = req.params.idAdmin;
+    const fotoCafe = req.file.path;
+
+    DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, { $set: {fotoCafe: fotoCafe} }, { new: true })
+        .then(result => {
+            res.status(200).json({
+                message: 'Berhasil update foto profile admin',
                 data: result
             })
         })
