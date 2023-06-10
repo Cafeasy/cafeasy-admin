@@ -28,7 +28,7 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('fotoCafe'));
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
 
 //connect ke db
 require('./config/database');

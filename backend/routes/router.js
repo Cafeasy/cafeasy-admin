@@ -11,6 +11,7 @@ const authenticate = require('../auth/authenticate');
 const adminController = require('../controllers/controllerAdmin');
 const transaksiController = require('../controllers/controllerTransaksi');
 const riwayatTransaksiController = require('../controllers/controllerRiwayatTransaksi');
+const menuController = require('../controllers/controllerMenu');
 const Spreadsheet = require('../controllers/sheetAPI');
 
 //here for routing
@@ -40,6 +41,18 @@ router.put('/updateStatusBayarCash/:idTransaksi', authenticate, transaksiControl
 
 //routes riwayat transaksi
 router.get('/riwayatTransaksi', authenticate, riwayatTransaksiController.getAllListHistory);
+
+//routes menu
+router.get('/availableMenu', authenticate, menuController.getAvailableMenu);
+router.get('/notAvailableMenu', authenticate, menuController.getNotAvailableMenu);
+router.get('/menuByCategory/:kategoriMenu', authenticate, menuController.getMenuByCategory);
+router.get('/detailMenu/:idMenu', authenticate, menuController.getMenuDetail);
+router.post('/insertMenu', [
+    body('namaMenu').isLength({min: 3}).withMessage('Nama Menu minimal 3 karakter'),
+    body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
+    body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
+], menuController.insertNewMenu);
+
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);

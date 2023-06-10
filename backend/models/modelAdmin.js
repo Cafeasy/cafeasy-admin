@@ -31,11 +31,11 @@ const adminSchema = new Schema({
     noHpCafe: {
         type: Number, required: true
     },
-    fotoCafe: {
+    image: {
         type: String, required: true
     }
 
-},{versionKey : false,})
+},{versionKey : false})
 
 
 module.exports = mongoose.model('DataAdmin', adminSchema, 'dataAdmin');

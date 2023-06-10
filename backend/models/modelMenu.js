@@ -28,17 +28,10 @@ const ListMenumodel = new Schema({
         type: String,
         required: true
     },
-    fotoMenu: {
+    image: {
         type: String,
         require: true
     }
-
-    // idMenu: "test",
-    // namaMenu: "test",
-    // hargaMenu: "test",
-    // stokMenu: "test",
-    // deskripsiMenu: "test",
-    // kategoriMenu: "test"
-});
+}, {versionKey : false});
 
 module.exports = mongoose.model('Menu', ListMenumodel, 'menu');

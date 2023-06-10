@@ -45,7 +45,7 @@ exports.createAdmin = (req, res, next) => {
                     deskripsiCafe: req.body.deskripsiCafe,
                     namaPemilikCafe: req.body.namaPemilikCafe,
                     noHpCafe: req.body.noHpCafe,
-                    fotoCafe: req.file.path
+                    image: req.file.path
                 })
             
                 registerAdmin.save().then(result => {
