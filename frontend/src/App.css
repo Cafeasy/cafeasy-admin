@@ -105,9 +105,25 @@
   }
     
   .table-title h4 {
-		margin: 20px 40px 0;
-		font-size: 24px;
+		margin: 25px 40px 0;
+		font-size: 17px;
 	}
+
+  .table-title button {
+    margin: -3% 20px 0;
+		font-size: 24px;
+    border-radius: 8px;
+	}
+
+  .table-title input {
+    margin: -4% 72% 0;
+    width: 25%;
+		font-size: 15px;
+    border-radius: 8px;
+	}
+
+  .table-title btn {border-radius: 8px;}
+
 	.table-title .btn-group {
 		float: right;
     width: 100%;
@@ -134,3 +150,11 @@
 		float:inline-start;
 		margin-top: 5px;
 	}
+
+  .navbar-toggle.col-xs-4 {
+    width: 33.33%;
+  }
+  
+  .navbar-form .form-group.col-xs-4 {
+    width: 33.33%;
+  }

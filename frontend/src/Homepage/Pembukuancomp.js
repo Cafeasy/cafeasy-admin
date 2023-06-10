@@ -26,6 +26,35 @@ const Pembukuancomp = () => {
     <br></br>
       <div className="title-crud"> UPDATE PEMBUKUAN TRANSAKSI </div>
       <br></br> <br></br>
+      <div class="table-title">
+					<div class="row">
+						<div class="col-xs-4">
+							<h4> <b>Pembukuan</b></h4>
+						</div>
+						<div class="col-xs-4">
+            <button
+                color="red"
+                appearance="primary"
+                type="file" 
+                class="btn btn-secondary">
+                </button>						
+            <button
+                color="red"
+                appearance="primary"
+                type="file" 
+                class="btn btn-secondary">
+                Import Inventory</button>						
+            <button
+                color="red"
+                appearance="primary"
+                type="file" 
+                class="btn btn-secondary">
+                Export as Excel</button>				
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                 New Item</button>
+						</div>
+					</div>
+				</div>
       <table class="table border shadow">
         <thead class="thead-dark">
           <tr>
