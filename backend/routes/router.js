@@ -8,10 +8,11 @@ const {body} = require('express-validator');
 const authenticate = require('../auth/authenticate');
 
 //here for call all controllers
-const adminController = require('../controllers/admin');
+const adminController = require('../controllers/controllerAdmin');
 const Spreadsheet = require('../controllers/sheetAPI');
 
 //here for routing
+//routes regis-login-logout admin
 router.post('/registerAdmin', [
     body('username').isLength({min: 4}).withMessage('Username minimal 4 karakter'), 
     body('password').isLength({min: 8}).withMessage('Password minimal 8 karakter'),
@@ -22,7 +23,10 @@ router.post('/registerAdmin', [
     adminController.createAdmin);
 router.post('/login', adminController.loginAdmin);
 router.post('/logout', authenticate, adminController.logoutAdmin);
+
+//routes profile
 router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
+router.put('/updateProfile/:idAdmin', authenticate, adminController.updateProfileAdmin);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);

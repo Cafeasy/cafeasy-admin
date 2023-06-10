@@ -7,6 +7,9 @@ const adminSchema = new Schema({
     idAdmin: {
         type: String, required: true
     },
+    emailCafe:{
+        type: String, required: true
+    },
     username: {
         type: String, required: true
     },

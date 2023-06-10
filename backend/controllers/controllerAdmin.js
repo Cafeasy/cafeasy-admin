@@ -1,4 +1,4 @@
-const DataAdmin = require("../models/admin")
+const DataAdmin = require("../models/modelAdmin")
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -38,6 +38,7 @@ exports.createAdmin = (req, res, next) => {
                 const registerAdmin = new DataAdmin ({
                     idAdmin: uniqueid,
                     username: username,
+                    emailCafe: req.body.emailCafe,
                     password: hashedPass,
                     namaCafe: req.body.namaCafe,
                     alamatCafe: req.body.alamatCafe,
@@ -66,14 +67,14 @@ exports.createAdmin = (req, res, next) => {
     })
 }
 
-exports.getProfileAdmin = (req, res, next) => {
+exports.getProfileAdmin = async (req, res, next) => {
     const idAdmin = req.params.idAdmin;
 
     DataAdmin.find({idAdmin: `${idAdmin}`})
     .then(result => {
         res.status(200).json({
             message: "Data profil admin berhasil dipanggil",
-            data: result
+            data: {result}
         })
     }).catch(err => {
         next(err);
@@ -102,7 +103,7 @@ exports.loginAdmin = (req, res, next) => {
                     // })
                     res
                     .status(200)
-                    .cookie('token', token,{ maxAge: 2 * 60 * 60 * 1000, httpOnly: true });  // maxAge: 2 hours
+                    .cookie('token', token,{ maxAge: 24 * 60 * 60 * 1000, httpOnly: true });  // maxAge: 1 day
                     res.redirect('/')
                 } else {
                     res.json({
@@ -120,5 +121,40 @@ exports.loginAdmin = (req, res, next) => {
 
 exports.logoutAdmin = (req,res,next) => {
     res.clearCookie('token');
-    res.send('berhasil logout')
+    res.send('berhasil logout');
+}
+
+exports.updateProfileAdmin = (req, res, next) => {
+    const idAdmin = req.params.idAdmin;
+
+    const emailCafe = req.body.emailCafe;
+    const username = req.body.username;
+    const password = bcrypt.hashSync(req.body.password);
+    const namaCafe = req.body.namaCafe;
+    const alamatCafe = req.body.alamatCafe;
+    const deskripsiCafe = req.body.deskripsiCafe;
+    const namaPemilikCafe = req.body.namaPemilikCafe;
+    const noHpCafe = req.body.noHpCafe;
+    const fotoCafe = req.file.path;
+
+    DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
+    { $set: { 
+        emailCafe: `${emailCafe}`, 
+        username: `${username}`, 
+        password: `${password}`,
+        namaCafe: `${namaCafe}`,
+        alamatCafe: `${alamatCafe}`,
+        deskripsiCafe: `${deskripsiCafe}`,
+        namaPemilikCafe: `${namaPemilikCafe}`,
+        noHpCafe: `${noHpCafe}`,
+        fotoCafe: fotoCafe} }, { new: true })
+        .then(result => {
+            res.status(200).json({
+                message: 'Berhasil update profile admin',
+                data: result
+            })
+        })
+        .catch(err => {
+            next(err);
+        })
 }
