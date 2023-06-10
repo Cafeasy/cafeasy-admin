@@ -41,7 +41,7 @@ const Logincomp = () => {
                   </div>
               </div>
               </div>
-              
+
               <div class="form-group mt-3">
                 <label>Username</label>
                 <input
@@ -74,8 +74,10 @@ const Logincomp = () => {
                 </div>
               <div class="d-grid gap-2 mt-3">
                 <button
+                color="red"
+                appearance="primary"
                 type="submit" 
-                className="btn btn-primary">
+                class="btn btn-secondary">
                 Masuk</button>
             </div>
           </div>

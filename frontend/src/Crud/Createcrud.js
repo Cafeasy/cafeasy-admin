@@ -50,9 +50,9 @@ export default function Createcrud() {
                                     <Link to="/" className='btn btn-danger'>Back</Link>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                </div>
-</form>
+                </form>
                 </div>
             </div>
         </div>
