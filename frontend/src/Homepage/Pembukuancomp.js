@@ -50,8 +50,12 @@ const Pembukuancomp = () => {
                 type="file" 
                 class="btn btn-secondary">
                 Export as Excel</button>				
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                 New Item</button>
+            <button 
+                type="button" 
+                class="btn btn-primary" 
+                data-toggle="modal" 
+                data-target="#exampleModalCenter">
+                New Item</button>
 						</div>
 					</div>
 				</div>
