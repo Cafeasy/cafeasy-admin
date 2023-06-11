@@ -13,17 +13,6 @@ const Logincomp = () => {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    axios
-      .get(` ${process.env.REACT_APP_API_URL}/login/`)
-      .then((result) => {
-        console.log(result.data);
-        setData(result.data);
-      })
-      .catch((error) => console.log(error));
-  }, [data]);
-
   // User Login info
   const database = [
     {
@@ -59,6 +48,16 @@ const Logincomp = () => {
       setErrorMessages({ name: "uname", message: errors.uname });
     }
   };
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .post(` ${process.env.REACT_APP_API_URL}/login/`, database)
+      .then((result) => {
+        console.log(result.data);
+        setData(result.data);
+      })
+      .catch((error) => console.log(error));
+  }, [data]);
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>

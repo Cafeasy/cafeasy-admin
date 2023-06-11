@@ -4,7 +4,8 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { Sidebardata } from './Sidebardata';
-import '../Homepage/Sidebarpage.css';
+import logodannama from '../Homepage/Sidebarpage.css';
+import '../Photos/logodannama.png';
 import { IconContext } from 'react-icons';
 
 function Sidebarcomp () {
