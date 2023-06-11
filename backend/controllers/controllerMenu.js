@@ -10,8 +10,7 @@ exports.getAvailableMenu = (req, res, next) => {
             })
         }).catch(err => {
             next(err);
-        })
-    
+    })
 }
 
 exports.getNotAvailableMenu = (req, res, next) => {
@@ -23,7 +22,7 @@ exports.getNotAvailableMenu = (req, res, next) => {
             })
         }).catch(err => {
             next(err);
-        })
+    })
     
 }
 
@@ -38,7 +37,7 @@ exports.getMenuByCategory = (req, res, next) => {
         })
         .catch(err => {
             next(err);
-        })
+    })
 }
 
 exports.getMenuDetail = (req, res, next) => {
@@ -53,10 +52,10 @@ exports.getMenuDetail = (req, res, next) => {
         )
         .catch(err => {
             next(err);
-        })
+    })
 }
 
-exports.insertNewMenu = async (req, res, next) => { //belum di tambah ke api perlu min input
+exports.insertNewMenu = async (req, res, next) => { 
     //check inputan form valid
     const errors = validationResult(req);
 
@@ -101,13 +100,22 @@ exports.insertNewMenu = async (req, res, next) => { //belum di tambah ke api per
     })
 }
 
-exports.updateDataMenu = async (req, res, next) => { //belum di tambah ke api perlu min input
+exports.updateDataMenu = async (req, res, next) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        const err = new Error('input form tidak sesuai');
+        err.errorStatus = 400;
+        err.data = errors.array();
+        return res.send(err);
+    }
+    
     const idMenu = req.params.idMenu;
     const namaMenu = req.body.namaMenu;
     const hargaMenu = req.body.hargaMenu;
     const stokMenu = req.body.stokMenu;
     const deskripsiMenu = req.body.deskripsiMenu;
     const kategoriMenu = req.body.kategoriMenu;
+    const image = req.file.path;
 
     Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
     { $set: { 
@@ -115,27 +123,12 @@ exports.updateDataMenu = async (req, res, next) => { //belum di tambah ke api pe
         hargaMenu: `${hargaMenu}`, 
         stokMenu: `${stokMenu}`,
         deskripsiMenu: `${deskripsiMenu}`,
-        kategoriMenu: `${kategoriMenu}`
+        kategoriMenu: `${kategoriMenu}`,
+        image: `${image}`
         } }, { new: true })
         .then(result => {
             res.status(200).json({
                 message: 'Berhasil update data menu',
-                data: result
-            })
-        })
-        .catch(err => {
-            next(err);
-    })
-}
-
-exports.updateFotoMenu = (req, res, next) => { //belum di tambah ke api perlu min input
-    const idMenu = req.params.idMenu;
-    const image = req.file.path;
-
-    Menu.findOneAndUpdate({idMenu: `${idMenu}`}, { $set: {image: image} }, { new: true })
-        .then(result => {
-            res.status(200).json({
-                message: 'Berhasil update foto menu',
                 data: result
             })
         })

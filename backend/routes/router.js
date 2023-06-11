@@ -30,7 +30,6 @@ router.post('/logout', authenticate, adminController.logoutAdmin);
 //routes profile
 router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
 router.put('/updateProfile/:idAdmin', authenticate, adminController.updateProfileAdmin);
-router.put('/updateProfilePicture/:idAdmin', authenticate, adminController.updateProfilePicture);
 
 //routes transaksi
 router.get('/transaksi', authenticate, transaksiController.getAllTransaksiPelanggan);
@@ -52,6 +51,11 @@ router.post('/insertMenu', [
     body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
     body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
 ], menuController.insertNewMenu);
+router.post('/updateDataMenu/:idMenu', [
+    body('namaMenu').isLength({min: 3}).withMessage('Nama Menu minimal 3 karakter'),
+    body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
+    body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
+], menuController.updateDataMenu);
 
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
