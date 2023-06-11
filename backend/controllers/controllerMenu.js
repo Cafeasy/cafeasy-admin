@@ -1,13 +1,38 @@
 const Menu = require("../models/modelMenu");
 const {validationResult} = require('express-validator');
 
+exports.getAllMenu = (req, res, next) => {
+    Menu.find({}).then(result => {
+        if(result) {
+            res.status(200).json({
+                message: 'Data semua menu berhasil dipanggil',
+                data: result
+            })
+        } else if(!result) {
+            res.status(404).json({
+                message: 'Data semua menu gagal dipanggil',
+                data: result
+            })
+        }
+    }).catch(err => {
+        next(err)
+    })
+}
+
 exports.getAvailableMenu = (req, res, next) => {
     Menu.find({ stokMenu: {$gt: 0} })
         .then(result => {
-            res.status(200).json({
-                message: 'Data menu available berhasil dipanggil',
-                data: result
-            })
+            if(result) {
+                res.status(200).json({
+                    message: 'Data menu available berhasil dipanggil',
+                    data: result
+                })
+            } else if(!result) {
+                res.status(404).json({
+                    message: 'Data menu available gagal dipanggil',
+                    data: result
+                })
+            }
         }).catch(err => {
             next(err);
     })
@@ -16,10 +41,17 @@ exports.getAvailableMenu = (req, res, next) => {
 exports.getNotAvailableMenu = (req, res, next) => {
     Menu.find({ stokMenu: {$lt: 1} })
         .then(result => {
-            res.status(200).json({
-                message: 'Data menu not available berhasil dipanggil',
-                data: result
-            })
+            if(result) {
+                res.status(200).json({
+                    message: 'Data menu not available berhasil dipanggil',
+                    data: result
+                })
+            } else if(!result) {
+                res.status(404).json({
+                    message: 'Data menu not available gagal dipanggil',
+                    data: result
+                })
+            }
         }).catch(err => {
             next(err);
     })
@@ -30,10 +62,17 @@ exports.getMenuByCategory = (req, res, next) => {
     const kategoriMenu = req.params.kategoriMenu;
     Menu.find({ kategoriMenu: `${kategoriMenu}` })
         .then(result => {
-            res.status(200).json({
-                message: 'Data menu berdasarkan kategori berhasil dipanggil',
-                data: result
-            })
+            if(result) {
+                res.status(200).json({
+                    message: 'Data menu berdasarkan kategori berhasil dipanggil',
+                    data: result
+                })
+            } else if(!result) {
+                res.status(404).json({
+                    message: 'Data menu berdasarkan kategori gagal dipanggil',
+                    data: result
+                })
+            }
         })
         .catch(err => {
             next(err);
@@ -44,10 +83,17 @@ exports.getMenuDetail = (req, res, next) => {
     const idMenu = req.params.idMenu;
     Menu.find({ idMenu: `${idMenu}` })
         .then(result => {
-            res.status(200).json({
-                message: 'Data detail menu berhasil dipanggil',
-                data: result
-            })
+            if(result) {
+                res.status(200).json({
+                    message: 'Data detail menu berhasil dipanggil',
+                    data: result
+                })
+            } else if(!result) {
+                res.status(404).json({
+                    message: 'Data detail menu gagal dipanggil',
+                    data: result
+                })
+            }
         }
         )
         .catch(err => {

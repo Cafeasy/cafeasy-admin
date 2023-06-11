@@ -43,6 +43,7 @@ router.put('/updateStatusBayarCash/:idTransaksi', transaksiController.updateStat
 router.get('/riwayatTransaksi', riwayatTransaksiController.getAllListHistory);
 
 //routes kelola data menu
+router.get('/menu', menuController.getAllMenu);
 router.get('/availableMenu', menuController.getAvailableMenu);
 router.get('/notAvailableMenu', menuController.getNotAvailableMenu);
 router.get('/menuByCategory/:kategoriMenu', menuController.getMenuByCategory);
