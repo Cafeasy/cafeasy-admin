@@ -22,7 +22,7 @@ const Kelolacomp = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(` ${process.env.REACT_APP_API_URL}/availableMenu/`)
+      .get(` ${process.env.REACT_APP_API_URL}/Menu/`)
       .then((result) => {
         setData(result.data);
       })
