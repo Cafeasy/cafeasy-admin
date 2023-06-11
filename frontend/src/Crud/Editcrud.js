@@ -11,7 +11,7 @@ const Editcrud = () => {
   });
 
   const { name, username, email, phone, website } = user;
-  const onInputChange = e => {
+  const onInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
@@ -19,21 +19,21 @@ const Editcrud = () => {
     loadUser();
   }, []);
 
-  const onSubmit = async e => {
-    e.preventDefault();
-    await axios.put(`http://localhost:3000/users/${id}`, user);
-    history.push("/");
-  };
+  // const onSubmit = async e => {
+  //   e.preventDefault();
+  //   await axios.put(`http://localhost:3000/users/${id}`, user);
+  //   history.push("/");
+  // };
 
-  const loadUser = async () => {
-    const result = await axios.get(`http://localhost:3001/users/${id}`);
-    setUser(result.data);
-  };
+  // const loadUser = async () => {
+  //   const result = await axios.get(`http://localhost:3001/users/${id}`);
+  //   setUser(result.data);
+  // };
   return (
     <div className="container">
       <div className="w-75 mx-auto shadow p-5">
         <h2 className="text-center mb-4">Edit A User</h2>
-        <form onSubmit={e => onSubmit(e)}>
+        <form onSubmit={(e) => onSubmit(e)}>
           <div className="form-group">
             <input
               type="text"
@@ -41,7 +41,7 @@ const Editcrud = () => {
               placeholder="Enter Name Menu"
               name="name"
               value={name}
-              onChange={e => onInputChange(e)}
+              onChange={(e) => onInputChange(e)}
             />
           </div>
           <button className="btn btn-warning btn-block">Update User</button>
