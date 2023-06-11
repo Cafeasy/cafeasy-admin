@@ -12,6 +12,7 @@ const adminController = require('../controllers/controllerAdmin');
 const transaksiController = require('../controllers/controllerTransaksi');
 const riwayatTransaksiController = require('../controllers/controllerRiwayatTransaksi');
 const menuController = require('../controllers/controllerMenu');
+const customerController = require('../controllers/controllerCustomer');
 const Spreadsheet = require('../controllers/sheetAPI');
 
 //here for routing
@@ -27,11 +28,11 @@ router.post('/registerAdmin', [
 router.post('/login', adminController.loginAdmin);
 router.post('/logout', authenticate, adminController.logoutAdmin);
 
-//routes profile
+//routes kelola data profile
 router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
 router.put('/updateProfile/:idAdmin', authenticate, adminController.updateProfileAdmin);
 
-//routes transaksi
+//routes kelola data transaksi
 router.get('/transaksi', authenticate, transaksiController.getAllTransaksiPelanggan);
 router.get('/detailTransaksi/:idTransaksi', authenticate, transaksiController.getDetailTransaksi);
 router.delete('/deleteAllTransaksi', authenticate, transaksiController.deleteAllTransaksi);
@@ -41,7 +42,7 @@ router.put('/updateStatusBayarCash/:idTransaksi', authenticate, transaksiControl
 //routes riwayat transaksi
 router.get('/riwayatTransaksi', authenticate, riwayatTransaksiController.getAllListHistory);
 
-//routes menu
+//routes kelola data menu
 router.get('/availableMenu', authenticate, menuController.getAvailableMenu);
 router.get('/notAvailableMenu', authenticate, menuController.getNotAvailableMenu);
 router.get('/menuByCategory/:kategoriMenu', authenticate, menuController.getMenuByCategory);
@@ -56,7 +57,14 @@ router.post('/updateDataMenu/:idMenu', [
     body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
     body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
 ], menuController.updateDataMenu);
+router.delete('/deleteMenuById/:idMenu', authenticate, menuController.deleteMenuById);
+router.delete('/deleteAllMenu', authenticate, menuController.deleteAllMenu);
 
+
+//router kelola data customer
+router.get('/customer', authenticate, customerController.getAllCustomer);
+router.delete('/deleteCustomerById/:idPelanggan', authenticate, customerController.deleteCustomerById);
+router.delete('/deleteAllCustomer', authenticate, customerController.deleteAllCustomer);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);

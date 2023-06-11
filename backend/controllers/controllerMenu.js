@@ -136,3 +136,36 @@ exports.updateDataMenu = async (req, res, next) => {
             next(err);
     })
 }
+
+exports.deleteMenuById = (req, res, next) => {
+    const idMenu = req.params.idMenu;
+
+    Menu.deleteOne({idMenu: `${idMenu}`}).then(result => {
+        if(result) {
+            res.status(200).json({
+                message: "Berhasil menghapus menu berdasarkan id",
+                data: result
+            })
+        } else if(!result) {
+            res.status(404).json({
+                message: "Gagal menghapus menu berdasarkan id"
+            })
+        }
+    })
+}
+
+exports.deleteAllMenu = (req, res, next) => {
+    Menu.deleteMany({}).then(result => {
+        if(result) {
+            res.status(200).json({
+                message: "Berhasil menghapus semua menu",
+                data: result
+            })
+        } else if(!result) {
+            res.status(400).json({
+                message: "Gagal menghapus semua menu",
+                data: result
+            })
+        }
+    })
+}
