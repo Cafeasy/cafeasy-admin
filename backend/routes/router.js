@@ -26,27 +26,27 @@ router.post('/registerAdmin', [
     body('noHpCafe').isLength({min: 9}).withMessage('Nomor Hp terkait minimal 9 karakter')],
     adminController.createAdmin);
 router.post('/login', adminController.loginAdmin);
-router.post('/logout', authenticate, adminController.logoutAdmin);
+router.post('/logout', adminController.logoutAdmin);
 
 //routes kelola data profile
-router.get('/profile/:idAdmin', authenticate, adminController.getProfileAdmin);
-router.put('/updateProfile/:idAdmin', authenticate, adminController.updateProfileAdmin);
+router.get('/profile/:idAdmin', adminController.getProfileAdmin);
+router.put('/updateProfile/:idAdmin', adminController.updateProfileAdmin);
 
 //routes kelola data transaksi
-router.get('/transaksi', authenticate, transaksiController.getAllTransaksiPelanggan);
-router.get('/detailTransaksi/:idTransaksi', authenticate, transaksiController.getDetailTransaksi);
-router.delete('/deleteAllTransaksi', authenticate, transaksiController.deleteAllTransaksi);
-router.delete('/deleteTransaksiById/:idTransaksi', authenticate, transaksiController.deleteTransaksiById);
-router.put('/updateStatusBayarCash/:idTransaksi', authenticate, transaksiController.updateStatusBayarCash);
+router.get('/transaksi', transaksiController.getAllTransaksiPelanggan);
+router.get('/detailTransaksi/:idTransaksi', transaksiController.getDetailTransaksi);
+router.delete('/deleteAllTransaksi', transaksiController.deleteAllTransaksi);
+router.delete('/deleteTransaksiById/:idTransaksi', transaksiController.deleteTransaksiById);
+router.put('/updateStatusBayarCash/:idTransaksi', transaksiController.updateStatusBayarCash);
 
 //routes riwayat transaksi
-router.get('/riwayatTransaksi', authenticate, riwayatTransaksiController.getAllListHistory);
+router.get('/riwayatTransaksi', riwayatTransaksiController.getAllListHistory);
 
 //routes kelola data menu
-router.get('/availableMenu', authenticate, menuController.getAvailableMenu);
-router.get('/notAvailableMenu', authenticate, menuController.getNotAvailableMenu);
-router.get('/menuByCategory/:kategoriMenu', authenticate, menuController.getMenuByCategory);
-router.get('/detailMenu/:idMenu', authenticate, menuController.getMenuDetail);
+router.get('/availableMenu', menuController.getAvailableMenu);
+router.get('/notAvailableMenu', menuController.getNotAvailableMenu);
+router.get('/menuByCategory/:kategoriMenu', menuController.getMenuByCategory);
+router.get('/detailMenu/:idMenu', menuController.getMenuDetail);
 router.post('/insertMenu', [
     body('namaMenu').isLength({min: 3}).withMessage('Nama Menu minimal 3 karakter'),
     body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
@@ -57,14 +57,14 @@ router.post('/updateDataMenu/:idMenu', [
     body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
     body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
 ], menuController.updateDataMenu);
-router.delete('/deleteMenuById/:idMenu', authenticate, menuController.deleteMenuById);
-router.delete('/deleteAllMenu', authenticate, menuController.deleteAllMenu);
+router.delete('/deleteMenuById/:idMenu', menuController.deleteMenuById);
+router.delete('/deleteAllMenu', menuController.deleteAllMenu);
 
 
 //router kelola data customer
-router.get('/customer', authenticate, customerController.getAllCustomer);
-router.delete('/deleteCustomerById/:idPelanggan', authenticate, customerController.deleteCustomerById);
-router.delete('/deleteAllCustomer', authenticate, customerController.deleteAllCustomer);
+router.get('/customer', customerController.getAllCustomer);
+router.delete('/deleteCustomerById/:idPelanggan', customerController.deleteCustomerById);
+router.delete('/deleteAllCustomer', customerController.deleteAllCustomer);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);
