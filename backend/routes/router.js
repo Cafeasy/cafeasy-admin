@@ -13,7 +13,8 @@ const transaksiController = require('../controllers/controllerTransaksi');
 const riwayatTransaksiController = require('../controllers/controllerRiwayatTransaksi');
 const menuController = require('../controllers/controllerMenu');
 const customerController = require('../controllers/controllerCustomer');
-const Spreadsheet = require('../controllers/sheetAPI');
+const Spreadsheet = require('../controllers/constrollerSheetAPI');
+
 
 //here for routing
 //routes regis-login-logout admin
