@@ -56,7 +56,7 @@ const Persediaancomp = () => {
                 class="btn btn-secondary">
                 Export as Excel</button>				
             <button type="button" 
-                class="btn btn-primary" 
+                class="btn btn-secondary" 
                 data-toggle="modal" 
                 data-target="#exampleModalCenter">
                 New Item</button>
