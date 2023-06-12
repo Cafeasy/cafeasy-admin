@@ -22,7 +22,7 @@ const Kelolacomp = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(` ${process.env.REACT_APP_API_URL}/riwayatPesananPelanggan/`)
+      .get(` ${process.env.REACT_APP_API_URL}/riwayatTransaksi/`)
       .then((result) => {
         setData(result.data);
       })
