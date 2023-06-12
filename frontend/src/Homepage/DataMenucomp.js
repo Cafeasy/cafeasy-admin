@@ -89,12 +89,12 @@ const Kelolacomp = () => {
             {arr?.map((item, index) => (
               <>
                 <tr className="text-title1">
-                  <td>{item.idMenu}x</td>
-                  <td>{item.namaMenu}x</td>
-                  <td>{item.hargaMenu}x</td>
-                  <td>{item.stokMenu}x</td>
-                  <td>{item.deskripsiMenu}x</td>
-                  <td>{item.kategoriMenu}x</td>
+                  <td>{item.idMenu}</td>
+                  <td>{item.namaMenu}</td>
+                  <td>{item.hargaMenu}</td>
+                  <td>{item.stokMenu}</td>
+                  <td>{item.deskripsiMenu}</td>
+                  <td>{item.kategoriMenu}</td>
                 </tr>
               </>
             ))}

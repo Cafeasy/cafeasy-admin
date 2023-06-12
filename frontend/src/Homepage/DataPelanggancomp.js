@@ -74,8 +74,8 @@ const Persediaancomp = () => {
             {arr?.map((item, index) => (
               <>
                 <tr className="text-title1">
-                  <td>{item.id}x</td>
-                  <td>{item.name}x</td>
+                  <td>{item.id}</td>
+                  <td>{item.name}</td>
                 </tr>
               </>
             ))}

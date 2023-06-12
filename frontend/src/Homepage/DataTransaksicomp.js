@@ -82,14 +82,14 @@ let arr = data.data ?? [];
             {arr?.map((item, index) => (
               <>
                 <tr className="text-title1">
-                  <td>{item.idTransaksi}x</td>
-                  <td>{item.idPelanggan}x</td>
-                  <td>{item.namaPelanggan}x</td>
-                  <td>{item.tanggal}x</td>
-                  <td>{item.noMeja}x</td>
-                  <td>{}x</td>
-                  <td>{item.totalHarga}x</td>
-                  <td>{item.statusBayar}x</td>
+                  <td>{item.idTransaksi}</td>
+                  <td>{item.idPelanggan}</td>
+                  <td>{item.namaPelanggan}</td>
+                  <td>{item.tanggal}</td>
+                  <td>{item.noMeja}</td>
+                  <td>{}</td>
+                  <td>{item.totalHarga}</td>
+                  <td>{item.statusBayar}</td>
                 </tr>
               </>
             ))}

@@ -123,7 +123,7 @@ const Logincomp = () => {
                 type="submit"
                 class="btn btn-secondary"
               >
-                Masuk
+                Masuk 
               </button>
             </div>
           </div>
