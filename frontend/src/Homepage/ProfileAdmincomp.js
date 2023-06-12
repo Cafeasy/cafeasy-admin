@@ -64,6 +64,7 @@ let arr = data.data ?? [];
 						</div>
 					</div>
 				</div>
+        <div className="teks_atas">
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
@@ -122,6 +123,7 @@ let arr = data.data ?? [];
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 );
