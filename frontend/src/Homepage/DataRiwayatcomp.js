@@ -82,7 +82,6 @@ const Kelolacomp = () => {
               <th scope="col">Nama Pelanggan</th>
               <th scope="col">Tanggal</th>
               <th scope="col">No Meja</th>
-              <th scope="col">Data Pesanan</th>
               <th scope="col">Status</th>
               <th scope="col">Total Bayar</th>
               <th>Action</th>
@@ -96,7 +95,6 @@ const Kelolacomp = () => {
                   <td>{item.namaPelanggan}</td>
                   <td>{item.tanggal}</td>
                   <td>{item.noMeja}</td>
-                  <td>{}</td>
                   <td>{item.statusBayar}</td>
                   <td>{item.totalHarga}</td>
                 </tr>

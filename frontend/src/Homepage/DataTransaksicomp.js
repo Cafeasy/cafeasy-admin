@@ -73,7 +73,6 @@ let arr = data.data ?? [];
               <th scope="col">Nama Pelanggan</th>
               <th scope="col">Tanggal</th>
               <th scope="col">No Meja</th>
-              <th scope="col">Data Pesanan</th>
               <th scope="col">Total Harga</th>
               <th scope="col">Status Bayar</th>
               <th>Action</th>
@@ -87,7 +86,6 @@ let arr = data.data ?? [];
                   <td>{item.namaPelanggan}</td>
                   <td>{item.tanggal}</td>
                   <td>{item.noMeja}</td>
-                  <td>{}</td>
                   <td>{item.totalHarga}</td>
                   <td>{item.statusBayar}</td>
                 </tr>
