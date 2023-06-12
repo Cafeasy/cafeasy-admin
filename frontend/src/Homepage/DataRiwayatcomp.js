@@ -22,7 +22,7 @@ const Kelolacomp = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(` ${process.env.REACT_APP_API_URL}/menu/`)
+      .get(` ${process.env.REACT_APP_API_URL}/riwayatPesananPelanggan/`)
       .then((result) => {
         setData(result.data);
       })
@@ -35,14 +35,14 @@ const Kelolacomp = () => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATA MENU </div>
+        <div className="title-crud"> DATA RIWAYAT TRANSAKSI </div>
         <br></br> <br></br>
         <div class="table-title">
           <div class="row">
             <div class="col-xs-4">
               <h4>
                 {" "}
-                <b>Deskripsi Menu</b>
+                <b>Deskripsi Riwayat</b>
               </h4>
             </div>
             <div class="col-xs-4">
@@ -82,24 +82,28 @@ const Kelolacomp = () => {
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Nama Menu</th>
-              <th scope="col">Harga Stok</th>
-              <th scope="col">Stok Menu</th>
-              <th scope="col">Deskripsi Menu</th>
-              <th scope="col">Kategori Menu</th>
+              <th scope="col">Id Transaksi</th>
+              <th scope="col">Id Pelanggan</th>
+              <th scope="col">Nama Pelanggan</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">No Meja</th>
+              <th scope="col">Data Pesanan</th>
+              <th scope="col">Status</th>
+              <th scope="col">Total Bayar</th>
               <th>Action</th>
             </tr>
 
             {arr?.map((item, index) => (
               <>
                 <tr className="text-title1">
-                  <td>{item.idMenu}x</td>
-                  <td>{item.namaMenu}x</td>
-                  <td>{item.hargaMenu}x</td>
-                  <td>{item.stokMenu}x</td>
-                  <td>{item.deskripsiMenu}x</td>
-                  <td>{item.kategoriMenu}x</td>
+                  <td>{item.idTransaksi}x</td>
+                  <td>{item.idPelanggan}x</td>
+                  <td>{item.namaPelanggan}x</td>
+                  <td>{item.tanggal}x</td>
+                  <td>{item.noMeja}x</td>
+                  <td>{}x</td>
+                  <td>{item.statusBayar}x</td>
+                  <td>{item.totalHarga}x</td>
                 </tr>
               </>
             ))}

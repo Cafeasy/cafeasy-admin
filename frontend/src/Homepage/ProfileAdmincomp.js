@@ -23,7 +23,7 @@ const Pembukuancomp = () => {
 const [data, setData] = useState([]);
 useEffect(() => {
   axios
-    .get(` ${process.env.REACT_APP_API_URL}/transaksi/`)
+    .get(` ${process.env.REACT_APP_API_URL}/customer/`)
     .then((result) => {
       setData(result.data);
     })
@@ -35,12 +35,12 @@ let arr = data.data ?? [];
     <div className="container">
     <div className="py-4">
     <br></br>
-      <div className="title-crud"> DATA TRANSAKSI </div>
+      <div className="title-crud"> PROFILE ADMIN </div>
       <br></br> <br></br>
       <div class="table-title">
 					<div class="row">
 						<div class="col-xs-4">
-							<h4> <b>Deskripsi Transaksi</b></h4>
+							<h4> <b>Deskripsi Profile</b></h4>
 						</div>
 						<div class="col-xs-4">
             <button
@@ -73,28 +73,30 @@ let arr = data.data ?? [];
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Id Transaksi</th>
-              <th scope="col">Id Pelanggan</th>
-              <th scope="col">Nama Pelanggan</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">No Meja</th>
-              <th scope="col">Data Pesanan</th>
-              <th scope="col">Total Harga</th>
-              <th scope="col">Status Bayar</th>
-              <th>Action</th>
+              <th scope="col">Id Admin</th>
+              <th scope="col">Email Cafe</th>
+              <th scope="col">Username</th>
+              <th scope="col">Password</th>
+              <th scope="col">Nama Cafe</th>
+              <th scope="col">Alamat Cafe</th>
+              <th scope="col">Deskripsi Cafe</th>
+              <th scope="col">Nama Pemilik Cafe</th>
+              <th scope="col">No Hp</th>
+              <th scope="col">Image</th>
             </tr>
 
             {arr?.map((item, index) => (
               <>
                 <tr className="text-title1">
-                  <td>{item.idTransaksi}x</td>
-                  <td>{item.idPelanggan}x</td>
-                  <td>{item.namaPelanggan}x</td>
-                  <td>{item.tanggal}x</td>
-                  <td>{item.noMeja}x</td>
-                  <td>{}x</td>
-                  <td>{item.totalHarga}x</td>
-                  <td>{item.statusBayar}x</td>
+                  <td>{item.idAdmin}x</td>
+                  <td>{item.emailCafe}x</td>
+                  <td>{item.username}x</td>
+                  <td>{item.password}x</td>
+                  <td>{item.namaCafe}x</td>
+                  <td>{item.alamatCafe}x</td>
+                  <td>{item.deskripsiCafe}x</td>
+                  <td>{item.namaPemilikCafe}x</td>
+                  <td>{item.noHpCafe}x</td>
                 </tr>
               </>
             ))}

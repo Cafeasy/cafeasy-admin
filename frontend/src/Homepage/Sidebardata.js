@@ -5,6 +5,12 @@ import * as MdIcons from 'react-icons/md';
 
 export const Sidebardata = [
   {
+    title: 'Profile Admin',
+    path: '/ProfileAdmin',
+    icon: <FaIcons.FaUserEdit />,
+    cName: 'nav-text'
+  },
+  {
     title: 'Data Menu',
     path: '/DataMenu',
     icon: <FaIcons.FaUserEdit />,

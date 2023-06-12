@@ -9,9 +9,11 @@ import { BrowserRouter } from "react-router-dom";
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import Sidebarpage from "./Homepage/Sidebarpage";
+import ProfileAdmincomp from "./Homepage/ProfileAdmincomp";
 import DataMenucomp from "./Homepage/DataMenucomp";
 import DataTransaksicomp from "./Homepage/DataTransaksicomp";
-import Persediaancomp from "./Homepage/Persediaancomp";
+import DataPelanggancomp from "./Homepage/DataPelanggancomp";
+import DataRiwayatcomp from "./Homepage/DataRiwayatcomp";
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import "./App.css";
@@ -29,9 +31,11 @@ const App = () => {
       <BrowserRouter>
         <Sidebarpage />
         <Routes>
+          <Route exact path="/ProfileAdmin" element={<ProfileAdmincomp />}></Route>
           <Route exact path="/DataMenu" element={<DataMenucomp />}></Route>
           <Route exact path="/DataTransaksi" element={<DataTransaksicomp />}></Route>
-          <Route exact path="/Persediaan" element={<Persediaancomp />}></Route>
+          <Route exact path="/DataPelanggan" element={<DataPelanggancomp />}></Route>
+          <Route exact path="/DataRiwayat" element={<DataRiwayatcomp />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

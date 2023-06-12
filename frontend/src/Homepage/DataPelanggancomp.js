@@ -5,30 +5,42 @@ import { Link } from "react-router-dom";
 const Persediaancomp = () => {
   const [users, setUser] = useState([]);
 
+  // useEffect(() => {
+  //   loadUsers();
+  // }, []);
+
+  // const loadUsers = async () => {
+  //   const result = await axios.get(process.env.REACT_APP_API_URL);
+  //   setUser(result.data.reverse());
+  // };
+
+  // const deleteUser = async id => {
+  //   await axios.delete(process.env.REACT_APP_API_URL$);
+  //   loadUsers();
+  // };
+
+  const [data, setData] = useState([]);
   useEffect(() => {
-    loadUsers();
-  }, []);
+    axios
+      .get(` ${process.env.REACT_APP_API_URL}/pelanggan/`)
+      .then((result) => {
+        setData(result.data);
+      })
+      .catch((error) => console.log(error));
+  }, [data]);
 
-  const loadUsers = async () => {
-    const result = await axios.get(process.env.REACT_APP_API_URL);
-    setUser(result.data.reverse());
-  };
-
-  const deleteUser = async id => {
-    await axios.delete(process.env.REACT_APP_API_URL$);
-    loadUsers();
-  };
+  let arr = data.data ?? [];
 
   return (
     <div className="container">
     <div className="py-4">
       <br></br>
-      <div className="title-crud"> UPDATE PERSEDIAAN STOK </div>
+      <div className="title-crud"> DATA PELANGGAN </div>
       <br></br> <br></br>
       <div class="table-title">
 					<div class="row">
 						<div class="col-xs-4">
-							<h4> <b>Inventory</b></h4>
+							<h4> <b>Deskripsi Pelanggan</b></h4>
 						</div>
 						<div class="col-xs-4">
             <button
@@ -57,27 +69,29 @@ const Persediaancomp = () => {
 						</div>
 					</div>
 				</div>
-      <table class="table border shadow">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama Menu</th>
-            <th scope="col">Type</th>
-            <th scope="col">QTY On Hand</th>
-            <th scope="col">Buy Price</th>
-            <th scope="col">Sell Price</th>
-            <th scope="col">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
+        <table class="table border shadow">
+          <thead class="thead-dark">
             <tr>
-              <th scope="row">{index + 1}</th>
-              <td>{user.tanggal}</td>
-              <td>{user.username}</td>
-              <td>{user.pemesan}</td>
-              <td>{user.status}</td>
-              <td>
+              <th scope="col">Id</th>
+              <th scope="col">Nama</th>
+            </tr>
+
+            {arr?.map((item, index) => (
+              <>
+                <tr className="text-title1">
+                  <td>{item.id}x</td>
+                  <td>{item.name}x</td>
+                </tr>
+              </>
+            ))}
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr>
+                <th scope="row">{index + 1}</th>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>
               <Link
                   class="btn btn-outline-primary mr-2"
                   to={`/users/edit/${user.id}`}
