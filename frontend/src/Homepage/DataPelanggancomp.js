@@ -22,7 +22,7 @@ const Persediaancomp = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(` ${process.env.REACT_APP_API_URL}/pelanggan/`)
+      .get(` ${process.env.REACT_APP_API_URL}/customer/`)
       .then((result) => {
         setData(result.data);
       })
