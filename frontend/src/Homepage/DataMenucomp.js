@@ -51,12 +51,6 @@ const Kelolacomp = () => {
                 appearance="primary"
                 type="file"
                 class="btn btn-secondary"
-              ></button>
-              <button
-                color="red"
-                appearance="primary"
-                type="file"
-                class="btn btn-secondary"
               >
                 Import Inventory
               </button>
@@ -79,6 +73,7 @@ const Kelolacomp = () => {
             </div>
           </div>
         </div>
+        <div className="teks_atas">
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
@@ -129,6 +124,7 @@ const Kelolacomp = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

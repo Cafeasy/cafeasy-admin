@@ -42,13 +42,7 @@ let arr = data.data ?? [];
 						<div class="col-xs-4">
 							<h4> <b>Deskripsi Profile</b></h4>
 						</div>
-						<div class="col-xs-4">
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                </button>						
+						<div class="col-xs-4">	
             <button
                 color="red"
                 appearance="primary"

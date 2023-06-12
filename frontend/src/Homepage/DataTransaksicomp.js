@@ -42,13 +42,7 @@ let arr = data.data ?? [];
 						<div class="col-xs-4">
 							<h4> <b>Deskripsi Transaksi</b></h4>
 						</div>
-						<div class="col-xs-4">
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                </button>						
+						<div class="col-xs-4">				
             <button
                 color="red"
                 appearance="primary"
@@ -70,6 +64,7 @@ let arr = data.data ?? [];
 						</div>
 					</div>
 				</div>
+        <div className="teks_atas">
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
@@ -126,6 +121,7 @@ let arr = data.data ?? [];
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 );

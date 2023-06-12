@@ -42,13 +42,7 @@ const Persediaancomp = () => {
 						<div class="col-xs-4">
 							<h4> <b>Deskripsi Pelanggan</b></h4>
 						</div>
-						<div class="col-xs-4">
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                </button>						
+						<div class="col-xs-4">					
             <button
                 color="red"
                 appearance="primary"
@@ -69,6 +63,7 @@ const Persediaancomp = () => {
 						</div>
 					</div>
 				</div>
+        <div className="teks_atas">
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
@@ -106,6 +101,7 @@ const Persediaancomp = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 );
