@@ -23,7 +23,7 @@ const Pembukuancomp = () => {
 const [data, setData] = useState([]);
 useEffect(() => {
   axios
-    .get(` ${process.env.REACT_APP_API_URL}/customer/`)
+    .get(` ${process.env.REACT_APP_API_URL}/profile/`)
     .then((result) => {
       setData(result.data);
     })

@@ -23,7 +23,7 @@ const Pembukuancomp = () => {
 const [data, setData] = useState([]);
 useEffect(() => {
   axios
-    .get(` ${process.env.REACT_APP_API_URL}/transaksi/`)
+    .get(` ${process.env.REACT_APP_API_URL}/riwayatTransaksi/`)
     .then((result) => {
       setData(result.data);
     })
