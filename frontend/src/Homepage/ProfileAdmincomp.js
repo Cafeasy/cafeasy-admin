@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import '../Crud/Crud.css';
 
-const Pembukuancomp = () => {
+const Pembukuancomp = (value) => {
   const [users, setUser] = useState([]);
 
 // useEffect(() => {
