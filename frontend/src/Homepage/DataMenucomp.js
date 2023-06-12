@@ -22,7 +22,7 @@ const Kelolacomp = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(` ${process.env.REACT_APP_API_URL}/Menu/`)
+      .get(` ${process.env.REACT_APP_API_URL}/menu/`)
       .then((result) => {
         setData(result.data);
       })
@@ -35,7 +35,7 @@ const Kelolacomp = () => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DESKRIPSI MENU </div>
+        <div className="title-crud"> DATA MENU </div>
         <br></br> <br></br>
         <div class="table-title">
           <div class="row">
@@ -82,16 +82,24 @@ const Kelolacomp = () => {
         <table class="table border shadow">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">No</th>
-              <th scope="col">Name Menu</th>
+              <th scope="col">Id</th>
+              <th scope="col">Nama Menu</th>
+              <th scope="col">Harga Stok</th>
+              <th scope="col">Stok Menu</th>
+              <th scope="col">Deskripsi Menu</th>
+              <th scope="col">Kategori Menu</th>
               <th>Action</th>
             </tr>
 
             {arr?.map((item, index) => (
               <>
                 <tr className="text-title1">
-                  <td>{index + 1}</td>
+                  <td>{item.idMenu}x</td>
                   <td>{item.namaMenu}x</td>
+                  <td>{item.hargaMenu}x</td>
+                  <td>{item.stokMenu}x</td>
+                  <td>{item.deskripsiMenu}x</td>
+                  <td>{item.kategoriMenu}x</td>
                 </tr>
               </>
             ))}
@@ -100,8 +108,9 @@ const Kelolacomp = () => {
             {users.map((user, index) => (
               <tr>
                 <th scope="row">{index + 1}</th>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
+                <td>{user.idMenu}</td>
+                <td>{user.namaMenu}</td>
+                <td>{user.hargaMenu}</td>
                 <td>
                   <Link
                     class="btn btn-outline-primary mr-2"

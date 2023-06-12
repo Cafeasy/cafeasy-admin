@@ -9,8 +9,8 @@ import { BrowserRouter } from "react-router-dom";
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import Sidebarpage from "./Homepage/Sidebarpage";
-import Pembukuancomp from "./Homepage/Pembukuancomp";
-import Kelolacomp from "./Homepage/Kelolacomp";
+import DataMenucomp from "./Homepage/DataMenucomp";
+import DataTransaksicomp from "./Homepage/DataTransaksicomp";
 import Persediaancomp from "./Homepage/Persediaancomp";
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
@@ -29,8 +29,8 @@ const App = () => {
       <BrowserRouter>
         <Sidebarpage />
         <Routes>
-          <Route exact path="/Pembukuan" element={<Pembukuancomp />}></Route>
-          <Route exact path="/Kelola" element={<Kelolacomp />}></Route>
+          <Route exact path="/DataMenu" element={<DataMenucomp />}></Route>
+          <Route exact path="/DataTransaksi" element={<DataTransaksicomp />}></Route>
           <Route exact path="/Persediaan" element={<Persediaancomp />}></Route>
         </Routes>
       </BrowserRouter>
