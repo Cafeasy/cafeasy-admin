@@ -33,6 +33,9 @@ const adminSchema = new Schema({
     },
     image: {
         type: String, required: true
+    },
+    imageUrl: {
+        type: String, required: true
     }
 
 },{versionKey : false})

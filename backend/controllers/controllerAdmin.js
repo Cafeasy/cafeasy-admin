@@ -2,8 +2,19 @@ const DataAdmin = require("../models/modelAdmin")
 const {validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const config = require('../config/firebaseConfig');
 
-exports.createAdmin = (req, res, next) => {
+const {initializeApp} = require('firebase/app');
+const {getStorage} = require('firebase/storage');
+const {ref} = require('firebase/storage');
+const {getDownloadURL} = require('firebase/storage');
+const {uploadBytesResumable} = require('firebase/storage');
+
+initializeApp(config.firebaseConfig);
+const storage = getStorage();
+
+
+exports.createAdmin = async (req, res, next) => {
     //check inputan form valid
     const errors = validationResult(req);
 
@@ -25,9 +36,18 @@ exports.createAdmin = (req, res, next) => {
     var username = req.body.username;
 
     //check username admin exist
-    DataAdmin.findOne({username:username})
-    .then(admin => {
+    const admin = await DataAdmin.findOne({username:username});
         if(!admin){
+            const dateTime = new Date().getTime();
+            const storageRef = ref(storage, `files/${req.file.originalname + "-" + dateTime}`);
+
+            const metadata = {
+                contentType: req.file.mimetype,
+            };
+
+            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+
             bcrypt.hash(req.body.password, 10, function(err, hashedPass) {
                 if(err){
                     res.json({
@@ -45,7 +65,8 @@ exports.createAdmin = (req, res, next) => {
                     deskripsiCafe: req.body.deskripsiCafe,
                     namaPemilikCafe: req.body.namaPemilikCafe,
                     noHpCafe: req.body.noHpCafe,
-                    image: req.file.path
+                    image: `${req.file.originalname + "-" + dateTime}`,
+                    imageUrl: downloadURL
                 })
             
                 registerAdmin.save().then(result => {
@@ -64,7 +85,6 @@ exports.createAdmin = (req, res, next) => {
                 message: "username sudah ada, coba username lain"
             })
         }
-    })
 }
 
 exports.getProfileAdmin = async (req, res, next) => {
