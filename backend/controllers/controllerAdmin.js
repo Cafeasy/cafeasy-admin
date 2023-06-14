@@ -39,7 +39,7 @@ exports.createAdmin = async (req, res, next) => {
     const admin = await DataAdmin.findOne({username:username});
         if(!admin){
             const dateTime = new Date().getTime();
-            const storageRef = ref(storage, `files/${req.file.originalname + "-" + dateTime}`);
+            const storageRef = ref(storage, `profilePictAdmin/${req.file.originalname + "-" + dateTime}`);
 
             const metadata = {
                 contentType: req.file.mimetype,

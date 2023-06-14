@@ -1,5 +1,15 @@
 const Menu = require("../models/modelMenu");
 const {validationResult} = require('express-validator');
+const config = require('../config/firebaseConfig');
+
+const {initializeApp} = require('firebase/app');
+const {getStorage} = require('firebase/storage');
+const {ref} = require('firebase/storage');
+const {getDownloadURL} = require('firebase/storage');
+const {uploadBytesResumable} = require('firebase/storage');
+
+initializeApp(config.firebaseConfig);
+const storage = getStorage();
 
 exports.getAllMenu = (req, res, next) => {
     Menu.find({}).then(result => {
@@ -122,8 +132,18 @@ exports.insertNewMenu = async (req, res, next) => {
     var idMenu = "menus-" + uniqueid;
     var namaMenu = req.body.namaMenu;
 
-    Menu.findOne({namaMenu: namaMenu}).then(result => {
-        if(!result) {
+    const menu = await Menu.findOne({namaMenu: namaMenu})
+        if(!menu) {
+            const dateTime = new Date().getTime();
+            const storageRef = ref(storage, `menuPict/${req.file.originalname + "-" + dateTime}`);
+
+            const metadata = {
+                contentType: req.file.mimetype,
+            };
+
+            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+
             const insertNewMenu = new Menu({
                 idMenu: idMenu,
                 namaMenu: namaMenu,
@@ -131,7 +151,8 @@ exports.insertNewMenu = async (req, res, next) => {
                 stokMenu: req.body.stokMenu,
                 deskripsiMenu: req.body.deskripsiMenu,
                 kategoriMenu: req.body.kategoriMenu,
-                image: req.file.path
+                image: `${req.file.originalname + "-" + dateTime}`,
+                imageUrl: downloadURL
             })
         
             insertNewMenu.save().then(result => {
@@ -142,8 +163,11 @@ exports.insertNewMenu = async (req, res, next) => {
             }).catch(err => {
                 next(err)
             })
+        } else if (menu) {
+            res.json({
+                message: "nama menu sudah ada, coba menu lain"
+            })
         }
-    })
 }
 
 exports.updateDataMenu = async (req, res, next) => {

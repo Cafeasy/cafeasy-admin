@@ -31,7 +31,11 @@ const ListMenumodel = new Schema({
     image: {
         type: String,
         require: true
+    },
+    imageUrl: {
+        type: String,
+        require: true
     }
-}, {versionKey : false});
+},{versionKey : false});
 
 module.exports = mongoose.model('Menu', ListMenumodel, 'menu');
