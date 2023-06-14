@@ -7,6 +7,27 @@ const cookieSession = require("cookie-session");
 const port = process.env.PORT || 8000
 const app = express();
 const bodyParser = require('body-parser');
+const {initializeApp} = require('firebase/app');
+const {getStorage} = require('firebase/storage');
+const {ref} = require('firebase/storage');
+const {getDownloadURL} = require('firebase/storage');
+const {uploadBytesResumable} = require('firebase/storage');
+const {getAnalaytics} = require("firebase/analytics");
+
+//config to firebase cloud
+const firebaseConfig = {
+    apiKey: "AIzaSyDfq6kKiVAUtFgxU9xaKUCA-qUTu8t4YU0",
+    authDomain: process.env.PROJECT_ID_CLOUD.firebaseapp.com,
+    projectId: process.env.PROJECT_ID_CLOUD,
+    storageBucket: process.env.PROJECT_ID_CLOUD.appspot.com,
+    messagingSenderId: "1072877720834",
+    appId: "1:1072877720834:web:c251069cd4ac7fd0b01e1b",
+    measurementId: "G-9C8ENG19NY"
+};
+
+// Initialize Firebase
+const appCloud = initializeApp(firebaseConfig);
+const analytics = getAnalytics(appCloud);
 
 const multer = require('multer');
 const cookieParser = require("cookie-parser");
