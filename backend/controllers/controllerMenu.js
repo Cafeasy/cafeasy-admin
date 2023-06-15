@@ -178,6 +178,12 @@ exports.updateDataMenu = async (req, res, next) => {
         err.data = errors.array();
         return res.send(err);
     }
+
+    if(!req.file) {
+        const err = new Error('image harus diupload, pastikan format image berupa png/jpg/jpeg');
+        err.errorStatus = 422;
+        return res.send(err.message);
+    }
     
     const idMenu = req.params.idMenu;
     const namaMenu = req.body.namaMenu;
@@ -188,7 +194,7 @@ exports.updateDataMenu = async (req, res, next) => {
 
     const storageRef = ref(storage, `menuPict/${idMenu}`);
     // const desertRef = storageRef.child(`menuPict/${idMenu}`);
-    if(storageRef){
+    if(storageRef==true){
         await deleteObject(storageRef);
     }
 
