@@ -16,8 +16,8 @@ const Transaksi = new Schema({
         required: true
     },
     tanggal: {
-        type: Date,
-        default: Date.now
+        type: String,
+        required: true
     },
     noMeja: {
         type: Number,

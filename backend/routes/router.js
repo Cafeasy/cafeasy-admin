@@ -10,7 +10,6 @@ const authenticate = require('../auth/authenticate');
 //here for call all controllers
 const adminController = require('../controllers/controllerAdmin');
 const transaksiController = require('../controllers/controllerTransaksi');
-const riwayatTransaksiController = require('../controllers/controllerRiwayatTransaksi');
 const menuController = require('../controllers/controllerMenu');
 const kategoriMenuController = require('../controllers/controllerKategoriMenu');
 const customerController = require('../controllers/controllerCustomer');
@@ -40,9 +39,6 @@ router.get('/detailTransaksi/:idTransaksi', transaksiController.getDetailTransak
 router.delete('/deleteAllTransaksi', transaksiController.deleteAllTransaksi);
 router.delete('/deleteTransaksiById/:idTransaksi', transaksiController.deleteTransaksiById);
 router.put('/updateStatusBayarCash/:idTransaksi', transaksiController.updateStatusBayarCash);
-
-//routes riwayat transaksi
-router.get('/riwayatTransaksi', riwayatTransaksiController.getAllListHistory);
 
 //routes kelola data menu
 router.get('/menu', menuController.getAllMenu);
