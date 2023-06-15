@@ -26,7 +26,7 @@ exports.createAdmin = async (req, res, next) => {
     }
 
     if(!req.file) {
-        const err = new Error('image harus diupload');
+        const err = new Error('image harus diupload, pastikan format image berupa png/jpg/jpeg');
         err.errorStatus = 422;
         return res.send(err.message);
     }
