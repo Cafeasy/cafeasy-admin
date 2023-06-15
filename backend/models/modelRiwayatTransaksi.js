@@ -37,6 +37,6 @@ const RiwayatPesananModel = new Schema({
         required: true
     }
 
-}, {versionKey : false});
+},{versionKey : false, timestamps : true});
 
 module.exports = mongoose.model('RiwayatPesanan', RiwayatPesananModel, 'riwayatPesananPelanggan');

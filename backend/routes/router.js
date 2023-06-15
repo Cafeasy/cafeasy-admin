@@ -12,6 +12,7 @@ const adminController = require('../controllers/controllerAdmin');
 const transaksiController = require('../controllers/controllerTransaksi');
 const riwayatTransaksiController = require('../controllers/controllerRiwayatTransaksi');
 const menuController = require('../controllers/controllerMenu');
+const kategoriMenuController = require('../controllers/controllerKategoriMenu');
 const customerController = require('../controllers/controllerCustomer');
 const Spreadsheet = require('../controllers/constrollerSheetAPI');
 
@@ -54,7 +55,7 @@ router.post('/insertMenu', [
     body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
     body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
 ], menuController.insertNewMenu);
-router.post('/updateDataMenu/:idMenu', [
+router.put('/updateDataMenu/:idMenu', [
     body('namaMenu').isLength({min: 3}).withMessage('Nama Menu minimal 3 karakter'),
     body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
     body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
@@ -62,6 +63,16 @@ router.post('/updateDataMenu/:idMenu', [
 router.delete('/deleteMenuById/:idMenu', menuController.deleteMenuById);
 router.delete('/deleteAllMenu', menuController.deleteAllMenu);
 
+//routes kelola data kategori menu
+router.get('/kategoriMenu', kategoriMenuController.getAllKategoriMenu);
+router.post('/insertKategoriMenu', [
+    body('namaKategori').isLength({min: 3}).withMessage('Nama Kategori Menu minimal 3 karakter')
+], kategoriMenuController.insertKategoriMenu);
+router.put('/updateKategoriMenu/:idKategori', [
+    body('namaKategori').isLength({min: 3}).withMessage('Nama Kategori Menu minimal 3 karakter')
+], kategoriMenuController.updateKategoriMenu);
+router.delete('/deleteKategoriMenuById/:idKategori', kategoriMenuController.deleteKategoriMenuById);
+router.delete('/deleteAllKategoriMenu', kategoriMenuController.deleteAllKategoriMenu);
 
 //router kelola data customer
 router.get('/customer', customerController.getAllCustomer);

@@ -38,7 +38,7 @@ const adminSchema = new Schema({
         type: String, required: true
     }
 
-},{versionKey : false})
+},{versionKey : false, timestamps : true})
 
 
 module.exports = mongoose.model('DataAdmin', adminSchema, 'dataAdmin');

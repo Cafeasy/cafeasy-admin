@@ -193,7 +193,7 @@ exports.updateDataMenu = async (req, res, next) => {
     const kategoriMenu = req.body.kategoriMenu;
 
     const storageRef = ref(storage, `menuPict/${idMenu}`);
-    if(storageRef==true){
+    if(storageRef){
         await deleteObject(storageRef);
     }
 
@@ -228,8 +228,13 @@ exports.updateDataMenu = async (req, res, next) => {
     })
 }
 
-exports.deleteMenuById = (req, res, next) => {
+exports.deleteMenuById = async (req, res, next) => {
     const idMenu = req.params.idMenu;
+
+    const storageRef = ref(storage, `menuPict/${idMenu}`);
+    if(storageRef){
+        await deleteObject(storageRef);
+    }
 
     Menu.deleteOne({idMenu: `${idMenu}`}).then(result => {
         if(result) {
@@ -245,7 +250,12 @@ exports.deleteMenuById = (req, res, next) => {
     })
 }
 
-exports.deleteAllMenu = (req, res, next) => {
+exports.deleteAllMenu = async (req, res, next) => {
+    const storageRef = ref(storage, `menuPict/`);
+    if(storageRef){
+        await deleteObject(storageRef);
+    }
+    
     Menu.deleteMany({}).then(result => {
         if(result) {
             res.status(200).json({

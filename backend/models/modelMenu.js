@@ -36,6 +36,6 @@ const ListMenumodel = new Schema({
         type: String,
         require: true
     }
-},{versionKey : false});
+},{versionKey : false, timestamps : true});
 
 module.exports = mongoose.model('Menu', ListMenumodel, 'menu');
