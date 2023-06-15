@@ -7,6 +7,7 @@ const {getStorage} = require('firebase/storage');
 const {ref} = require('firebase/storage');
 const {getDownloadURL} = require('firebase/storage');
 const {uploadBytesResumable} = require('firebase/storage');
+const {deleteObject} = require('firebase/storage');
 
 initializeApp(config.firebaseConfig);
 const storage = getStorage();
@@ -129,13 +130,12 @@ exports.insertNewMenu = async (req, res, next) => {
     }
 
     var uniqueid = (Math.random()).toString(32).slice(2, 8);
-    var idMenu = "menus-" + uniqueid;
+    var idMenu = "menu-" + uniqueid;
     var namaMenu = req.body.namaMenu;
 
     const menu = await Menu.findOne({namaMenu: namaMenu})
         if(!menu) {
-            const dateTime = new Date().getTime();
-            const storageRef = ref(storage, `menuPict/${req.file.originalname + "-" + dateTime}`);
+            const storageRef = ref(storage, `menuPict/${idMenu}`);
 
             const metadata = {
                 contentType: req.file.mimetype,
@@ -151,7 +151,7 @@ exports.insertNewMenu = async (req, res, next) => {
                 stokMenu: req.body.stokMenu,
                 deskripsiMenu: req.body.deskripsiMenu,
                 kategoriMenu: req.body.kategoriMenu,
-                image: `${req.file.originalname + "-" + dateTime}`,
+                image: `menuPict/${idMenu}`,
                 imageUrl: downloadURL
             })
         
@@ -185,7 +185,22 @@ exports.updateDataMenu = async (req, res, next) => {
     const stokMenu = req.body.stokMenu;
     const deskripsiMenu = req.body.deskripsiMenu;
     const kategoriMenu = req.body.kategoriMenu;
-    const image = req.file.path;
+
+    const storageRef = ref(storage, `menuPict/${idMenu}`);
+    // const desertRef = storageRef.child(`menuPict/${idMenu}`);
+    if(storageRef){
+        await deleteObject(storageRef);
+    }
+
+    const metadata = {
+        contentType: req.file.mimetype,
+    };
+
+    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    const image = `menuPict/${idMenu}`;
+    const imageUrl = downloadURL;
 
     Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
     { $set: { 
@@ -194,7 +209,8 @@ exports.updateDataMenu = async (req, res, next) => {
         stokMenu: `${stokMenu}`,
         deskripsiMenu: `${deskripsiMenu}`,
         kategoriMenu: `${kategoriMenu}`,
-        image: `${image}`
+        image: `${image}`,
+        imageUrl: `${imageUrl}`
         } }, { new: true })
         .then(result => {
             res.status(200).json({

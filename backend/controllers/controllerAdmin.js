@@ -33,13 +33,14 @@ exports.createAdmin = async (req, res, next) => {
 
     //sign username request from body
     const uniqueid = "adm-" + (Math.random()).toString(32).slice(3);
+    var idAdmin = "menus-" + uniqueid;
     var username = req.body.username;
 
     //check username admin exist
     const admin = await DataAdmin.findOne({username:username});
         if(!admin){
             const dateTime = new Date().getTime();
-            const storageRef = ref(storage, `profilePictAdmin/${req.file.originalname + "-" + dateTime}`);
+            const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
 
             const metadata = {
                 contentType: req.file.mimetype,
@@ -56,7 +57,7 @@ exports.createAdmin = async (req, res, next) => {
                 }
         
                 const registerAdmin = new DataAdmin ({
-                    idAdmin: uniqueid,
+                    idAdmin: idAdmin,
                     username: username,
                     emailCafe: req.body.emailCafe,
                     password: hashedPass,
