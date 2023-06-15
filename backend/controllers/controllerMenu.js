@@ -193,7 +193,6 @@ exports.updateDataMenu = async (req, res, next) => {
     const kategoriMenu = req.body.kategoriMenu;
 
     const storageRef = ref(storage, `menuPict/${idMenu}`);
-    // const desertRef = storageRef.child(`menuPict/${idMenu}`);
     if(storageRef==true){
         await deleteObject(storageRef);
     }

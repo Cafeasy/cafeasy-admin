@@ -145,9 +145,22 @@ exports.logoutAdmin = (req,res,next) => {
     res.send('berhasil logout');
 }
 
-exports.updateProfileAdmin = (req, res, next) => {
-    const idAdmin = req.params.idAdmin;
+exports.updateProfileAdmin = async (req, res, next) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        const err = new Error('input form tidak sesuai');
+        err.errorStatus = 400;
+        err.data = errors.array();
+        return res.send(err);
+    }
 
+    if(!req.file) {
+        const err = new Error('image harus diupload, pastikan format image berupa png/jpg/jpeg');
+        err.errorStatus = 422;
+        return res.send(err.message);
+    }
+
+    const idAdmin = req.params.idAdmin;
     const emailCafe = req.body.emailCafe;
     const username = req.body.username;
     const password = bcrypt.hashSync(req.body.password);
@@ -156,7 +169,21 @@ exports.updateProfileAdmin = (req, res, next) => {
     const deskripsiCafe = req.body.deskripsiCafe;
     const namaPemilikCafe = req.body.namaPemilikCafe;
     const noHpCafe = req.body.noHpCafe;
-    const image = req.file.path;
+
+    const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
+    if(storageRef==true){
+        await deleteObject(storageRef);
+    }
+
+    const metadata = {
+        contentType: req.file.mimetype,
+    };
+
+    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    const image = `profilePictAdmin/${idAdmin}`;
+    const imageUrl = downloadURL;
 
     DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
     { $set: { 
@@ -168,7 +195,8 @@ exports.updateProfileAdmin = (req, res, next) => {
         deskripsiCafe: `${deskripsiCafe}`,
         namaPemilikCafe: `${namaPemilikCafe}`,
         noHpCafe: `${noHpCafe}`,
-        image: `${image}`
+        image: `${image}`,
+        imageUrl: `${imageUrl}`
         } }, { new: true })
         .then(result => {
             res.status(200).json({
