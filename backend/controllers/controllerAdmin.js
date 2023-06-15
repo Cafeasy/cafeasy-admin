@@ -171,7 +171,7 @@ exports.updateProfileAdmin = async (req, res, next) => {
     const noHpCafe = req.body.noHpCafe;
 
     const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
-    if(storageRef==true){
+    if(storageRef){
         await deleteObject(storageRef);
     }
 
