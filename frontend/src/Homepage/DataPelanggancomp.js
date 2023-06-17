@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Crud/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
+import { ToggleButton } from 'primereact/togglebutton';
 import { Column } from 'primereact/column';
 import { InputText } from "primereact/inputtext";
 
