@@ -181,10 +181,10 @@ color: #fff;
 }
 
 .card {
-  background: var(--surface-card);
+  background: white;
   padding: 2rem;
   border-radius: 10px;
   margin-bottom: 1rem;
-  font-size: 90%;
+  font-size: 80%;
   display: flex;
 }

@@ -30,7 +30,7 @@ const DataMenucomp = () => {
   }, [data]);
 
   console.log(data);
-  
+
   let arr = data.data ?? [];
 
   return (
@@ -39,50 +39,14 @@ const DataMenucomp = () => {
         <br></br>
         <div className="title-crud"> DATA MENU </div>
         <br></br> <br></br>
-        <div class="table-title">
-          <div class="row">
-            <div class="col-xs-4">
-              <h4>
-                {" "}
-                <b>Deskripsi Menu</b>
-              </h4>
-            </div>
-            <div class="col-xs-4">
-              <button
-                color="red"
-                appearance="primary"
-                type="file"
-                class="btn btn-secondary"
-              >
-                Import Inventory
-              </button>
-              <button
-                color="red"
-                appearance="primary"
-                type="file"
-                class="btn btn-secondary"
-              >
-                Export as Spreadsheet
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-toggle="modal"
-                data-target="#exampleModalCenter"
-              >
-                New Item
-              </button>
-            </div>
-          </div>
-        </div>
         <div className="card">
             <DataTable value={arr} tableStyle={{ minWidth: '50rem' }}>
-                <Column field="idMenu" header="Id Menu" />
-                <Column field="namaMenu" header="Nama Menu" />
-                <Column field="hargaMenu" header="Harga Menu" />
-                <Column field="stokMenu" header="Stok Menu" />
-                <Column field="deskripsiMenu" header="Deskripsi Menu" />
-                <Column field="kategoriMenu" header="Kategori Menu" />
+                <Column field="idMenu" header="Id Menu" sortable style={{ width: '25%' }} />
+                <Column field="namaMenu" header="Nama Menu" sortable style={{ width: '25%' }} />
+                <Column field="hargaMenu" header="Harga Menu" sortable style={{ width: '25%' }} />
+                <Column field="stokMenu" header="Stok Menu" sortable style={{ width: '25%' }} />
+                <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ width: '25%' }} />
+                <Column field="kategoriMenu" header="Kategori Menu" sortable style={{ width: '25%' }} />
             </DataTable>
     </div>
       </div>
