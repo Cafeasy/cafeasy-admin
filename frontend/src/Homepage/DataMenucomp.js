@@ -16,6 +16,10 @@ const DataMenucomp = () => {
       .catch((error) => console.log(error));
   }, [data]);
 
+  const imageBodyTemplate = (data) => {
+    return <img src={`https://firebasestorage.googleapis.com/v0/b/cafeasy-y543f4c.appspot.com/o/menuPict%2Fmenu-cmg5hi?alt=media&token=f38e42a9-5248-47e9-9e5b-7fcdd19b5624${data.image}`} alt={data.image} className="w-6rem shadow-2 border-round" />;
+};
+
   const [globalFilter, setGlobalFilter] = useState(null);
   
   const header = (
@@ -44,13 +48,21 @@ const DataMenucomp = () => {
         <br></br> <br></br>
         <div className="datatable-crud-demo">
         <div className="card">
-            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }} scrollable scrollHeight="400px"  >
-                <Column field="idMenu" header="ID Menu" sortable style={{ width: '15%' }} columnResizeMode="fit" />
-                <Column field="namaMenu" header="Nama Menu" sortable style={{ width: '15%' }} />
-                <Column field="hargaMenu" header="Harga Menu" sortable style={{ width: '15%' }} />
-                <Column field="stokMenu" header="Stok Menu" sortable style={{ width: '15%' }} />
-                <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ width: '15%' }} />
-                <Column field="kategoriMenu" header="Kategori Menu" sortable style={{ width: '15%' }} />
+            <DataTable value={arr} header={header} 
+            resizableColumns
+            showGridlines 
+            stripedRows 
+            tableStyle={{ minWidth: '50rem' }} 
+            scrollable scrollHeight="500px" 
+            >
+                <Column field="idMenu" header="ID Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="namaMenu" header="Nama Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="hargaMenu" header="Harga Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="stokMenu" header="Stok Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="kategoriMenu" header="Kategori Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="image" header="Gambar" body={imageBodyTemplate} sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column header="Aksi" exportable={false} sortable style={{ minWidth: "10rem" }} ></Column>
             </DataTable>
           </div>
         </div>

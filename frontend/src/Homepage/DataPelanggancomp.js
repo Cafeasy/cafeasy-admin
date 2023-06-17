@@ -45,7 +45,12 @@ const DataPelanggancomp = () => {
         <br></br> <br></br>
         <div className="datatable-crud-demo">
         <div className="card">
-            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }} scrollable scrollHeight="400px"  >
+            <DataTable value={arr} header={header} 
+            resizableColumns
+            showGridlines 
+            stripedRows 
+            tableStyle={{ minWidth: '50rem' }} 
+            scrollable scrollHeight="500px"  >
                 <Column field="id" header="ID" sortable style={{ width: '15%' }} />
                 <Column field="name" header="Nama" sortable style={{ width: '15%' }} />
             </DataTable>

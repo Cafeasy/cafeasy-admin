@@ -44,15 +44,19 @@ const DataTransaksicomp = () => {
         <br></br> <br></br>
         <div className="datatable-crud-demo">
         <div className="card">
-            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }}  scrollable scrollHeight="400px"  >
-                <Column field="idTransaksi" header="ID Transaksi" sortable style={{ width: '15%' }} columnResizeMode="fit" />
-                <Column field="idPelanggan" header="ID Pelanggan" sortable style={{ width: '15%' }} />
-                <Column field="namaPelanggan" header="Nama Pelanggan" sortable style={{ width: '15%' }} />
-                <Column field="tanggal" header="Tanggal" sortable style={{ width: '15%' }} />
-                <Column field="noMeja" header="No Meja" sortable style={{ width: '15%' }} />
-                <Column field="" header="Data Pesanan" sortable style={{ width: '15%' }} />
-                <Column field="totalHarga" header="No Meja" sortable style={{ width: '15%' }} />
-                <Column field="statusBayar" header="Data Pesanan" sortable style={{ width: '15%' }} />
+            <DataTable value={arr} header={header} 
+            resizableColumns 
+            showGridlines 
+            tableStyle={{ minWidth: '50rem' }}  
+            scrollable scrollHeight="500px"  >
+                <Column field="idTransaksi" header="ID Transaksi" sortable style={{ minWidth: "10rem" }} columnResizeMode="fit" ></Column>
+                <Column field="idPelanggan" header="ID Pelanggan" sortable style={{ minWidth: "10rem"  }} ></Column>
+                <Column field="namaPelanggan" header="Nama Pelanggan" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="tanggal" header="Tanggal" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="noMeja" header="No Meja" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="" header="Data Pesanan" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="totalHarga" header="No Meja" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="statusBayar" header="Data Pesanan" sortable style={{ minWidth: "10rem" }} ></Column>
             </DataTable>
           </div>
         </div>

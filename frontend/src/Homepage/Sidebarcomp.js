@@ -13,7 +13,6 @@ function Sidebarcomp () {
 
     const showSidebar = () => setSidebar(!sidebar);
     return (
-        <>
         <IconContext.Provider value={{ color: '#fff' }}>
           <div className='navbar'>
             <Link to='#' className='menu-bars'>
@@ -21,7 +20,7 @@ function Sidebarcomp () {
             </Link>
           </div>
           <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-            <ul className='nav-menu-items' onClick={showSidebar}>
+            <ul className='nav-menu-items'>
               <li className='navbar-toggle'>  
                 <Link to='#' className='menu-bars'>
                 <img src={logodannama} alt="Logo" />
@@ -41,7 +40,6 @@ function Sidebarcomp () {
             </ul>
           </nav>
         </IconContext.Provider>
-      </>
     );
   }
 
