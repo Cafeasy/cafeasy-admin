@@ -93,7 +93,7 @@
   }
 
   .container {
-    padding-left: 0;
+    padding-left: 10%;
   }
   
   .table-title {        
@@ -180,11 +180,3 @@ background-color: #2A3042;
 color: #fff;
 }
 
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  font-size: 80%;
-  display: flex;
-}

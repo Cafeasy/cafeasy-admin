@@ -28,11 +28,5 @@ export const Sidebardata = [
     path: '/DataPelanggan',
     icon: <AiIcons.AiFillCustomerService />,
     cName: 'nav-text'
-  },
-  {
-    title: 'Data Riwayat Transaksi',
-    path: '/DataRiwayat',
-    icon: <FaIcons.FaHandshake />,
-    cName: 'nav-text'
-  },
+  }
 ];

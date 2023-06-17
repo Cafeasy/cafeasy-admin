@@ -1,128 +1,64 @@
 import React, { useState, useEffect } from "react";
+import "../Crud/Crud.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import '../Crud/Crud.css';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from "primereact/inputtext";
 
-const DataTransaksiComp = () => {
-  const [users, setUser] = useState([]);
+const DataTransaksicomp = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(` ${process.env.REACT_APP_API_URL}/transaksi/`)
+      .then((result) => {
+        setData(result.data);
+      })
+      .catch((error) => console.log(error));
+  }, [data]);
 
-// useEffect(() => {
-//     loadUsers();
-//   }, []);
+  const [globalFilter, setGlobalFilter] = useState(null);
+  
+  const header = (
+    <div className="table-header">
+      <h5 className="mx-0 my-1">Manage Products</h5>
+      <span className="p-input-icon-left">
+        <i className="pi pi-search" />
+        <InputText
+          type="search"
+          onInput={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  );
 
-//   const loadUsers = async () => {
-//     const result = await axios.get(process.env.REACT_APP_API_URL);
-//     setUser(result.data.reverse());
-//   };
+  console.log(data);
 
-//   const deleteUser = async id => {
-//     await axios.delete(process.env.REACT_APP_API_URL$);
-//     loadUsers();
-//   };
+  let arr = data.data ?? [];
 
-const [data, setData] = useState([]);
-useEffect(() => {
-  axios
-    .get(` ${process.env.REACT_APP_API_URL}/riwayatTransaksi/`)
-    .then((result) => {
-      setData(result.data);
-    })
-    .catch((error) => console.log(error));
-}, [data]);
-
-let arr = data.data ?? [];
   return (
     <div className="container">
-    <div className="py-4">
-    <br></br>
-      <div className="title-crud"> DATA TRANSAKSI </div>
-      <br></br> <br></br>
-      <div class="table-title">
-					<div class="row">
-						<div class="col-xs-4">
-							<h4> <b>Deskripsi Transaksi</b></h4>
-						</div>
-						<div class="col-xs-4">				
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                Import Inventory</button>						
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                Export as Spreadsheet</button>				
-            <button 
-                type="button" 
-                class="btn btn-secondary" 
-                data-toggle="modal" 
-                data-target="#exampleModalCenter">
-                New Item</button>
-						</div>
-					</div>
-				</div>
-        <div className="teks_atas">
-        <table class="table border shadow">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Id Transaksi</th>
-              <th scope="col">Id Pelanggan</th>
-              <th scope="col">Nama Pelanggan</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">No Meja</th>
-              <th scope="col">Total Harga</th>
-              <th scope="col">Status Bayar</th>
-              <th>Action</th>
-            </tr>
-
-            {arr?.map((item, index) => (
-              <>
-                <tr className="text-title1">
-                  <td>{item.idTransaksi}</td>
-                  <td>{item.idPelanggan}</td>
-                  <td>{item.namaPelanggan}</td>
-                  <td>{item.tanggal}</td>
-                  <td>{item.noMeja}</td>
-                  <td>{item.totalHarga}</td>
-                  <td>{item.statusBayar}</td>
-                </tr>
-              </>
-            ))}
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row">{index + 1}</th>
-                <td>{user.idTransaksi}</td>
-                <td>{user.idPelanggan}</td>
-                <td>{user.namaPelanggan}</td>
-                <td>{user.tanggal}</td>
-                <td>{user.noMeja}</td>
-                <td>{}</td>
-                <td>{user.totalHarga}</td>
-                <td>{user.statusBayar}</td>
-                <td>
-              <Link
-                  class="btn btn-outline-primary mr-2"
-                  to={`/users/edit/${user.id}`}
-                >
-                  Edit
-                </Link>
-                <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
-                  Detail
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="py-4">
+        <br></br>
+        <div className="title-crud"> DATA TRANSAKSI </div>
+        <br></br> <br></br>
+        <div className="datatable-crud-demo">
+        <div className="card">
+            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }}   >
+                <Column field="idTransaksi" header="ID Transaksi" sortable style={{ width: '15%' }} columnResizeMode="fit" />
+                <Column field="idPelanggan" header="ID Pelanggan" sortable style={{ width: '15%' }} />
+                <Column field="namaPelanggan" header="Nama Pelanggan" sortable style={{ width: '15%' }} />
+                <Column field="tanggal" header="Tanggal" sortable style={{ width: '15%' }} columnResizeMode="fit" />
+                <Column field="noMeja" header="No Meja" sortable style={{ width: '15%' }} />
+                <Column field="" header="Data Pesanan" sortable style={{ width: '15%' }} />
+                <Column field="totalHarga" header="No Meja" sortable style={{ width: '15%' }} />
+                <Column field="statusBayar" header="Data Pesanan" sortable style={{ width: '15%' }} />
+            </DataTable>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
-};
+  );
+}
 
-export default DataTransaksiComp;
+export default DataTransaksicomp;
