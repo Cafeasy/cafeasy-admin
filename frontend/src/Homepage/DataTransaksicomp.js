@@ -20,7 +20,7 @@ const DataTransaksicomp = () => {
   
   const header = (
     <div className="table-header">
-      <h5 className="mx-0 my-1">Manage Products</h5>
+      <h5 className="mx-0 my-1">Deskripsi Transaksi</h5>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -44,11 +44,11 @@ const DataTransaksicomp = () => {
         <br></br> <br></br>
         <div className="datatable-crud-demo">
         <div className="card">
-            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }}   >
+            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }}  scrollable scrollHeight="400px"  >
                 <Column field="idTransaksi" header="ID Transaksi" sortable style={{ width: '15%' }} columnResizeMode="fit" />
                 <Column field="idPelanggan" header="ID Pelanggan" sortable style={{ width: '15%' }} />
                 <Column field="namaPelanggan" header="Nama Pelanggan" sortable style={{ width: '15%' }} />
-                <Column field="tanggal" header="Tanggal" sortable style={{ width: '15%' }} columnResizeMode="fit" />
+                <Column field="tanggal" header="Tanggal" sortable style={{ width: '15%' }} />
                 <Column field="noMeja" header="No Meja" sortable style={{ width: '15%' }} />
                 <Column field="" header="Data Pesanan" sortable style={{ width: '15%' }} />
                 <Column field="totalHarga" header="No Meja" sortable style={{ width: '15%' }} />

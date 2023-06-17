@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "../Crud/Crud.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from "primereact/inputtext";
 
 const DataPelanggancomp = () => {
-  const [users, setUser] = useState([]);
-
-  // useEffect(() => {
-  //   loadUsers();
-  // }, []);
-
-  // const loadUsers = async () => {
-  //   const result = await axios.get(process.env.REACT_APP_API_URL);
-  //   setUser(result.data.reverse());
-  // };
-
-  // const deleteUser = async id => {
-  //   await axios.delete(process.env.REACT_APP_API_URL$);
-  //   loadUsers();
-  // };
-
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
@@ -29,82 +16,43 @@ const DataPelanggancomp = () => {
       .catch((error) => console.log(error));
   }, [data]);
 
+  const [globalFilter, setGlobalFilter] = useState(null);
+  
+  const header = (
+    <div className="table-header">
+      <h5 className="mx-0 my-1">Deskripsi Pelanggan</h5>
+      <span className="p-input-icon-left">
+        <i className="pi pi-search" />
+        <InputText
+          type="search"
+          onInput={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  );
+
+  console.log(data);
+
   let arr = data.data ?? [];
 
   return (
     <div className="container">
-    <div className="py-4">
-      <br></br>
-      <div className="title-crud"> DATA PELANGGAN </div>
-      <br></br> <br></br>
-      <div class="table-title">
-					<div class="row">
-						<div class="col-xs-4">
-							<h4> <b>Deskripsi Pelanggan</b></h4>
-						</div>
-						<div class="col-xs-4">					
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                Import Inventory</button>						
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                Export as Spreadsheet</button>				
-            <button type="button" 
-                class="btn btn-secondary" 
-                data-toggle="modal" 
-                data-target="#exampleModalCenter">
-                New Item</button>
-						</div>
-					</div>
-				</div>
-        <div className="teks_atas">
-        <table class="table border shadow">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Nama</th>
-            </tr>
-
-            {arr?.map((item, index) => (
-              <>
-                <tr className="text-title1">
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                </tr>
-              </>
-            ))}
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row">{index + 1}</th>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>
-              <Link
-                  class="btn btn-outline-primary mr-2"
-                  to={`/users/edit/${user.id}`}
-                >
-                  Edit
-                </Link>
-                <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
-                  Detail
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="py-4">
+        <br></br>
+        <div className="title-crud"> DATA PELANGGAN </div>
+        <br></br> <br></br>
+        <div className="datatable-crud-demo">
+        <div className="card">
+            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }} scrollable scrollHeight="400px"  >
+                <Column field="id" header="ID" sortable style={{ width: '15%' }} />
+                <Column field="name" header="Nama" sortable style={{ width: '15%' }} />
+            </DataTable>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
-};
+  );
+}
 
 export default DataPelanggancomp;

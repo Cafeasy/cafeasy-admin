@@ -20,7 +20,7 @@ const DataMenucomp = () => {
   
   const header = (
     <div className="table-header">
-      <h5 className="mx-0 my-1">Manage Products</h5>
+      <h5 className="mx-0 my-1">Deskripsi Menu</h5>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -44,8 +44,8 @@ const DataMenucomp = () => {
         <br></br> <br></br>
         <div className="datatable-crud-demo">
         <div className="card">
-            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }}   >
-                <Column field="idMenu" header="Id Menu" sortable style={{ width: '15%' }} columnResizeMode="fit" />
+            <DataTable value={arr} header={header} resizableColumns columnResizeMode="fit" showGridlines stripedRows tableStyle={{ minWidth: '50rem' }} scrollable scrollHeight="400px"  >
+                <Column field="idMenu" header="ID Menu" sortable style={{ width: '15%' }} columnResizeMode="fit" />
                 <Column field="namaMenu" header="Nama Menu" sortable style={{ width: '15%' }} />
                 <Column field="hargaMenu" header="Harga Menu" sortable style={{ width: '15%' }} />
                 <Column field="stokMenu" header="Stok Menu" sortable style={{ width: '15%' }} />
