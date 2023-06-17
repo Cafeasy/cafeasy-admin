@@ -1,4 +1,4 @@
-  .App {
+.App {
     width: 100vw;
     height: 100vh;
     
@@ -180,3 +180,11 @@ background-color: #2A3042;
 color: #fff;
 }
 
+.card {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 90%;
+  display: flex;
+}

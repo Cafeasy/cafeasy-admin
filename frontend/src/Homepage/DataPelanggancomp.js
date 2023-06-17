@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Persediaancomp = () => {
+const DataPelanggancomp = () => {
   const [users, setUser] = useState([]);
 
   // useEffect(() => {
@@ -54,7 +54,7 @@ const Persediaancomp = () => {
                 appearance="primary"
                 type="file" 
                 class="btn btn-secondary">
-                Export as Excel</button>				
+                Export as Spreadsheet</button>				
             <button type="button" 
                 class="btn btn-secondary" 
                 data-toggle="modal" 
@@ -107,4 +107,4 @@ const Persediaancomp = () => {
 );
 };
 
-export default Persediaancomp;
+export default DataPelanggancomp;

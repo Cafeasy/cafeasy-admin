@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import '../Crud/Crud.css';
 
-const Pembukuancomp = () => {
+const DataTransaksiComp = () => {
   const [users, setUser] = useState([]);
 
 // useEffect(() => {
@@ -54,7 +54,7 @@ let arr = data.data ?? [];
                 appearance="primary"
                 type="file" 
                 class="btn btn-secondary">
-                Export as Excel</button>				
+                Export as Spreadsheet</button>				
             <button 
                 type="button" 
                 class="btn btn-secondary" 
@@ -125,4 +125,4 @@ let arr = data.data ?? [];
 );
 };
 
-export default Pembukuancomp;
+export default DataTransaksiComp;

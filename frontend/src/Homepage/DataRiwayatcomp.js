@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Kelolacomp = () => {
+const DataRiwayatcomp = () => {
   const [users, setUser] = useState([]);
 
   // useEffect(() => {
@@ -60,7 +60,7 @@ const Kelolacomp = () => {
                 type="file"
                 class="btn btn-secondary"
               >
-                Export as Excel
+                Export as Spreadsheet
               </button>
               <button
                 type="button"
@@ -132,4 +132,4 @@ const Kelolacomp = () => {
   );
 };
 
-export default Kelolacomp;
+export default DataRiwayatcomp;

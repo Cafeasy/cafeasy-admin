@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
-const Kelolacomp = () => {
-  const [users, setUser] = useState([]);
+
+const DataMenucomp = () => {
 
   // useEffect(() => {
   //   loadUsers();
@@ -18,7 +19,6 @@ const Kelolacomp = () => {
   //   await axios.delete(process.env.REACT_APP_API_URL$);
   //   loadUsers();
   // };
-
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
@@ -29,8 +29,10 @@ const Kelolacomp = () => {
       .catch((error) => console.log(error));
   }, [data]);
 
+  console.log(data);
+  
   let arr = data.data ?? [];
-  console.log(arr);
+
   return (
     <div className="container">
       <div className="py-4">
@@ -60,7 +62,7 @@ const Kelolacomp = () => {
                 type="file"
                 class="btn btn-secondary"
               >
-                Export as Excel
+                Export as Spreadsheet
               </button>
               <button
                 type="button"
@@ -73,61 +75,19 @@ const Kelolacomp = () => {
             </div>
           </div>
         </div>
-        <div className="teks_atas">
-        <table class="table border shadow">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Nama Menu</th>
-              <th scope="col">Harga Stok</th>
-              <th scope="col">Stok Menu</th>
-              <th scope="col">Deskripsi Menu</th>
-              <th scope="col">Kategori Menu</th>
-              <th>Action</th>
-            </tr>
-
-            {arr?.map((item, index) => (
-              <>
-                <tr className="text-title1">
-                  <td>{item.idMenu}</td>
-                  <td>{item.namaMenu}</td>
-                  <td>{item.hargaMenu}</td>
-                  <td>{item.stokMenu}</td>
-                  <td>{item.deskripsiMenu}</td>
-                  <td>{item.kategoriMenu}</td>
-                </tr>
-              </>
-            ))}
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row">{index + 1}</th>
-                <td>{user.idMenu}</td>
-                <td>{user.namaMenu}</td>
-                <td>{user.hargaMenu}</td>
-                <td>{user.stokMenu}</td>
-                <td>{user.deskripsiMenu}</td>
-                <td>{user.kategoriMenu}</td>
-                <td>
-                  <Link
-                    class="btn btn-outline-primary mr-2"
-                    to={`/users/edit/${user.id}`}
-                  >
-                    Edit
-                  </Link>
-                  <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
-                    Detail
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        </div>
+        <div className="card">
+            <DataTable value={arr} tableStyle={{ minWidth: '50rem' }}>
+                <Column field="idMenu" header="Id Menu" />
+                <Column field="namaMenu" header="Nama Menu" />
+                <Column field="hargaMenu" header="Harga Menu" />
+                <Column field="stokMenu" header="Stok Menu" />
+                <Column field="deskripsiMenu" header="Deskripsi Menu" />
+                <Column field="kategoriMenu" header="Kategori Menu" />
+            </DataTable>
+    </div>
       </div>
     </div>
   );
-};
+}
 
-export default Kelolacomp;
+export default DataMenucomp;
