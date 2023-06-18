@@ -27,7 +27,9 @@ const DataMenucomp = () => {
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Menu</h5>
-      <Button label="Secondary" severity="secondary" outlined />
+      <Button label="New Item" severity="secondary" outlined />
+      <Button label="Export as Spreedsheet" severity="secondary" outlined />
+      <Button label="Import Inventory" severity="secondary" outlined />
       <span className="p-input-icon-left" > 
         <i className="pi pi-search" />
         <InputText
@@ -58,6 +60,11 @@ const DataMenucomp = () => {
             tableStyle={{ minWidth: '50rem' }} 
             scrollable scrollHeight="500px" 
             globalFilter={globalFilter}
+            paginator
+            rows={10}
+            rowsPerPageOptions={[5, 10, 25]}
+            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
             >
                 <Column field="idMenu" header="ID Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="namaMenu" header="Nama Menu" sortable style={{ minWidth: "10rem" }} ></Column>

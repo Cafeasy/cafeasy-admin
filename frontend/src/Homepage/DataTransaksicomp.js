@@ -48,7 +48,14 @@ const DataTransaksicomp = () => {
             resizableColumns 
             showGridlines 
             tableStyle={{ minWidth: '50rem' }}  
-            scrollable scrollHeight="500px"  >
+            scrollable scrollHeight="500px"  
+            globalFilter={globalFilter}
+            paginator
+            rows={10}
+            rowsPerPageOptions={[5, 10, 25]}
+            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+            >
                 <Column field="idTransaksi" header="ID Transaksi" sortable style={{ minWidth: "10rem" }} columnResizeMode="fit" ></Column>
                 <Column field="idPelanggan" header="ID Pelanggan" sortable style={{ minWidth: "10rem"  }} ></Column>
                 <Column field="namaPelanggan" header="Nama Pelanggan" sortable style={{ minWidth: "10rem" }} ></Column>

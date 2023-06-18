@@ -50,7 +50,14 @@ const DataPelanggancomp = () => {
             showGridlines 
             stripedRows 
             tableStyle={{ minWidth: '50rem' }} 
-            scrollable scrollHeight="500px"  >
+            scrollable scrollHeight="500px"  
+            globalFilter={globalFilter}
+            paginator
+            rows={10}
+            rowsPerPageOptions={[5, 10, 25]}
+            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+            >
                 <Column field="id" header="ID" sortable style={{ width: '15%' }} />
                 <Column field="name" header="Nama" sortable style={{ width: '15%' }} />
             </DataTable>
