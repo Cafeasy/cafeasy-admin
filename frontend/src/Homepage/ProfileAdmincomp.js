@@ -1,132 +1,77 @@
 import React, { useState, useEffect } from "react";
+import "../Crud/Crud.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import '../Crud/Crud.css';
+import { DataTable } from 'primereact/datatable';
+import { ToggleButton } from 'primereact/togglebutton';
+import { Column } from 'primereact/column';
+import { InputText } from "primereact/inputtext";
 
-const ProfileAdmincomp = (value) => {
-  const [users, setUser] = useState([]);
+const ProfileAdmincomp = ({idAdmin}) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetchData(idAdmin);
+  }, [data]);
 
-// useEffect(() => {
-//     loadUsers();
-//   }, []);
+  const fetchData = async (idAdmin) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile/${idAdmin}`);
+      console.log(response.data); // Handle the response data
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-//   const loadUsers = async () => {
-//     const result = await axios.get(process.env.REACT_APP_API_URL);
-//     setUser(result.data.reverse());
-//   };
+  const [globalFilter, setGlobalFilter] = useState(null);
+  
+  const header = (
+    <div className="table-header">
+      <h5 className="mx-0 my-1">Deskripsi Admin</h5>
+      <span className="p-input-icon-left">
+        <i className="pi pi-search" />
+        <InputText
+          type="search"
+          onInput={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  );
 
-//   const deleteUser = async id => {
-//     await axios.delete(process.env.REACT_APP_API_URL$);
-//     loadUsers();
-//   };
+  console.log(data);
 
-const [data, setData] = useState([]);
-useEffect(() => {
-  axios
-    .get(` ${process.env.REACT_APP_API_URL}/profile/`)
-    .then((result) => {
-      setData(result.data);
-    })
-    .catch((error) => console.log(error));
-}, [data]);
+  let arr = data.data ?? [];
 
-let arr = data.data ?? [];
   return (
     <div className="container">
-    <div className="py-4">
-    <br></br>
-      <div className="title-crud"> PROFILE ADMIN </div>
-      <br></br> <br></br>
-      <div class="table-title">
-					<div class="row">
-						<div class="col-xs-4">
-							<h4> <b>Deskripsi Profile</b></h4>
-						</div>
-						<div class="col-xs-4">	
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                Import Inventory</button>						
-            <button
-                color="red"
-                appearance="primary"
-                type="file" 
-                class="btn btn-secondary">
-                Export as Spreadsheet</button>				
-            <button 
-                type="button" 
-                class="btn btn-secondary" 
-                data-toggle="modal" 
-                data-target="#exampleModalCenter">
-                New Item</button>
-						</div>
-					</div>
-				</div>
-        <div className="teks_atas">
-        <table class="table border shadow">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Id Admin</th>
-              <th scope="col">Email Cafe</th>
-              <th scope="col">Username</th>
-              <th scope="col">Password</th>
-              <th scope="col">Nama Cafe</th>
-              <th scope="col">Alamat Cafe</th>
-              <th scope="col">Deskripsi Cafe</th>
-              <th scope="col">Nama Pemilik Cafe</th>
-              <th scope="col">No Hp</th>
-              <th scope="col">Image</th>
-            </tr>
-
-            {arr?.map((item, index) => (
-              <>
-                <tr className="text-title1">
-                  <td>{item.idAdmin}x</td>
-                  <td>{item.emailCafe}x</td>
-                  <td>{item.username}x</td>
-                  <td>{item.password}x</td>
-                  <td>{item.namaCafe}x</td>
-                  <td>{item.alamatCafe}x</td>
-                  <td>{item.deskripsiCafe}x</td>
-                  <td>{item.namaPemilikCafe}x</td>
-                  <td>{item.noHpCafe}x</td>
-                </tr>
-              </>
-            ))}
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr>
-                <th scope="row">{index + 1}</th>
-                <td>{user.idTransaksi}</td>
-                <td>{user.idPelanggan}</td>
-                <td>{user.namaPelanggan}</td>
-                <td>{user.tanggal}</td>
-                <td>{user.noMeja}</td>
-                <td>{}</td>
-                <td>{user.totalHarga}</td>
-                <td>{user.statusBayar}</td>
-                <td>
-              <Link
-                  class="btn btn-outline-primary mr-2"
-                  to={`/users/edit/${user.id}`}
-                >
-                  Edit
-                </Link>
-                <Link class="btn btn-primary mr-2" to={`/users/${user.id}`}>
-                  Detail
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="py-4">
+        <br></br>
+        <div className="title-crud"> PROFILE ADMIN </div>
+        <br></br> <br></br>
+        <div className="datatable-crud-demo">
+        <div className="card">
+            <DataTable value={arr} header={header} 
+            resizableColumns
+            showGridlines 
+            stripedRows 
+            tableStyle={{ minWidth: '50rem' }} 
+            scrollable scrollHeight="500px"  >
+                <Column field="idAdmin" header="ID Admin" sortable style={{ width: '15%' }} />
+                <Column field="emailCafe" header="Email Cafe" sortable style={{ width: '15%' }} />
+                <Column field="username" header="Username" sortable style={{ width: '15%' }} />
+                <Column field="password" header="Password" sortable style={{ width: '15%' }} />
+                <Column field="namaCafe" header="Nama Cafe" sortable style={{ width: '15%' }} />
+                <Column field="alamatCafe" header="Alamat Cafe" sortable style={{ width: '15%' }} />
+                <Column field="deskripsiCafe" header="Deskripsi Cafe" sortable style={{ width: '15%' }} />
+                <Column field="namaPemilikCafe" header="Nama Pemilik" sortable style={{ width: '15%' }} />
+                <Column field="noHpCafe" header="No HP" sortable style={{ width: '15%' }} />
+                <Column field="image" header="Gambar" sortable style={{ width: '15%' }} />
+                <Column field="imageUrl" header="" sortable style={{ width: '15%' }} />
+            </DataTable>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-);
-};
+  );
+}
 
 export default ProfileAdmincomp;
