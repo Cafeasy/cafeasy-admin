@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import * as MdIcons from 'react-icons/md';
 import "../Crud/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from "primereact/inputtext";
+import { Button } from 'primereact/button';
 
 const DataMenucomp = () => {
   const [data, setData] = useState([]);
@@ -16,7 +18,7 @@ const DataMenucomp = () => {
       .catch((error) => console.log(error));
   }, [data]);
 
-  const imageBodyTemplate = (data) => {
+  const imageBody = (data) => {
     return <img src={`https://firebasestorage.googleapis.com/v0/b/cafeasy-y543f4c.appspot.com/o/menuPict%2Fmenu-cmg5hi?alt=media&token=f38e42a9-5248-47e9-9e5b-7fcdd19b5624${data.image}`} alt={data.image} className="w-6rem shadow-2 border-round" />;
 };
 
@@ -25,8 +27,11 @@ const DataMenucomp = () => {
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Menu</h5>
+      <Button type="button" label="Secondary" severity="secondary" text raised  />
+      <Button type="button" icon="pi pi-file-excel" />
+      <Button type="button" icon="pi pi-file-pdf" />
       <span className="p-input-icon-left">
-        <i className="pi pi-search" />
+        <i />
         <InputText
           type="search"
           onInput={(e) => setGlobalFilter(e.target.value)}
@@ -61,7 +66,7 @@ const DataMenucomp = () => {
                 <Column field="stokMenu" header="Stok Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="kategoriMenu" header="Kategori Menu" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column field="image" header="Gambar" body={imageBodyTemplate} sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="image" header="Gambar" body={imageBody} sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column header="Aksi" exportable={false} sortable style={{ minWidth: "10rem" }} ></Column>
             </DataTable>
           </div>

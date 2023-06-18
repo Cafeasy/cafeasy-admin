@@ -55,8 +55,8 @@ const DataTransaksicomp = () => {
                 <Column field="tanggal" header="Tanggal" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="noMeja" header="No Meja" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="" header="Data Pesanan" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column field="totalHarga" header="No Meja" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column field="statusBayar" header="Data Pesanan" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="totalHarga" header="Total Harga" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="statusBayar" header="Status Bayar" sortable style={{ minWidth: "10rem" }} ></Column>
             </DataTable>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import * as MdIcons from 'react-icons/md';
 import * as CgIcons from 'react-icons/cg';
 import * as AiIcons from 'react-icons/ai';
-import * as FaIcons from 'react-icons/fa';
+import * as HiIcons from 'react-icons/hi';
 
 export const Sidebardata = [
   {
@@ -26,7 +26,7 @@ export const Sidebardata = [
   {
     title: 'Data Pelanggan',
     path: '/DataPelanggan',
-    icon: <AiIcons.AiFillCustomerService />,
+    icon: <HiIcons.HiUserGroup />,
     cName: 'nav-text'
   }
 ];
