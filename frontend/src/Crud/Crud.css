@@ -97,67 +97,6 @@ h1 {
     }
 }
 
-.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
-    border-width: 1px;
-}
-
-.p-datatable-resizable .p-datatable-thead > tr > th, .p-datatable-resizable .p-datatable-tfoot > tr > td, .p-datatable-resizable .p-datatable-tbody > tr > td {
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.p-datatable .p-datatable-tbody > tr > td {
-    text-align: left;
-    border: 1px solid #dee2e6;
-    border-width: 0 0 1px 0;
-    padding: 1rem 1rem;
-}
-
-td {
-    display: table-cell;
-    vertical-align: inherit;
-}
-
-.p-datatable .p-datatable-tbody > tr {
-    background: #ffffff;
-    color: #495057;
-    transition: box-shadow 0.2s;
-}
-
-.p-datatable-selectable .p-selectable-row, .p-datatable-selectable-cell .p-selectable-cell {
-    cursor: pointer;
-}
-
-table {
-    border-collapse: separate;
-    text-indent: initial;
-    border-spacing: 2px;
-}
-
-.p-datatable table {
-    border-collapse: collapse;
-    min-width: 100%;
-    table-layout: fixed;
-}
-
-.p-datatable .p-sortable-column.p-highlight:not(.p-sortable-disabled):hover {
-    background: #EEF2FF;
-    color: #4338CA;
-}
-
-.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
-    border-width: 1px 1px 1px 1px;
-}
-
-.p-datatable .p-sortable-column.p-highlight {
-    background: #EEF2FF;
-    color: #4338CA;
-}
-
-.p-datatable-resizable > .p-datatable-wrapper {
-    overflow-x: auto;
-}
-                
 .p-datatable .p-datatable-thead > tr > th {
     text-align: left;
     padding: 1rem 1rem;
@@ -169,74 +108,12 @@ table {
     transition: box-shadow 0.2s;
 }
 
-.p-inputtext {
-    margin: 0;
+.p-datatable .p-sortable-column.p-highlight {
+  background: #EEF2FF;
+  color: #4338CA;
 }
 
-.p-input-icon-left > .p-inputtext {
-    padding-left: 2.5rem;
-}
-
-.p-inputtext {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 1rem;
-    color: #495057;
-    background: #ffffff;
-    padding: 0.75rem 0.75rem;
-    border: 1px solid #ced4da;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    appearance: none;
-    border-radius: 6px;
-}
-
-/* Gambar Crud */
-.w-6rem {
-    width: 6rem !important;
-}
-
-.border-round {
-    border-radius: 10%;
-}
-
-img {
-    overflow-clip-margin: content-box;
-    overflow: clip;
-}
-
-.shadow-2 {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 2px 6px rgba(0, 0, 0, 0.12) !important;
-}
-
-.p-button.p-button-secondary.p-button-text {
-    color: #0054ca;
-    border-color: transparent;
-}
-
-.p-button.p-button-secondary {
-    background: #b8b8b8;
-    border: 1px solid #f8f8f8;
-}
-
-.p-button {
-    margin: 0;
-    display: inline-flex;
-    cursor: pointer;
-    user-select: none;
-    align-items: center;
-    vertical-align: bottom;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
-    padding: 0.75rem 1.25rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    border-radius: 6px;
-}
-
-.p-button .p-button-label {
-    transition-duration: 0.2s;
-}
-
-.p-button-label {
-    flex: 1 1 auto;
+.p-icon {
+  display: inline-block;
+  color: #EEF2FF;
 }

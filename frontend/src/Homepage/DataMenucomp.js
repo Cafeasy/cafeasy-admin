@@ -27,11 +27,9 @@ const DataMenucomp = () => {
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Menu</h5>
-      <Button type="button" label="Secondary" severity="secondary" text raised  />
-      <Button type="button" icon="pi pi-file-excel" />
-      <Button type="button" icon="pi pi-file-pdf" />
-      <span className="p-input-icon-left">
-        <i />
+      <Button label="Secondary" severity="secondary" outlined />
+      <span className="p-input-icon-left" > 
+        <i className="pi pi-search" />
         <InputText
           type="search"
           onInput={(e) => setGlobalFilter(e.target.value)}
@@ -59,6 +57,7 @@ const DataMenucomp = () => {
             stripedRows 
             tableStyle={{ minWidth: '50rem' }} 
             scrollable scrollHeight="500px" 
+            globalFilter={globalFilter}
             >
                 <Column field="idMenu" header="ID Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="namaMenu" header="Nama Menu" sortable style={{ minWidth: "10rem" }} ></Column>
