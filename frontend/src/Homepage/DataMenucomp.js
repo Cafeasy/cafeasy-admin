@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import * as MdIcons from 'react-icons/md';
 import "../Crud/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
@@ -72,7 +71,7 @@ const DataMenucomp = () => {
                 <Column field="namaMenu" header="Nama Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="hargaMenu" header="Harga Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="stokMenu" header="Stok Menu" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ minWidth: "10rem" }}  ></Column>
                 <Column field="kategoriMenu" header="Kategori Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="image" header="Gambar" body={imageBody} sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column header="Aksi" exportable={false} style={{ minWidth: '12rem' }} ></Column>
