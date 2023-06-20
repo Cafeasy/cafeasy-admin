@@ -55,6 +55,7 @@ h1 {
 
 .card {
     margin-bottom: 2rem;
+    -webkit-line-clamp: 2;
   }
 
   

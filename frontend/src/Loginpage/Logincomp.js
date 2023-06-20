@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import logodannama from "../Photos/logodannama.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
+import ProfileAdmincomp from "../Homepage/ProfileAdmincomp";
 
 const Logincomp = () => {
   const [username, setUsername] = useState("");
@@ -34,6 +36,8 @@ const Logincomp = () => {
 
     // Find user login info
     const userData = database.find((user) => user.username === uname.value);
+
+    window.location.href = "./ProfileAdmin";
 
     // Compare user info
     if (userData) {
