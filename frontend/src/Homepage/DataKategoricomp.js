@@ -63,8 +63,9 @@ const DataPelanggancomp = () => {
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
             >
                 <Column selectionMode="multiple" headerStyle={{ width: "0.5%" }} exportable={false} ></Column>
-                <Column field="idKategori" header="ID Kategori" sortable style={{ width: '15%' }} />
-                <Column field="namaKategori" header="Nama Kategori" sortable style={{ width: '15%' }} />
+                <Column field="idKategori" header="ID Kategori" sortable style={{ width: '30%' }} />
+                <Column field="namaKategori" header="Nama Kategori" sortable style={{ width: '30%' }} />
+                <Column header="Aksi" exportable={false} style={{ Width: '5%' }} ></Column>
             </DataTable>
           </div>
         </div>
