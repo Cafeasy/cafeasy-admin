@@ -9,7 +9,7 @@ import '../Photos/logodannama.png';
 import { IconContext } from 'react-icons';
 
 function Sidebarcomp () {
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(true);
 
     const showSidebar = () => setSidebar(!sidebar);
     return (

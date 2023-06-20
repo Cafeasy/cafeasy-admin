@@ -10,14 +10,14 @@ import {
 } from "react-router-dom";
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
-import "./Loginpage/Loginpage.css";
-import "./Homepage/Sidebarpage.css";
-import "./App.css";
 import ProfileAdminpage from "./Homepage/ProfileAdminpage";
 import DataMenupage from "./Homepage/DataMenupage";
 import DataTransaksipage from "./Homepage/DataTransaksipage";
 import DataPelangganpage from "./Homepage/DataPelangganpage";
 import DataKategoripage from "./Homepage/DataKategoripage";
+import "./Loginpage/Loginpage.css";
+import "./Homepage/Sidebarpage.css";
+import "./App.css";
 
 const App = () => {
   return (
