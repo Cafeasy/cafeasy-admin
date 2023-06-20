@@ -81,10 +81,10 @@ const Logincomp = () => {
             <div className="click-button">
               <div className="row">
                 <div className="col-md-3">
-                  <a href="#">Login</a>
+                  <a href="">Login</a>
                 </div>
                 <div className="col-md-6">
-                  <a href="#">Daftar</a>
+                  <a href="RegisterAdmin">Daftar</a>
                 </div>
               </div>
             </div>

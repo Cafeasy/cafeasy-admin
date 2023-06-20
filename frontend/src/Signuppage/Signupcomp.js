@@ -46,10 +46,10 @@ const Signupcomp = () => {
             
             <div className='row'>
                 <div className='col-md-3'>
-                    <a href="#">Login</a>
+                    <a href="LoginAdmin">Login</a>
                 </div>
                 <div className='col-md-6'>
-                    <a href="#">Daftar</a>
+                    <a href="">Daftar</a>
                 </div>
             </div>
             <br></br>
@@ -172,7 +172,7 @@ const Signupcomp = () => {
             <div class="d-grid gap-2 mt-3">
               <button 
               type="submit" 
-              class="btn btn-light">
+              class="btn btn-secondary">
               Submit</button>
           </div>
         </div>
