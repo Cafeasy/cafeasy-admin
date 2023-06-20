@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "../Homepage/Sidebarpage.css";
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { Sidebardata } from './Sidebardata';
 import logodannama from '../Photos/logodannama.png';

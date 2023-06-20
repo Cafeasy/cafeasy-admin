@@ -15,6 +15,7 @@ import DataMenupage from "./Homepage/DataMenupage";
 import DataTransaksipage from "./Homepage/DataTransaksipage";
 import DataPelangganpage from "./Homepage/DataPelangganpage";
 import DataKategoripage from "./Homepage/DataKategoripage";
+import Landingpage from "./Landing/Landingpage";
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import "./App.css";
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
+          <Route exact path="/" element={<Landingpage />}></Route>
           <Route exact path="/LoginAdmin" element={<Loginpage />}></Route>
           <Route exact path="/RegisterAdmin" element={<Signuppage />}></Route>
           <Route exact path="/ProfileAdmin" element={<ProfileAdminpage />}></Route>
