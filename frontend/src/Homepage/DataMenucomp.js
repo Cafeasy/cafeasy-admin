@@ -9,7 +9,7 @@ import { InputText } from "primereact/inputtext";
 const DataMenucomp = () => {
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [selectedProducts, setSelectedProducts] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
   
   useEffect(() => {
     axios
@@ -21,7 +21,7 @@ const DataMenucomp = () => {
   }, [data]);
 
   const imageBody = (data) => {
-    return <img src={`https://firebasestorage.googleapis.com/v0/b/cafeasy-y543f4c.appspot.com/o/menuPict%2Fmenu-cmg5hi?alt=media&token=f38e42a9-5248-47e9-9e5b-7fcdd19b5624${data.image}`} alt={data.image} className="w-6rem shadow-2 border-round" />;
+    return <img src={data.imageUrl} alt={data.imageUrl} className="w-6rem shadow-2 border-round" />;
   };
   
   const header = (
@@ -62,7 +62,7 @@ const DataMenucomp = () => {
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
-            selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="idMenu"
+            selection={selectedData} onSelectionChange={(e) => setSelectedData(e.value)} dataKey="idMenu"
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
             >
@@ -73,7 +73,7 @@ const DataMenucomp = () => {
                 <Column field="stokMenu" header="Stok Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ minWidth: "10rem" }}  ></Column>
                 <Column field="kategoriMenu" header="Kategori Menu" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column field="image" header="Gambar" body={imageBody} sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="imageUrl" header="Gambar" body={imageBody} sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column header="Aksi" exportable={false} style={{ minWidth: '12rem' }} ></Column>
             </DataTable>
           </div>

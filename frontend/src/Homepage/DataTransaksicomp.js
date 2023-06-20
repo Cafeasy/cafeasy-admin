@@ -10,9 +10,9 @@ const DataTransaksicomp = () => {
   const [data, setData] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState(null);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const statusBodyTemplate = (data) => {
+  const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
-};
+  };
 
   useEffect(() => {
     axios
@@ -85,7 +85,7 @@ const DataTransaksicomp = () => {
                 <Column field="tanggal" header="Tanggal" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="noMeja" header="No Meja" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="totalHarga" header="Total Harga" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column header="Status Bayar" body={statusBodyTemplate} sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column header="Status Bayar" body={statusBody} sortable style={{ minWidth: "10rem" }} ></Column>
             </DataTable>
           </div>
         </div>
