@@ -8,11 +8,14 @@ import { InputText } from "primereact/inputtext";
 import { Tag } from 'primereact/tag';
 import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar"; 
+import { useParams } from "react-router-dom";
 
 const DataTransaksicomp = () => {
 
+  const params = useParams();
+  const urlParams = params.idUser;
+
   const [data, setData] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
@@ -34,6 +37,14 @@ const DataTransaksicomp = () => {
       })
       .catch((error) => console.log(error));
   }, [data]);
+
+  const deleteItem = (value) => {
+    console.log(value);
+    axios
+      .delete( `${process.env.REACT_APP_API_URL}/deleteTransaksiById/`+ urlParams)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   const leftToolbarTemplate = () => {
     return (
@@ -115,7 +126,7 @@ const DataTransaksicomp = () => {
             tableStyle={{ minWidth: '50rem' }}  
             scrollable scrollHeight="500px"  
             globalFilter={globalFilter}
-            selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="idTransaksi"
+            selection={selectedData} onSelectionChange={(e) => setSelectedData(e.value)} dataKey="idTransaksi"
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}

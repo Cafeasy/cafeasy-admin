@@ -11,7 +11,6 @@ import { Toolbar } from "primereact/toolbar";
 
 const DataPelanggancomp = () => {
   const [data, setData] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
@@ -91,7 +90,7 @@ const DataPelanggancomp = () => {
             tableStyle={{ minWidth: '50rem' }} 
             scrollable scrollHeight="500px"  
             globalFilter={globalFilter}
-            selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="id"
+            selection={selectedData} onSelectionChange={(e) => setSelectedData(e.value)} dataKey="id"
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
@@ -103,6 +102,7 @@ const DataPelanggancomp = () => {
                 <Column field="name" header="Nama" sortable style={{ width: '15%' }} />
             </DataTable>
           </div>
+          
         </div>
       </div>
     </div>

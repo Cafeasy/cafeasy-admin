@@ -10,6 +10,7 @@ import { Dialog } from "primereact/dialog";
 import { Toolbar } from "primereact/toolbar"; 
 import { classNames } from "primereact/utils";
 import { InputTextarea } from "primereact/inputtextarea";
+import { FileUpload } from 'primereact/fileupload';
 
   const DataMenucomp = () => {
   let emptyData = {
@@ -19,7 +20,7 @@ import { InputTextarea } from "primereact/inputtextarea";
     stokMenu: 0,
     deskripsiMenu: null,
     kategoriMenu: "",
-    imageUrl: 0,
+    image: "",
   };
 
   const [data, setData] = useState([]);
@@ -31,8 +32,9 @@ import { InputTextarea } from "primereact/inputtextarea";
   const toast = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
+  const [nama, setNama] = useState("");
+  const [gambar, setGambar] = useState("");
 
-  
   const hideDialog = () => {
     setSubmitted(false);
     setProductDialog(false);
@@ -112,21 +114,79 @@ import { InputTextarea } from "primereact/inputtextarea";
     setSubmitted(false);
     setProductDialog(true);
   };
+
+const onSubmit = async (e) => {
+    e.preventDefault();
+    const post = {
+      namaMenu: nama,
+      hargaMenu: "2000",
+      stokMenu: "1",
+      deskripsiMenu: "ssdssdsdsss",
+      kategoriMenu: "wqwqww",
+      image: gambar
+    };
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/insertMenu`,
+        post
+      );
+      console.log(res.data);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  const invoiceUploadHandler = ({files}) => {
+    const [file] = files;
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+        uploadInvoice(e.target.result);
+    };
+    fileReader.readAsDataURL(file);
+};
+
+const uploadInvoice = async (invoiceFile) => {
+  let formData = new FormData();
+  formData.append('invoiceFile', invoiceFile);
+
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/insertMenu`,
+      {
+          method: 'POST',
+          body: formData
+      },
+  );
+};
+
+  const [selectedImage, setSelectedImage] = useState();
+
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
+  const removeSelectedImage = () => {
+    setSelectedImage();
+  };
   
   const productDialogFooter = (
     <React.Fragment>
+            <form action="" id="login" method="post" onSubmit={onSubmit}>
       <Button
         label="Cancel"
         icon="pi pi-times"
         className="p-button-text"
         onClick={hideDialog}
       />
-      <Button
-        label="Save"
-        icon="pi pi-check"
-        className="p-button-text"
-        onClick={saveProduct}
-      />
+      <button
+                  className="button-konfir_modal"
+                  type="submit"
+                  variant="text"
+                  
+                >
+                  Tambah Pesanan
+                </button>
+              </form>
     </React.Fragment>
   );
 
@@ -196,8 +256,6 @@ import { InputTextarea } from "primereact/inputtextarea";
     </div>
   );
 
-  console.log(data);
-
   let arr = data.data ?? [];
 
   return (
@@ -230,7 +288,7 @@ import { InputTextarea } from "primereact/inputtextarea";
             >
                 <Column selectionMode="multiple" headerStyle={{ width: "3rem" }} exportable={false} ></Column>
                 <Column field="idMenu" header="ID Menu" sortable style={{ minWidth: "10rem" }} ></Column>
-                <Column field="namaMenu" header="Nama Menu" sortable style={{ minWidth: "10rem" }} ></Column>
+                <Column field="namaMenu"  header="Nama Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="hargaMenu" header="Harga Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="stokMenu" header="Stok Menu" sortable style={{ minWidth: "10rem" }} ></Column>
                 <Column field="deskripsiMenu" header="Deskripsi Menu" sortable style={{ minWidth: "10rem" }}  ></Column>
@@ -249,13 +307,14 @@ import { InputTextarea } from "primereact/inputtextarea";
             footer={productDialogFooter}
             onHide={hideDialog}
             >
-        
+
+        <form action="" id="login" method="post" onSubmit={onSubmit}>
         <div className="field">
           <label htmlFor="name">Name</label>
           <InputText
             id="name"
-            value={data.namaMenu}
-            onChange={(e) => onInputChange(e, "namaMenu")}
+            value={nama}
+            onChange={(e) => setNama(e.target.value)}
             required
             autoFocus
             className={classNames({ "p-invalid": submitted && !product.namaMenu })}
@@ -307,7 +366,27 @@ import { InputTextarea } from "primereact/inputtextarea";
             autoFocus
           />
           </div>
-      
+
+      {/* <div className="field">
+          <label htmlFor="foto">Image</label>
+          <FileUpload 
+            mode="basic"
+            name="demo[]" 
+            value={gambar}
+            onChange={(e) => setGambar(e.target.files[0])}
+            id="foto"
+            required
+            auto chooseLabel="Browse"
+          />
+          </div> */}
+<FileUpload name="files" 
+            url={url}
+            action="post"
+            customUpload
+            uploadHandler={Upload}
+            multiple accept="*/*"
+            maxFileSize={100000000 } />
+      </form>
       </Dialog>
         </div>
       </div>

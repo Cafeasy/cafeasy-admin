@@ -8,11 +8,15 @@ import { InputText } from "primereact/inputtext";
 import { Tag } from 'primereact/tag';
 import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar"; 
+import { useParams } from "react-router-dom";
 
 const DataPelanggancomp = () => {
+
+  const params = useParams();
+  const urlParams = params.idUser;
+
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [selectedProducts, setSelectedProducts] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
   const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
@@ -30,6 +34,29 @@ const DataPelanggancomp = () => {
       })
       .catch((error) => console.log(error));
   }, [data]);
+
+  const handleDeleteItem = async (urlParams) => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/deleteTransaksiById/`+ urlParams);
+      setData(data.filter((item) => item._id !== urlParams));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteButtonTemplate = (rowData) => {
+    const deleteItem = () => {
+      handleDeleteItem(rowData._id);
+    };
+
+    return (
+      <Button
+        icon="pi pi-trash"
+        className="p-button-danger"
+        onClick={deleteItem}
+      />
+    );
+  };
 
   const leftToolbarTemplate = () => {
     return (
@@ -96,7 +123,7 @@ const DataPelanggancomp = () => {
             tableStyle={{ minWidth: '50rem' }} 
             scrollable scrollHeight="500px"
             globalFilter={globalFilter}
-            selection={selectedProducts} onSelectionChange={(e) => setSelectedProducts(e.value)} dataKey="idKategori"
+            selection={selectedData} onSelectionChange={(e) => setSelectedData(e.value)} dataKey="idKategori"
             paginator
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
@@ -106,7 +133,7 @@ const DataPelanggancomp = () => {
                 <Column selectionMode="multiple" headerStyle={{ width: "0.5%" }} exportable={false} ></Column>
                 <Column field="idKategori" header="ID Kategori" sortable style={{ width: '30%' }} />
                 <Column field="namaKategori" header="Nama Kategori" sortable style={{ width: '30%' }} />
-                <Column header="Aksi" exportable={false} style={{ Width: '5%' }} ></Column>
+                <Column header="Aksi" exportable={false} body={deleteButtonTemplate} style={{ width: "15%" }} ></Column>
             </DataTable>
           </div>
         </div>
