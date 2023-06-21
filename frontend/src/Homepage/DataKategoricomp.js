@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../Crud/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
 import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { InputText } from "primereact/inputtext";
+import { Tag } from 'primereact/tag';
+import { Toast } from "primereact/toast";
+import { Toolbar } from "primereact/toolbar"; 
 
 const DataPelanggancomp = () => {
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
+  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+  const toast = useRef(null);
+
+  const confirmDeleteSelected = () => {
+    setDeleteProductsDialog(true);
+  };
 
   useEffect(() => {
     axios
@@ -19,12 +30,36 @@ const DataPelanggancomp = () => {
       })
       .catch((error) => console.log(error));
   }, [data]);
+
+  const leftToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <Button
+          label="Delete"
+          icon="pi pi-trash"
+          severity="secondary" outlined 
+          onClick={confirmDeleteSelected}
+          disabled={!selectedData || !selectedData.length}
+        />
+      </React.Fragment>
+    );
+  };
+
+  const rightToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <Button 
+          label="Export as Spreedsheet"
+          icon="pi pi-file-excel" 
+          severity="secondary" outlined 
+        />
+      </React.Fragment>
+    );
+  };
   
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Kategori</h5>
-      <Button label="New Item" severity="secondary" outlined />
-      <Button label="Export as Spreedsheet" severity="secondary" outlined />
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
@@ -47,7 +82,13 @@ const DataPelanggancomp = () => {
         <div className="title-crud"> DATA KATEGORI </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
+        <Toast ref={toast} />
         <div className="card">
+        <Toolbar
+          className="mb-4"
+          left={leftToolbarTemplate}
+          right={rightToolbarTemplate}
+        ></Toolbar>
             <DataTable value={arr} header={header} 
             resizableColumns
             showGridlines 

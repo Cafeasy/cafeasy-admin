@@ -1,17 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../Crud/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 import { InputText } from "primereact/inputtext";
 import { Tag } from 'primereact/tag';
+import { Toast } from "primereact/toast";
+import { Toolbar } from "primereact/toolbar"; 
 
 const DataTransaksicomp = () => {
+
   const [data, setData] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState(null);
   const [globalFilter, setGlobalFilter] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
+  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+  const toast = useRef(null);
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
+  };
+
+  const confirmDeleteSelected = () => {
+    setDeleteProductsDialog(true);
   };
 
   useEffect(() => {
@@ -22,6 +34,32 @@ const DataTransaksicomp = () => {
       })
       .catch((error) => console.log(error));
   }, [data]);
+
+  const leftToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <Button
+          label="Delete"
+          icon="pi pi-trash"
+          severity="secondary" outlined 
+          onClick={confirmDeleteSelected}
+          disabled={!selectedData || !selectedData.length}
+        />
+      </React.Fragment>
+    );
+  };
+
+  const rightToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <Button 
+          label="Export as Spreedsheet"
+          icon="pi pi-file-excel" 
+          severity="secondary" outlined 
+        />
+      </React.Fragment>
+    );
+  };
 
   const getSeverity = (data) => {
     switch (data.statusBayar) {
@@ -64,7 +102,13 @@ const DataTransaksicomp = () => {
         <div className="title-crud"> DATA TRANSAKSI </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
+        <Toast ref={toast} />
         <div className="card">
+        <Toolbar
+          className="mb-4"
+          left={leftToolbarTemplate}
+          right={rightToolbarTemplate}
+        ></Toolbar>
             <DataTable value={arr} header={header} 
             resizableColumns 
             showGridlines 

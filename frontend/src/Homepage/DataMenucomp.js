@@ -5,7 +5,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { InputText } from "primereact/inputtext";
-import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { Toolbar } from "primereact/toolbar"; 
@@ -27,6 +26,8 @@ import { InputTextarea } from "primereact/inputtextarea";
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const [product, setProduct] = useState(emptyData);
+  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
+  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
   const toast = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
@@ -69,6 +70,10 @@ import { InputTextarea } from "primereact/inputtextarea";
       setProductDialog(false);
       setProduct(emptyData);
     }
+  };
+
+  const confirmDeleteSelected = () => {
+    setDeleteProductsDialog(true);
   };
 
   const findIndexById = (idMenu) => {
@@ -133,9 +138,28 @@ import { InputTextarea } from "primereact/inputtextarea";
     setProduct(_data);
   };
 
+  const leftToolbarTemplate = () => {
+    return (
+      <React.Fragment>
+        <Button
+          label="Delete"
+          icon="pi pi-trash"
+          severity="secondary" outlined 
+          onClick={confirmDeleteSelected}
+          disabled={!selectedData || !selectedData.length}
+        />
+      </React.Fragment>
+    );
+  };
+
   const rightToolbarTemplate = () => {
     return (
       <React.Fragment>
+        <Button 
+          label="Export as Spreedsheet"
+          icon="pi pi-file-excel" 
+          severity="secondary" outlined 
+        />
         <Button
           label="Add New Item"
           icon="pi pi-plus"
@@ -157,7 +181,7 @@ import { InputTextarea } from "primereact/inputtextarea";
   const imageBody = (data) => {
     return <img src={data.imageUrl} alt={data.imageUrl} className="w-6rem shadow-2 border-round" />;
   };
-  
+
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Menu</h5>
@@ -187,6 +211,7 @@ import { InputTextarea } from "primereact/inputtextarea";
         <div className="card">
         <Toolbar
           className="mb-4"
+          left={leftToolbarTemplate}
           right={rightToolbarTemplate}
         ></Toolbar>
             <DataTable value={arr} header={header} 

@@ -24,8 +24,6 @@ const ProfileAdmincomp = ({idAdmin}) => {
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Admin</h5>
-      <Button label="New Item" severity="secondary" outlined />
-      <Button label="Export as Spreedsheet" severity="secondary" outlined />
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
