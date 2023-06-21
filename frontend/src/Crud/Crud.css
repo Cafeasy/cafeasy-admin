@@ -57,7 +57,6 @@ h1 {
     margin-bottom: 2rem;
     -webkit-line-clamp: 2;
   }
-
   
 .datatable-crud-demo .table-header {
     display: flex;
@@ -117,4 +116,8 @@ h1 {
 .p-icon {
   display: inline-block;
   color: #EEF2FF;
+}
+
+.field label{
+  color: #2A3042;
 }
