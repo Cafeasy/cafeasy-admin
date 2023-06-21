@@ -73,7 +73,7 @@ h1 {
     width: 100px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.datatable-crud-demo .p-dialog .product-image {
+.datatable-crud-demo .p-dialog {
     width: 150px;
     margin: 0 auto 2rem auto;
     display: block;
