@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../Crud/Crud.css";
+import "../Utils/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -16,11 +16,11 @@ import { FileUpload } from 'primereact/fileupload';
   let emptyData = {
     idMenu: null,
     namaMenu: "",
-    hargaMenu: 0,
-    stokMenu: 0,
+    hargaMenu: Number,
+    stokMenu: Number,
     deskripsiMenu: null,
-    kategoriMenu: "",
-    image: "",
+    kategoriMenu: String,
+    image: String,
   };
 
   const [data, setData] = useState([]);
@@ -35,11 +35,13 @@ import { FileUpload } from 'primereact/fileupload';
   const [nama, setNama] = useState("");
   const [gambar, setGambar] = useState("");
 
+  // cancel modal
   const hideDialog = () => {
     setSubmitted(false);
     setProductDialog(false);
   };
   
+  // popup modal
   const saveProduct = () => {
     setSubmitted(true);
 
@@ -74,6 +76,7 @@ import { FileUpload } from 'primereact/fileupload';
     }
   };
 
+  // confirm delete
   const confirmDeleteSelected = () => {
     setDeleteProductsDialog(true);
   };
@@ -90,6 +93,7 @@ import { FileUpload } from 'primereact/fileupload';
     return index;
   };
 
+  
   const createId = () => {
     let id = "";
     let chars =
@@ -135,28 +139,6 @@ const onSubmit = async (e) => {
       alert(e);
     }
   };
-
-  const invoiceUploadHandler = ({files}) => {
-    const [file] = files;
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-        uploadInvoice(e.target.result);
-    };
-    fileReader.readAsDataURL(file);
-};
-
-const uploadInvoice = async (invoiceFile) => {
-  let formData = new FormData();
-  formData.append('invoiceFile', invoiceFile);
-
-  const response = await fetch(`${process.env.REACT_APP_API_URL}/insertMenu`,
-      {
-          method: 'POST',
-          body: formData
-      },
-  );
-};
-
   const [selectedImage, setSelectedImage] = useState();
 
   const imageChange = (e) => {
@@ -182,6 +164,7 @@ const uploadInvoice = async (invoiceFile) => {
                   className="button-konfir_modal"
                   type="submit"
                   variant="text"
+                  onClick={onSubmit}
                   
                 >
                   Tambah Pesanan
@@ -380,10 +363,8 @@ const uploadInvoice = async (invoiceFile) => {
           />
           </div> */}
 <FileUpload name="files" 
-            url={url}
             action="post"
-            customUpload
-            uploadHandler={Upload}
+            uploadHandler={gambar}
             multiple accept="*/*"
             maxFileSize={100000000 } />
       </form>

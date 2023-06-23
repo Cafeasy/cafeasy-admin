@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../Crud/Crud.css";
+import "../Utils/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';

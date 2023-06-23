@@ -1,9 +1,12 @@
 .navbar {
-    background-color: #DADADA;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  
+  background: #DADADA;
+  color: black;
+  font-family: 'Poppins';
+  font-weight: 600;
+  justify-content: center;
   }
   
   .menu-bars {
@@ -73,3 +76,33 @@
   span {
     margin-left: 16px;
   }
+
+  .navbar__title {
+    margin-right: auto;
+    font-size: 150%;
+    padding: 12px 16px;
+}
+
+.navbar__item {
+  padding: 16px 16px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+.nav-links {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.nav-links:hover {
+  background-color: #1F2937;
+  border-radius: 4px;
+  transition: all 0.2s ease-out;
+}
