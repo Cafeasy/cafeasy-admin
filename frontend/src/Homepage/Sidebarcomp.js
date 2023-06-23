@@ -5,6 +5,7 @@ import * as MdIcons from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { Sidebardata } from './Sidebardata';
 import logodannama from '../Photos/logodannama.png';
+import Dropdown from "../Utils/Dropdown";
 import '../Photos/logodannama.png';
 import { IconContext } from 'react-icons';
 
@@ -34,7 +35,9 @@ function Sidebarcomp () {
       }
     };
     return (
+
         <IconContext.Provider value={{ color: '#fff' }}>
+                <>
           <header className='navbar'>
               <div className='navbar__title navbar__item'><Link to='#' className='menu-bars'>
               <FaIcons.FaBars onClick={showSidebar} />
@@ -46,8 +49,10 @@ function Sidebarcomp () {
               className="nav-links"
               onClick={closeMobileMenu}>Muhammad Adam Firdaus 
               <MdIcons.MdArrowDropDown />
+              {dropdown && <Dropdown />}
             </Link></div>        
           </header>
+          </>
           <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
             <ul className='nav-menu-items'>
               <li className='navbar-toggle'>  
@@ -67,7 +72,6 @@ function Sidebarcomp () {
                 );
               })}
             </ul>
-            
           </nav>
         </IconContext.Provider>
     );
