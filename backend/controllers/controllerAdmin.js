@@ -103,8 +103,10 @@ exports.getProfileAdmin = async (req, res, next) => {
 }
 
 exports.loginAdmin = (req, res, next) => {
-    var username = req.body.username;
-    var password = req.body.password;
+    // var username = req.body.username;
+    // var password = req.body.password;
+    var username = "cafeasy123";
+    var password = "01122001";
 
     DataAdmin.findOne({username: `${username}`})
     .then(admin => {
@@ -117,15 +119,15 @@ exports.loginAdmin = (req, res, next) => {
                 }
                 if(result) {
                     let token = jwt.sign({name: admin.name}, process.env.JWT_SECRET, {expiresIn: '12h'});
-                    // res.json({
-                    //     status:'ok',
-                    //     message: 'Login sukses',
-                    //     token
-                    // })
-                    res
-                    .status(200)
-                    .cookie('token', token,{ maxAge: 24 * 60 * 60 * 1000, httpOnly: true });  // maxAge: 1 day
-                    res.redirect('/')
+                    res.json({
+                        status:'ok',
+                        message: 'Login sukses',
+                        token
+                    })
+                    // res
+                    // .status(200)
+                    // .cookie('token', token,{ httpOnly: true });
+                    // res.redirect('/')
                 } else {
                     res.json({
                         message: 'password salah!'

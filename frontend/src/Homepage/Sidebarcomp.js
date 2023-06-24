@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "../Homepage/Sidebarpage.css";
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
@@ -10,6 +10,16 @@ import '../Photos/logodannama.png';
 import { IconContext } from 'react-icons';
 
 function Sidebarcomp () {
+
+    // var accessTokenObj = JSON.parse(localStorage.getItem('token')) || false;
+    // console.log(accessTokenObj);
+    // useEffect(() => {
+    //   if(!localStorage.getItem('token')){
+    //     window.location.replace("/RegisterAdmin");
+    //   }
+    //   return null;
+    // })
+    // console.log(localStorage.getItem('token'));    
     const [click, setClick] = useState(false);
 
     const [sidebar, setSidebar] = useState(true);

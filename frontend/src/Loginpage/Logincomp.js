@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 import ProfileAdmincomp from "../Homepage/ProfileAdmincomp";
+import PropTypes from 'prop-types'
 
 const Logincomp = () => {
   const [username, setUsername] = useState("");
@@ -138,4 +139,5 @@ const Logincomp = () => {
 
   return <div className="app">{isSubmitted ? <div></div> : renderForm}</div>;
 };
+
 export default Logincomp;

@@ -26,8 +26,8 @@ router.post('/registerAdmin', [
     body('namaPemilikCafe').isLength({min: 3}).withMessage('Nama Pemilik minimal 3 karakter'),
     body('noHpCafe').isLength({min: 9}).withMessage('Nomor Hp terkait minimal 9 karakter')],
     adminController.createAdmin);
-router.post('/login', adminController.loginAdmin);
-router.post('/logout', adminController.logoutAdmin);
+router.get('/login', adminController.loginAdmin);
+router.get('/logout', adminController.logoutAdmin);
 
 //routes kelola data profile
 router.get('/profile/:idAdmin', adminController.getProfileAdmin);
