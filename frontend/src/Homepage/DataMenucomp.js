@@ -13,7 +13,6 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { FileUpload } from "primereact/fileupload";
 
 const DataMenucomp = () => {
-
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
@@ -23,8 +22,14 @@ const DataMenucomp = () => {
   const toast = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
+
   const [nama, setNama] = useState("");
+  const [harga, setHarga] = useState("");
+  const [stok, setStok] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [kategori, setKategori] = useState("");
   const [gambar, setGambar] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
 
   // cancel modal
   const hideDialog = () => {
@@ -52,26 +57,47 @@ const DataMenucomp = () => {
     setProductDialog(true);
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const post = {
-      namaMenu: nama,
-      hargaMenu: "2000",
-      stokMenu: "1",
-      deskripsiMenu: "ssdssdsdsss",
-      kategoriMenu: "wqwqww",
-      image: gambar,
-    };
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/insertMenu`,
-        post
-      );
-      console.log(res.data);
-    } catch (e) {
-      alert(e);
-    }
+  const onSubmit = () => {
+    console.log("Nama: ", nama);
+    console.log("Harga: ", harga);
+    console.log("Stok: ", stok);
+    console.log("Deskripsi: ", deskripsi);
+    console.log("Kategori: ", kategori);
+    console.log("image: ", gambar);
   };
+
+  const invoiceUploadHandler = ({ files }) => {
+    const [file] = files;
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      uploadInvoice(e.target.result);
+    };
+    fileReader.readAsDataURL(file);
+  };
+
+  const uploadInvoice = async (invoiceFile) => {
+    let formData = new FormData();
+    formData.append("invoiceFile", invoiceFile);
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/insertMenu/`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+  };
+
+  const deleteItems = (value) => {
+    console.log(value);
+    axios
+      .delete(
+        `${process.env.REACT_APP_API_URL}/deleteItem/`
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   const [selectedImage, setSelectedImage] = useState();
 
   const imageChange = (e) => {
@@ -86,22 +112,18 @@ const DataMenucomp = () => {
 
   const productDialogFooter = (
     <React.Fragment>
-      <form action="" id="login" method="post" onSubmit={onSubmit}>
-        <Button
-          label="Cancel"
-          icon="pi pi-times"
-          className="p-button-text"
-          onClick={hideDialog}
-        />
-        <button
-          className="button-konfir_modal"
-          type="submit"
-          variant="text"
-          onClick={onSubmit}
-        >
-          Tambah Pesanan
-        </button>
-      </form>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={hideDialog}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={onSubmit}
+      />
     </React.Fragment>
   );
 
@@ -113,7 +135,7 @@ const DataMenucomp = () => {
           icon="pi pi-trash"
           severity="secondary"
           outlined
-          onClick={confirmDeleteSelected}
+          onClick={deleteItems}
           disabled={!selectedData || !selectedData.length}
         />
       </React.Fragment>
@@ -264,88 +286,73 @@ const DataMenucomp = () => {
             footer={productDialogFooter}
             onHide={hideDialog}
           >
-            <form action="" id="login" method="post" onSubmit={onSubmit}>
-              <div className="field">
-                <label htmlFor="name">Name</label>
+            <div className="field">
+              <label htmlFor="name">Name</label>
+              <InputText
+                id="name"
+                value={nama}
+                onChange={(e) => setNama(e.target.value)}
+                required
+                autoFocus
+              />
+            </div>
+
+            <div className="formgrid grid">
+              <div className="field col">
+                <label htmlFor="price">Harga</label>
                 <InputText
-                  id="name"
-                  value={nama}
-                  onChange={(e) => setNama(e.target.value)}
-                  required
-                  autoFocus
-                  // className={classNames({
-                  //   "p-invalid": submitted && !product.namaMenu,
-                  // })}
-                />
-                {submitted && !data.namaMenu && (
-                  <small className="p-error">Name is required.</small>
-                )}
-              </div>
-
-              <div className="formgrid grid">
-                <div className="field col">
-                  <label htmlFor="price">Harga</label>
-                  <InputText
-                    id="price"
-                    value={data.hargaMenu}
-                    // onValueChange={(e) => onInputNumberChange(e, "price")}
-                  />
-                </div>
-                <div className="field col">
-                  <label htmlFor="quantity">Quantity</label>
-                  <InputText
-                    id="quantity"
-                    value={data.stokMenu}
-                    // onValueChange={(e) => onInputNumberChange(e, "quantity")}
-                    integeronly
-                  />
-                </div>
-              </div>
-
-              <div className="field">
-                <label htmlFor="description">Deskripsi</label>
-                <InputTextarea
-                  id="description"
-                  value={data.deskripsiMenu}
-                  // onChange={(e) => onInputChange(e, "description")}
-                  required
-                  rows={3}
-                  cols={20}
+                  id="price"
+                  value={harga}
+                  onChange={(e) => setHarga(e.target.value)}
                 />
               </div>
-
-              <div className="field">
-                <label htmlFor="category">Kategori</label>
+              <div className="field col">
+                <label htmlFor="quantity">Stok</label>
                 <InputText
-                  id="category"
-                  value={data.kategoriMenu}
-                  // onChange={(e) => onInputChange(e, "category")}
-                  required
-                  autoFocus
+                  id="quantity"
+                  value={stok}
+                  onChange={(e) => setStok(e.target.value)}
+                  integeronly
                 />
               </div>
+            </div>
 
-              {/* <div className="field">
-          <label htmlFor="foto">Image</label>
-          <FileUpload 
-            mode="basic"
-            name="demo[]" 
-            value={gambar}
-            onChange={(e) => setGambar(e.target.files[0])}
-            id="foto"
-            required
-            auto chooseLabel="Browse"
-          />
-          </div> */}
+            <div className="field">
+              <label htmlFor="description">Deskripsi</label>
+              <InputTextarea
+                id="description"
+                value={deskripsi}
+                onChange={(e) => setDeskripsi(e.target.value)}
+                required
+                rows={3}
+                cols={20}
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="category">Kategori</label>
+              <InputText
+                id="category"
+                value={kategori}
+                onChange={(e) => setKategori(e.target.value)}
+                required
+                autoFocus
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="foto">Image</label>
               <FileUpload
                 name="files"
-                action="post"
-                uploadHandler={gambar}
-                multiple
-                accept="*/*"
-                maxFileSize={100000000}
+                accept="image/*"
+                customUpload={true}
+                uploadHandler={invoiceUploadHandler}
+                onChange={(e) => setGambar(e.target.file)}
+                mode="basic"
+                auto={true}
+                chooseLabel="Upload invoice"
               />
-            </form>
+            </div>
           </Dialog>
         </div>
       </div>
