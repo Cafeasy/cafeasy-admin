@@ -6,24 +6,27 @@ import { Link } from "react-router-dom";
 import { Sidebardata } from "./Sidebardata";
 import logodannama from "../Photos/logodannama.png";
 import Dropdown from "../Utils/Dropdown";
-import "../Photos/logodannama.png";
-import { IconContext } from "react-icons";
+import '../Photos/logodannama.png';
+import { IconContext } from 'react-icons';
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import Cookies from 'universal-cookie';
 
-function Sidebarcomp() {
-  // var accessTokenObj = JSON.parse(localStorage.getItem('token')) || false;
-  // console.log(accessTokenObj);
-  // useEffect(() => {
-  //   if(!localStorage.getItem('token')){
-  //     window.location.replace("/RegisterAdmin");
-  //   }
-  //   return null;
-  // })
-  // console.log(localStorage.getItem('token'));
+function Sidebarcomp () {
+  const cookies = new Cookies();
+  const nextNavigate = useNavigate();
+
+    useEffect(() => {
+      if(!cookies.get('token')){
+        nextNavigate("/LoginAdmin");
+        return () => {}
+      }
+    })
   const [click, setClick] = useState(false);
 
-  const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(true);
 
-  const showSidebar = () => setSidebar(!sidebar);
+    const showSidebar = () => setSidebar(!sidebar);
 
   const [dropdown, setDropdown] = useState(false);
 

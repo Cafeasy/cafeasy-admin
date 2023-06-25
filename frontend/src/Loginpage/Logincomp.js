@@ -2,81 +2,74 @@ import React, { useState, useEffect } from "react";
 import logodannama from "../Photos/logodannama.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
-import { Navigate } from "react-router-dom";
-import ProfileAdmincomp from "../Homepage/ProfileAdmincomp";
-import PropTypes from 'prop-types'
+import Swal from "sweetalert2";
+import Cookies from 'universal-cookie';
+import jwt_decode from 'jwt-decode';
+// const jwt = require('jsonwebtoken');
+// import { Link } from 'react-router-dom';
+// import { Navigate } from "react-router-dom";
+// import ProfileAdmincomp from "../Homepage/ProfileAdmincomp";
+// import PropTypes from 'prop-types'
 
-const Logincomp = () => {
+function Logincomp() {
+  const cookies = new Cookies();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const nextNavigate = useNavigate();
 
-  const [msg, setMsg] = useState("");
-  const Navigate = useNavigate();
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // User Login info
-  const database = [
-    {
-      username: "adam",
-      password: "adam",
-    },
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
-
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    window.location.href = "./ProfileAdmin";
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
-  };
-  const [data, setData] = useState([]);
   useEffect(() => {
-    axios
-      .post(` ${process.env.REACT_APP_API_URL}/login/`, database)
-      .then((result) => {
-        console.log(result.data);
-        setData(result.data);
-      })
-      .catch((error) => console.log(error));
-  }, [data]);
+    async function loggedIn() {
+      if(cookies.get('token')){
+        var token = cookies.get('token');
+        var decoded = jwt_decode(token);
+        // var decoded = jwt.verify(token, 'token');
+        var checkAdmin = decoded.username;
+        var checkIdAdmin = await axios.get(process.env.REACT_APP_API_URL + "/getAdminByName/" + checkAdmin);
+        console.log(checkIdAdmin.data.data.result[0].idAdmin);
+        if(checkIdAdmin) {
+          nextNavigate("/ProfileAdmin/" + checkIdAdmin.data.data.result[0].idAdmin);
+         }
+      }
+    }
+    loggedIn()
+  })
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error" style={{ color: "red" }}>
-        {errorMessages.message}
-      </div>
-    );
+  const submitLogin = async (e) => {
+    if(username != "" & password != "") {
+      e.preventDefault();
+      var checkUsername = await axios.get(process.env.REACT_APP_API_URL + "/getAdminByName/" + username);
+      var login = await axios.post(process.env.REACT_APP_API_URL + "/login", {
+        username: username.toString(),
+        password: password.toString()
+      });
+      if(!cookies.get('token')) {
+        if(checkUsername) {
+          if(login.data.message == 'sukses') {
+            cookies.set('token', login.data.token);
+           //  console.log(localStorage.getItem('token'))
+            var checkIdAdmin = await axios.get(process.env.REACT_APP_API_URL + "/getAdminByName/" + username);
+            if(checkIdAdmin) {
+             nextNavigate("/ProfileAdmin/" + checkIdAdmin.data.data.result[0].idAdmin);
+            }
+           } else {
+             Swal.fire({
+               icon: 'error',
+               text: login.data.message,
+             })
+           }
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: login.data.message,
+          })
+        }
+      }
+    } 
+  }
 
-  const renderForm = (
-    <>
-      {" "}
+  return (
       <div className="Logform-container">
-        <form onSubmit={handleSubmit} className="Logform">
+        <form className="Logform" onSubmit={submitLogin}>
           <div className="Logform-content">
             <h3 className="Logform-title">Masuk</h3>
             <div className="click-button">
@@ -90,27 +83,27 @@ const Logincomp = () => {
               </div>
             </div>
 
-            <div class="form-group mt-3">
+            <div className="form-group mt-3">
               <label>Username</label>
 
               <input
                 type="text"
-                name="uname"
                 required
                 className="form-control mt-1"
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)}
               />
-              {renderErrorMessage("uname")}
             </div>
-            <div class="form-group mt-3">
+            <div className="form-group mt-3">
               <div className="inputbutton">
                 <label>Sandi</label>
                 <input
                   type="password"
-                  name="pass"
                   required
                   className="form-control mt-1"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                {renderErrorMessage("pass")}
               </div>
             </div>
 
@@ -121,12 +114,13 @@ const Logincomp = () => {
                 <a href="#">Lupa sandi?</a>
               </div>
             </div>
-            <div class="d-grid gap-2 mt-3">
+            <div className="d-grid gap-2 mt-3">
               <button
                 color="red"
                 appearance="primary"
                 type="submit"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
+                onClick={submitLogin}
               >
                 Masuk 
               </button>
@@ -134,10 +128,9 @@ const Logincomp = () => {
           </div>
         </form>
       </div>
-    </>
   );
 
-  return <div className="app">{isSubmitted ? <div></div> : renderForm}</div>;
+  // return <div className="app">{ renderForm}</div>;
 };
 
 export default Logincomp;

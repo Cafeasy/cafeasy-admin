@@ -27,7 +27,7 @@ const App = () => {
           <Route exact path="/" element={<Landingpage />}></Route>
           <Route exact path="/LoginAdmin" element={<Loginpage />}></Route>
           <Route exact path="/RegisterAdmin" element={<Signuppage />}></Route>
-          <Route exact path="/ProfileAdmin" element={<ProfileAdminpage />}></Route>
+          <Route exact path="/ProfileAdmin/:idAdmin" element={<ProfileAdminpage />}></Route>
           <Route exact path="/DataMenu" element={<DataMenupage />}></Route>
           <Route exact path="/DataTransaksi" element={<DataTransaksipage />}></Route>
           <Route exact path="/DataPelanggan" element={<DataPelangganpage />}></Route>

@@ -102,11 +102,33 @@ exports.getProfileAdmin = async (req, res, next) => {
     })
 }
 
+exports.getProfileAdminByName = async (req, res, next) => {
+    const username = req.params.username;
+
+    DataAdmin.find({username: `${username}`})
+    .then(result => {
+        if(!result){
+            res.status(404).json({
+                message: "Data profil admin gagal dipanggil",
+                data: {result}
+            })
+        } else { 
+            res.status(200).json({
+                message: "Data profil admin berhasil dipanggil",
+                data: {result}
+            })
+        }
+        
+    }).catch(err => {
+        next(err);
+    })
+}
+
 exports.loginAdmin = (req, res, next) => {
-    // var username = req.body.username;
-    // var password = req.body.password;
-    var username = "cafeasy123";
-    var password = "01122001";
+    var username = req.body.username;
+    var password = req.body.password;
+    // var username = "cafeasy123";
+    // var password = "01122001";
 
     DataAdmin.findOne({username: `${username}`})
     .then(admin => {
@@ -118,18 +140,19 @@ exports.loginAdmin = (req, res, next) => {
                     })
                 }
                 if(result) {
-                    let token = jwt.sign({name: admin.name}, process.env.JWT_SECRET, {expiresIn: '12h'});
+                    let token = jwt.sign({username: username}, process.env.JWT_SECRET, {expiresIn: '12h'});
                     res.json({
                         status:'ok',
-                        message: 'Login sukses',
+                        message: 'sukses',
                         token
                     })
                     // res
                     // .status(200)
                     // .cookie('token', token,{ httpOnly: true });
-                    // res.redirect('/')
+                    // res.redirect("/")
                 } else {
                     res.json({
+                        status:'failed',
                         message: 'password salah!'
                     })
                 }
