@@ -91,9 +91,7 @@ const DataMenucomp = () => {
   const deleteItems = (value) => {
     console.log(value);
     axios
-      .delete(
-        `${process.env.REACT_APP_API_URL}/deleteItem/`
-      )
+      .delete(`${process.env.REACT_APP_API_URL}/deleteItem/`)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
