@@ -17,7 +17,7 @@ function Sidebarcomp() {
   const nextNavigate = useNavigate();
 
   useEffect(() => {
-    if (!cookies.get("token")) {
+    if (!cookies.get("secretLogToken")) {
       nextNavigate("/LoginAdmin");
       return () => {};
     }

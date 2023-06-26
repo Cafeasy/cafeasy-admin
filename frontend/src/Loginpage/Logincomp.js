@@ -19,20 +19,13 @@ function Logincomp() {
 
   useEffect(() => {
     async function loggedIn() {
-      if (cookies.get("token")) {
-        var token = cookies.get("token");
-        var decoded = jwt_decode(token);
-        // var decoded = jwt.verify(token, 'token');
-        var checkAdmin = decoded.username;
-        var checkIdAdmin = await axios.get(
-          process.env.REACT_APP_API_URL + "/getAdminByName/" + checkAdmin
-        );
-        console.log(checkIdAdmin.data.data.result[0].idAdmin);
-        if (checkIdAdmin) {
+      if (cookies.get("secretLogToken")) {
+        var secretLogToken = cookies.get("secretLogToken");
+        var decoded = jwt_decode(secretLogToken);
+        var decodedIdAdmin = decoded.idAdmin;
           nextNavigate(
-            "/ProfileAdmin/" + checkIdAdmin.data.data.result[0].idAdmin
+            "/ProfileAdmin/" + decodedIdAdmin
           );
-        }
       }
     }
     loggedIn();
@@ -41,38 +34,25 @@ function Logincomp() {
   const submitLogin = async (e) => {
     if ((username != "") & (password != "")) {
       e.preventDefault();
-      var checkUsername = await axios.get(
-        process.env.REACT_APP_API_URL + "/getAdminByName/" + username
-      );
       var login = await axios.post(process.env.REACT_APP_API_URL + "/login", {
         username: username.toString(),
         password: password.toString(),
       });
-      if (!cookies.get("token")) {
-        if (checkUsername) {
+      if (!cookies.get("secretLogToken")) {
           if (login.data.message == "sukses") {
-            cookies.set("token", login.data.token);
-            //  console.log(localStorage.getItem('token'))
-            var checkIdAdmin = await axios.get(
-              process.env.REACT_APP_API_URL + "/getAdminByName/" + username
+            cookies.set("secretLogToken", login.data.secretLogToken);
+            var idAdminToken = cookies.get("secretLogToken");
+            var decoded = jwt_decode(idAdminToken);
+            var decodedIdAdmin = decoded.idAdmin;
+            nextNavigate(
+              "/ProfileAdmin/" + decodedIdAdmin
             );
-            if (checkIdAdmin) {
-              nextNavigate(
-                "/ProfileAdmin/" + checkIdAdmin.data.data.result[0].idAdmin
-              );
-            }
           } else {
             Swal.fire({
               icon: "error",
               text: login.data.message,
             });
           }
-        } else {
-          Swal.fire({
-            icon: "error",
-            text: login.data.message,
-          });
-        }
       }
     }
   };
