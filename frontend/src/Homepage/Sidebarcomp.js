@@ -9,8 +9,8 @@ import Dropdown from "../Utils/Dropdown";
 import "../Photos/logodannama.png";
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
+import jwt_decode from "jwt-decode";
 
 function Sidebarcomp() {
   const cookies = new Cookies();
@@ -21,7 +21,8 @@ function Sidebarcomp() {
       nextNavigate("/LoginAdmin");
       return () => {};
     }
-  });
+  }, []);
+  
   const [click, setClick] = useState(false);
 
   const [sidebar, setSidebar] = useState(true);

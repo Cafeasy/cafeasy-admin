@@ -18,17 +18,12 @@ function Logincomp() {
   const nextNavigate = useNavigate();
 
   useEffect(() => {
-    async function loggedIn() {
-      if (cookies.get("secretLogToken")) {
-        var secretLogToken = cookies.get("secretLogToken");
-        var decoded = jwt_decode(secretLogToken);
-        var decodedIdAdmin = decoded.idAdmin;
-          nextNavigate(
-            "/ProfileAdmin/" + decodedIdAdmin
-          );
-      }
+    if (cookies.get("secretLogToken")) {
+      var secretLogToken = cookies.get("secretLogToken");
+      var decoded = jwt_decode(secretLogToken);
+      var decodedIdAdmin = decoded.idAdmin;
+      nextNavigate("/ProfileAdmin/" + decodedIdAdmin);
     }
-    loggedIn();
   });
 
   const submitLogin = async (e) => {

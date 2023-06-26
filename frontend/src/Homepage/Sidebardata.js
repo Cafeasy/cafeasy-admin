@@ -8,7 +8,7 @@ import * as BiIcons from 'react-icons/bi';
 export const Sidebardata = [
   {
     title: 'Profile Admin',
-    path: '/ProfileAdmin',
+    path: '/ProfileAdmin/:idAdmin',
     icon: <CgIcons.CgProfile />,
     cName: 'nav-text'
   },
