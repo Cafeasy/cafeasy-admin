@@ -235,14 +235,11 @@ const DataMenucomp = ({ data = [] }) => {
           label="Export Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
-          text
           raised
         />
         <Button
           label="Tambah Menu"
           icon="pi pi-plus"
-          severity="secondary"
-          text
           raised
           onClick={() => openForm()}
         />
@@ -480,7 +477,7 @@ const DataMenucomp = ({ data = [] }) => {
                 uploadHandler={invoiceUploadHandler}
                 mode="basic"
                 auto={true}
-                chooseLabel={menu.imageFile.name ?? "Upload invoice"}
+                chooseLabel={menu.imageFile.name ?? "Tambah Foto"}
               />
             </div>
           </Dialog>
