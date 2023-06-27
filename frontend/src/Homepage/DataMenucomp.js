@@ -530,7 +530,7 @@ const DataMenucomp = ({ data = [] }) => {
                 style={{ fontSize: "2rem" }}
               />
               <span>
-                Apakah Anda yakin ingin menghapus <b>semua menu</b>?
+                Apakah anda yakin ingin menghapus <b>semua menu</b>?
               </span>
             </div>
           </Dialog>
