@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import Sidebarcomp from "../Homepage/Sidebarcomp";
-import DataPelanggancomp from "../Homepage/DataPelanggancomp";
+import Sidebarcomp from "../Sidebarcomp";
+import DataPelanggancomp from "./DataPelanggancomp";
 import { useEffect, useState } from "react";
 import axios from "axios";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../Utils/Crud.css";
+import "../../Utils/Crud.css";
 import axios from "axios";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -9,6 +9,7 @@ import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { Toolbar } from "primereact/toolbar";
 import { InputTextarea } from "primereact/inputtextarea";
+import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
 
 const DEFAULT_MENU = {
@@ -224,39 +225,6 @@ const DataMenucomp = ({ data = [] }) => {
     </React.Fragment>
   );
 
-  const leftToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        <Button
-          label="Hapus Semua"
-          icon="pi pi-trash"
-          severity="danger"
-          raised
-          onClick={confirmDeleteAll}
-        />
-      </React.Fragment>
-    );
-  };
-
-  const rightToolbarTemplate = () => {
-    return (
-      <div className="flex gap-2">
-        <Button
-          label="Export Spreedsheet"
-          icon="pi pi-file-excel"
-          severity="secondary"
-          raised
-        />
-        <Button
-          label="Tambah Menu"
-          icon="pi pi-plus"
-          raised
-          onClick={() => openForm()}
-        />
-      </div>
-    );
-  };
-
   const imageBody = (data) => (
     <img
       src={data.imageUrl}
@@ -267,15 +235,36 @@ const DataMenucomp = ({ data = [] }) => {
 
   const header = (
     <div className="table-header">
-      <h5 className="mx-0 my-1">Deskripsi Menu</h5>
-      <span className="p-input-icon-left">
-        <i className="pi pi-search" />
-        <InputText
-          type="search"
-          onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Cari..."
+      <h5 className="mx-0 my-1">Semua Menu</h5>
+      <div className="flex gap-2">
+        <Button
+          label="Tambah Menu"
+          icon="pi pi-plus"
+          raised
+          onClick={() => openForm()}
         />
-      </span>
+        <Button
+          label="Ekspor ke Spreedsheet"
+          icon="pi pi-file-excel"
+          severity="secondary"
+          raised
+        />
+        <Button
+          label="Hapus Semua"
+          icon="pi pi-trash"
+          severity="danger"
+          raised
+          onClick={confirmDeleteAll}
+        />
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Cari..."
+          />
+        </span>
+      </div>
     </div>
   );
 
@@ -310,11 +299,6 @@ const DataMenucomp = ({ data = [] }) => {
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
           <div className="card">
-            <Toolbar
-              className="mb-4"
-              left={leftToolbarTemplate}
-              right={rightToolbarTemplate}
-            ></Toolbar>
             <DataTable
               value={arr}
               paginator
@@ -330,7 +314,7 @@ const DataMenucomp = ({ data = [] }) => {
               scrollable
               scrollHeight="700px"
               globalFilter={globalFilter}
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
+              currentPageReportTemplate="Menampilkan {first} hingga {last} dari {totalRecords} data"
             >
               <Column
                 field="idMenu"
@@ -431,7 +415,9 @@ const DataMenucomp = ({ data = [] }) => {
                 />
               </div>
               <div className="field col">
-                <label htmlFor="quantity">Stok</label>
+                <label htmlFor="quantity" className="font-bold">
+                  Stok
+                </label>
                 <InputText
                   id="quantity"
                   defaultValue={menu.stokMenu}

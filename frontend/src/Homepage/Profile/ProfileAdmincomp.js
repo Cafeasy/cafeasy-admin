@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Utils/Crud.css";
+import "../../Utils/Crud.css";
 import axios from "axios";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -59,7 +59,7 @@ const ProfileAdmincomp = ({idAdmin}) => {
             rows={10}
             rowsPerPageOptions={[5, 10, 25]}
             paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
+            currentPageReportTemplate="Menampilkan {first} hingga {last} dari {totalRecords} data"
             >
                 <Column selectionMode="multiple" headerStyle={{ width: "0.5%" }} exportable={false} ></Column>
                 <Column field="idAdmin" header="ID Admin" sortable style={{ width: '15%' }} />

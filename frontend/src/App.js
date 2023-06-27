@@ -10,11 +10,11 @@ import {
 } from "react-router-dom";
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
-import ProfileAdminpage from "./Homepage/ProfileAdminpage";
-import DataMenupage from "./Homepage/DataMenupage";
-import DataTransaksipage from "./Homepage/DataTransaksipage";
-import DataPelangganpage from "./Homepage/DataPelangganpage";
-import DataKategoripage from "./Homepage/DataKategoripage";
+import ProfileAdminpage from "./Homepage/Profile/ProfileAdminpage";
+import DataMenupage from "./Homepage/Menu/DataMenupage";
+import DataTransaksipage from "./Homepage/Transaksi/DataTransaksipage";
+import DataPelangganpage from "./Homepage/Pelanggan/DataPelangganpage";
+import DataKategoripage from "./Homepage/Kategori/DataKategoripage";
 import Landingpage from "./Landing/Landingpage";
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";

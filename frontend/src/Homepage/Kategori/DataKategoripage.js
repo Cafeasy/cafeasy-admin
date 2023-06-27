@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
-import Sidebarcomp from "../Homepage/Sidebarcomp"
-import DataKategoricomp from "../Homepage/DataKategoricomp"
+import Sidebarcomp from "../Sidebarcomp"
+import DataKategoricomp from "./DataKategoricomp"
 
 const DataKategoripage = () => {
     return (

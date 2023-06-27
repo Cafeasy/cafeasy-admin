@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../Utils/Crud.css";
+import "../../Utils/Crud.css";
 import axios from "axios";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
@@ -100,7 +100,7 @@ const DataPelanggancomp = ({ data = [] }) => {
         <InputText
           type="search"
           onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search..."
+          placeholder="Cari..."
         />
       </span>
     </div>
@@ -139,7 +139,7 @@ const DataPelanggancomp = ({ data = [] }) => {
               rows={10}
               rowsPerPageOptions={[5, 10, 25]}
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
+              currentPageReportTemplate="Menampilkan {first} hingga {last} dari {totalRecords} data"
             >
               <Column
                 field="id"
