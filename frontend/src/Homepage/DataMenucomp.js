@@ -33,11 +33,13 @@ const DataMenucomp = ({ data = [] }) => {
     setProductDialog(false);
   };
 
+  // open form
   const openForm = (selectedMenu = {}) => {
     setMenu((data) => ({ ...data, ...selectedMenu }));
     setProductDialog(true);
   };
 
+  // submit
   const onSubmit = async () => {
     const formData = new FormData();
     formData.append("image", menu.imageFile);
@@ -326,7 +328,7 @@ const DataMenucomp = ({ data = [] }) => {
               stripedRows
               tableStyle={{ minWidth: "50rem" }}
               scrollable
-              scrollHeight="500px"
+              scrollHeight="700px"
               globalFilter={globalFilter}
               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
             >
