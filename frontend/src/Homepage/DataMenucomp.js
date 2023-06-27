@@ -8,105 +8,191 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { Toolbar } from "primereact/toolbar";
-import { classNames } from "primereact/utils";
 import { InputTextarea } from "primereact/inputtextarea";
 import { FileUpload } from "primereact/fileupload";
 
-const DataMenucomp = () => {
-  const [data, setData] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
-  // const [product, setProduct] = useState(emptyData);
-  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
-  const toast = useRef(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [productDialog, setProductDialog] = useState(false);
+const DEFAULT_MENU = {
+  imageFile: "",
+  hargaMenu: "",
+  stokMenu: "",
+  deskripsiMenu: "",
+  kategoriMenu: "",
+  namaMenu: "",
+};
 
-  const [nama, setNama] = useState("");
-  const [harga, setHarga] = useState("");
-  const [stok, setStok] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [kategori, setKategori] = useState("");
-  const [gambar, setGambar] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
+const DataMenucomp = ({ data = [] }) => {
+  const toast = useRef(null);
+  const [globalFilter, setGlobalFilter] = useState(null);
+  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
+  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
+  const [productDialog, setProductDialog] = useState(false);
+  const [menu, setMenu] = useState(DEFAULT_MENU);
 
   // cancel modal
   const hideDialog = () => {
-    setSubmitted(false);
     setProductDialog(false);
   };
 
-  // confirm delete
-  const confirmDeleteSelected = () => {
-    setDeleteProductsDialog(true);
-  };
-
-  useEffect(() => {
-    axios
-      .get(` ${process.env.REACT_APP_API_URL}/menu/`)
-      .then((result) => {
-        setData(result.data);
-      })
-      .catch((error) => console.log(error));
-  }, [data]);
-
-  const openNew = () => {
-    // setProduct(emptyData);
-    setSubmitted(false);
+  const openForm = (selectedMenu = {}) => {
+    setMenu((data) => ({ ...data, ...selectedMenu }));
     setProductDialog(true);
   };
 
-  const onSubmit = () => {
-    console.log("Nama: ", nama);
-    console.log("Harga: ", harga);
-    console.log("Stok: ", stok);
-    console.log("Deskripsi: ", deskripsi);
-    console.log("Kategori: ", kategori);
-    console.log("image: ", gambar);
-  };
+  const onSubmit = async () => {
+    const formData = new FormData();
+    formData.append("image", menu.imageFile);
+    formData.append("hargaMenu", menu.hargaMenu);
+    formData.append("stokMenu", menu.stokMenu);
+    formData.append("deskripsiMenu", menu.deskripsiMenu);
+    formData.append("kategoriMenu", menu.kategoriMenu);
+    formData.append("namaMenu", menu.namaMenu);
 
-  const invoiceUploadHandler = ({ files }) => {
-    const [file] = files;
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      uploadInvoice(e.target.result);
-    };
-    fileReader.readAsDataURL(file);
-  };
-
-  const uploadInvoice = async (invoiceFile) => {
-    let formData = new FormData();
-    formData.append("invoiceFile", invoiceFile);
-
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/insertMenu/`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-  };
-
-  const deleteItems = (value) => {
-    console.log(value);
-    axios
-      .delete(`${process.env.REACT_APP_API_URL}/deleteItem/`)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-
-  const [selectedImage, setSelectedImage] = useState();
-
-  const imageChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
+    if (menu.idMenu) {
+      await axios
+        .put(
+          `${process.env.REACT_APP_API_URL}/updateDataMenu/${menu.idMenu}`,
+          formData
+        )
+        .then((response) => {
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Berhasil Disimpan",
+            life: 3000,
+          });
+          setProductDialog(false);
+        })
+        .catch((response) => {
+          toast.current.show({
+            severity: "error",
+            summary: "Failed",
+            detail: "Data Gagal Disimpan",
+            life: 3000,
+          });
+        });
+    } else {
+      await axios
+        .post(`${process.env.REACT_APP_API_URL}/insertMenu/`, formData)
+        .then((response) => {
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Berhasil Disimpan",
+            life: 3000,
+          });
+          setProductDialog(false);
+        })
+        .catch((response) => {
+          toast.current.show({
+            severity: "error",
+            summary: "Failed",
+            detail: "Data Gagal Disimpan",
+            life: 3000,
+          });
+        });
     }
   };
 
-  const removeSelectedImage = () => {
-    setSelectedImage();
+  const invoiceUploadHandler = (e) => {
+    setMenu((data) => ({ ...data, imageFile: e.files[0] }));
   };
+  // confirm delete
+  const confirmDeleteSelected = (selectedMenu) => {
+    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setDeleteMenuDialog(true);
+  };
+
+  const confirmDeleteAll = () => {
+    setDeleteAllDialog(true);
+  };
+
+  const hideDeleteMenuDialog = () => {
+    setDeleteMenuDialog(false);
+  };
+
+  const hideDeleteAllDialog = () => {
+    setDeleteAllDialog(false);
+  };
+
+  const deleteMenu = async () => {
+    await axios
+      .delete(`${process.env.REACT_APP_API_URL}/deleteMenuById/${menu.idMenu}`)
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Dihapus",
+          life: 3000,
+        });
+        setMenu(DEFAULT_MENU);
+        setDeleteMenuDialog(false);
+      })
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Dihapus",
+          life: 3000,
+        });
+      });
+  };
+
+  const deleteAll = async () => {
+    await axios
+      .delete(`${process.env.REACT_APP_API_URL}/deleteAllMenu`)
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Dihapus",
+          life: 3000,
+        });
+        setMenu(DEFAULT_MENU);
+        setDeleteMenuDialog(false);
+      })
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Dihapus",
+          life: 3000,
+        });
+      });
+  };
+
+  const deleteMenuDialogFooter = (
+    <>
+      <Button
+        label="No"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDeleteMenuDialog}
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={deleteMenu}
+      />
+    </>
+  );
+
+  const deleteAllDialogFooter = (
+    <>
+      <Button
+        label="No"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDeleteAllDialog}
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={deleteAll}
+      />
+    </>
+  );
 
   const productDialogFooter = (
     <React.Fragment>
@@ -114,7 +200,10 @@ const DataMenucomp = () => {
         label="Cancel"
         icon="pi pi-times"
         className="p-button-text"
-        onClick={hideDialog}
+        onClick={() => {
+          hideDialog();
+          setMenu(DEFAULT_MENU);
+        }}
       />
       <Button
         label="Save"
@@ -129,12 +218,11 @@ const DataMenucomp = () => {
     return (
       <React.Fragment>
         <Button
-          label="Delete"
+          label="Delete All"
           icon="pi pi-trash"
           severity="secondary"
           outlined
-          onClick={deleteItems}
-          disabled={!selectedData || !selectedData.length}
+          onClick={confirmDeleteAll}
         />
       </React.Fragment>
     );
@@ -142,7 +230,7 @@ const DataMenucomp = () => {
 
   const rightToolbarTemplate = () => {
     return (
-      <React.Fragment>
+      <div className="flex gap-2">
         <Button
           label="Export as Spreedsheet"
           icon="pi pi-file-excel"
@@ -154,21 +242,19 @@ const DataMenucomp = () => {
           icon="pi pi-plus"
           severity="secondary"
           outlined
-          onClick={openNew}
+          onClick={() => openForm()}
         />
-      </React.Fragment>
+      </div>
     );
   };
 
-  const imageBody = (data) => {
-    return (
-      <img
-        src={data.imageUrl}
-        alt={data.imageUrl}
-        className="w-6rem shadow-2 border-round"
-      />
-    );
-  };
+  const imageBody = (data) => (
+    <img
+      src={data.imageUrl}
+      alt={data.imageUrl}
+      className="w-6rem shadow-2 border-round"
+    />
+  );
 
   const header = (
     <div className="table-header">
@@ -182,6 +268,25 @@ const DataMenucomp = () => {
         />
       </span>
     </div>
+  );
+
+  const actionTemplate = (menu) => (
+    <>
+      <Button
+        className="mx-2"
+        icon="pi pi-trash"
+        severity="secondary"
+        outlined
+        onClick={() => confirmDeleteSelected(menu)}
+      />
+      <Button
+        className="mx-2"
+        icon="pi pi-pencil"
+        severity="secondary"
+        outlined
+        onClick={() => openForm(menu)}
+      />
+    </>
   );
 
   let arr = data.data ?? [];
@@ -202,7 +307,12 @@ const DataMenucomp = () => {
             ></Toolbar>
             <DataTable
               value={arr}
+              paginator
               header={header}
+              rows={10}
+              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+              rowsPerPageOptions={[5, 10, 25]}
+              dataKey="idMenu"
               resizableColumns
               showGridlines
               stripedRows
@@ -210,20 +320,8 @@ const DataMenucomp = () => {
               scrollable
               scrollHeight="500px"
               globalFilter={globalFilter}
-              paginator
-              rows={10}
-              rowsPerPageOptions={[5, 10, 25]}
-              selection={selectedData}
-              onSelectionChange={(e) => setSelectedData(e.value)}
-              dataKey="idMenu"
-              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} data"
             >
-              <Column
-                selectionMode="multiple"
-                headerStyle={{ width: "3rem" }}
-                exportable={false}
-              ></Column>
               <Column
                 field="idMenu"
                 header="ID Menu"
@@ -271,6 +369,7 @@ const DataMenucomp = () => {
                 header="Aksi"
                 exportable={false}
                 style={{ minWidth: "12rem" }}
+                body={actionTemplate}
               ></Column>
             </DataTable>
           </div>
@@ -278,18 +377,29 @@ const DataMenucomp = () => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header="Tambah Data"
+            header={menu.namaMenu ? "Detail Menu" : "Tambah Data"}
             modal
             className="p-fluid"
             footer={productDialogFooter}
             onHide={hideDialog}
           >
+            {menu.imageUrl && (
+              <img
+                src={menu.imageUrl}
+                alt={menu.namaMenu}
+                className="w-full m-auto mb-3"
+                style={{ borderRadius: "8px" }}
+              />
+            )}
+
             <div className="field">
               <label htmlFor="name">Name</label>
               <InputText
                 id="name"
-                value={nama}
-                onChange={(e) => setNama(e.target.value)}
+                defaultValue={menu.namaMenu}
+                onChange={(e) => {
+                  setMenu((data) => ({ ...data, namaMenu: e.target.value }));
+                }}
                 required
                 autoFocus
               />
@@ -300,16 +410,26 @@ const DataMenucomp = () => {
                 <label htmlFor="price">Harga</label>
                 <InputText
                   id="price"
-                  value={harga}
-                  onChange={(e) => setHarga(e.target.value)}
+                  defaultValue={menu.hargaMenu}
+                  onChange={(e) => {
+                    setMenu((data) => ({
+                      ...data,
+                      hargaMenu: e.target.value,
+                    }));
+                  }}
                 />
               </div>
               <div className="field col">
                 <label htmlFor="quantity">Stok</label>
                 <InputText
                   id="quantity"
-                  value={stok}
-                  onChange={(e) => setStok(e.target.value)}
+                  defaultValue={menu.stokMenu}
+                  onChange={(e) => {
+                    setMenu((data) => ({
+                      ...data,
+                      stokMenu: e.target.value,
+                    }));
+                  }}
                   integeronly
                 />
               </div>
@@ -319,8 +439,13 @@ const DataMenucomp = () => {
               <label htmlFor="description">Deskripsi</label>
               <InputTextarea
                 id="description"
-                value={deskripsi}
-                onChange={(e) => setDeskripsi(e.target.value)}
+                defaultValue={menu.deskripsiMenu}
+                onChange={(e) => {
+                  setMenu((data) => ({
+                    ...data,
+                    deskripsiMenu: e.target.value,
+                  }));
+                }}
                 required
                 rows={3}
                 cols={20}
@@ -331,8 +456,13 @@ const DataMenucomp = () => {
               <label htmlFor="category">Kategori</label>
               <InputText
                 id="category"
-                value={kategori}
-                onChange={(e) => setKategori(e.target.value)}
+                defaultValue={menu.kategoriMenu}
+                onChange={(e) => {
+                  setMenu((data) => ({
+                    ...data,
+                    kategoriMenu: e.target.value,
+                  }));
+                }}
                 required
                 autoFocus
               />
@@ -345,11 +475,52 @@ const DataMenucomp = () => {
                 accept="image/*"
                 customUpload={true}
                 uploadHandler={invoiceUploadHandler}
-                onChange={(e) => setGambar(e.target.file)}
                 mode="basic"
                 auto={true}
-                chooseLabel="Upload invoice"
+                chooseLabel={menu.imageFile.name ?? "Upload invoice"}
               />
+            </div>
+          </Dialog>
+
+          <Dialog
+            visible={deleteMenuDialog}
+            style={{ width: "32rem" }}
+            breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+            header="Confirm"
+            modal
+            footer={deleteMenuDialogFooter}
+            onHide={hideDeleteMenuDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              {menu && (
+                <span>
+                  Are you sure you want to delete <b>{menu.namaMenu}</b>?
+                </span>
+              )}
+            </div>
+          </Dialog>
+
+          <Dialog
+            visible={deleteAllDialog}
+            style={{ width: "32rem" }}
+            breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+            header="Confirm"
+            modal
+            footer={deleteAllDialogFooter}
+            onHide={hideDeleteAllDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              <span>
+                Are you sure you want to delete <b>all of the menu</b>?
+              </span>
             </div>
           </Dialog>
         </div>
