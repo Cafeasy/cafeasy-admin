@@ -218,7 +218,7 @@ const DataMenucomp = ({ data = [] }) => {
     return (
       <React.Fragment>
         <Button
-          label="Delete All"
+          label="Hapus Semua"
           icon="pi pi-trash"
           severity="danger"
           raised
@@ -232,14 +232,14 @@ const DataMenucomp = ({ data = [] }) => {
     return (
       <div className="flex gap-2">
         <Button
-          label="Export as Spreedsheet"
+          label="Export Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
           text
           raised
         />
         <Button
-          label="Add New Item"
+          label="Tambah Menu"
           icon="pi pi-plus"
           severity="secondary"
           text
@@ -266,7 +266,7 @@ const DataMenucomp = ({ data = [] }) => {
         <InputText
           type="search"
           onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search..."
+          placeholder="Cari..."
         />
       </span>
     </div>
