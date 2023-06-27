@@ -93,6 +93,14 @@ const DataMenucomp = ({ data = [] }) => {
     }
   };
 
+  const bodyTemplate = (rowData) => {
+    return (
+      <div className="white-space-nowrap overflow-hidden text-overflow-ellipsis">
+        {rowData.deskripsiMenu}
+      </div>
+    );
+  };
+
   const invoiceUploadHandler = (e) => {
     setMenu((data) => ({ ...data, imageFile: e.files[0] }));
   };
@@ -350,7 +358,8 @@ const DataMenucomp = ({ data = [] }) => {
                 field="deskripsiMenu"
                 header="Deskripsi Menu"
                 sortable
-                style={{ minWidth: "10rem" }}
+                style={{ maxWidth: 220 }}
+                body={bodyTemplate}
               ></Column>
               <Column
                 field="kategoriMenu"
