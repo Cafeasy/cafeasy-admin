@@ -495,7 +495,7 @@ const DataMenucomp = ({ data = [] }) => {
             visible={deleteMenuDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
-            header="Confirm"
+            header="Konfirmasi"
             modal
             footer={deleteMenuDialogFooter}
             onHide={hideDeleteMenuDialog}
@@ -507,7 +507,7 @@ const DataMenucomp = ({ data = [] }) => {
               />
               {menu && (
                 <span>
-                  Are you sure you want to delete <b>{menu.namaMenu}</b>?
+                  Apakah anda yakin ingin menghapus <b>{menu.namaMenu}</b>?
                 </span>
               )}
             </div>
@@ -517,7 +517,7 @@ const DataMenucomp = ({ data = [] }) => {
             visible={deleteAllDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
-            header="Confirm"
+            header="Konfirmasi"
             modal
             footer={deleteAllDialogFooter}
             onHide={hideDeleteAllDialog}
@@ -528,7 +528,7 @@ const DataMenucomp = ({ data = [] }) => {
                 style={{ fontSize: "2rem" }}
               />
               <span>
-                Are you sure you want to delete <b>all of the menu</b>?
+                Apakah Anda yakin ingin menghapus <b>semua menu</b>?
               </span>
             </div>
           </Dialog>
