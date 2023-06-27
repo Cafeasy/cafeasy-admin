@@ -220,8 +220,8 @@ const DataMenucomp = ({ data = [] }) => {
         <Button
           label="Delete All"
           icon="pi pi-trash"
-          severity="secondary"
-          outlined
+          severity="danger"
+          raised
           onClick={confirmDeleteAll}
         />
       </React.Fragment>
@@ -235,13 +235,15 @@ const DataMenucomp = ({ data = [] }) => {
           label="Export as Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
-          outlined
+          text
+          raised
         />
         <Button
           label="Add New Item"
           icon="pi pi-plus"
           severity="secondary"
-          outlined
+          text
+          raised
           onClick={() => openForm()}
         />
       </div>
@@ -273,18 +275,19 @@ const DataMenucomp = ({ data = [] }) => {
   const actionTemplate = (menu) => (
     <>
       <Button
-        className="mx-2"
-        icon="pi pi-trash"
-        severity="secondary"
-        outlined
-        onClick={() => confirmDeleteSelected(menu)}
-      />
-      <Button
+        label="Edit"
         className="mx-2"
         icon="pi pi-pencil"
-        severity="secondary"
-        outlined
+        rounded
         onClick={() => openForm(menu)}
+      />
+      <Button
+        label="Hapus"
+        className="mx-2"
+        icon="pi pi-trash"
+        severity="danger"
+        rounded
+        onClick={() => confirmDeleteSelected(menu)}
       />
     </>
   );
