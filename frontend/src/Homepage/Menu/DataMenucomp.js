@@ -29,11 +29,6 @@ const DataMenucomp = ({ data = [] }) => {
   const [deleteAllDialog, setDeleteAllDialog] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
   const [menu, setMenu] = useState(DEFAULT_MENU);
-  const items = [
-    {
-      path: '/DataTransaksi',
-    },
-  ];
 
   // cancel modal
   const hideDialog = () => {
@@ -300,7 +295,7 @@ const DataMenucomp = ({ data = [] }) => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATA MENU </div>
+        <div className="title-crud"> DATATABLE MENU </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />

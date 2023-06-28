@@ -52,7 +52,7 @@ const DataTransaksicomp = () => {
 
   const header = (
     <div className="table-header">
-      <h5 className="mx-0 my-1">Deskripsi Transaksi</h5>
+      <h5 className="mx-0 my-1">Semua Transaksi</h5>
       <div className="flex gap-2">
         <Button
           label="Ekspor ke Spreedsheet"
@@ -87,7 +87,7 @@ const DataTransaksicomp = () => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATA TRANSAKSI </div>
+        <div className="title-crud"> DATATABLE TRANSAKSI </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />

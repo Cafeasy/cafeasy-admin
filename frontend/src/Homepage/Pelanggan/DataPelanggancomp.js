@@ -76,7 +76,7 @@ const DataPelanggancomp = ({ data = [] }) => {
 
   const header = (
     <div className="table-header">
-      <h5 className="mx-0 my-1">Deskripsi Pelanggan</h5>
+      <h5 className="mx-0 my-1">Semua Pelanggan</h5>
       <div className="flex gap-2">
         <Button
           label="Hapus Semua"
@@ -105,7 +105,7 @@ const DataPelanggancomp = ({ data = [] }) => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATA PELANGGAN </div>
+        <div className="title-crud"> DATATABLE PELANGGAN </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
