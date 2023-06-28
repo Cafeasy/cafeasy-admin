@@ -9,7 +9,6 @@ import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 
 const DEFAULT_MENU = {
-  idKategori: "",
   namaKategori: "",
 };
 
@@ -38,10 +37,84 @@ const DataKategoricomp = ({ data = [] }) => {
     setDeleteMenuDialog(true);
   };
 
+  const hideDialog = () => {
+    setProductDialog(false);
+  };
+
+  const onSubmit = async () => {
+    const formData = new FormData();
+    formData.append("namaKategori", menu.namaKategori);
+
+    if (menu.idMenu) {
+      await axios
+        .put(
+          `${process.env.REACT_APP_API_URL}/updateKategoriMenu/${menu.idKategori}`,
+          formData
+        )
+        .then((response) => {
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Berhasil Disimpan",
+            life: 3000,
+          });
+          setProductDialog(false);
+        })
+        .catch((response) => {
+          toast.current.show({
+            severity: "error",
+            summary: "Failed",
+            detail: "Data Gagal Disimpan",
+            life: 3000,
+          });
+        });
+    } else {
+      await axios
+        .post(`${process.env.REACT_APP_API_URL}/insertKategoriMenu/`, formData)
+        .then((response) => {
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Berhasil Disimpan",
+            life: 3000,
+          });
+          setProductDialog(false);
+        })
+        .catch((response) => {
+          toast.current.show({
+            severity: "error",
+            summary: "Failed",
+            detail: "Data Gagal Disimpan",
+            life: 3000,
+          });
+        });
+    }
+  };
+
   const openForm = (selectedMenu = {}) => {
     setMenu((data) => ({ ...data, ...selectedMenu }));
     setProductDialog(true);
   };
+
+  const productDialogFooter = (
+    <React.Fragment>
+      <Button
+        label="Cancel"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={() => {
+          hideDialog();
+          setMenu(DEFAULT_MENU);
+        }}
+      />
+      <Button
+        label="Save"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={onSubmit}
+      />
+    </React.Fragment>
+  );
 
   const deleteAll = async () => {
     await axios
@@ -150,6 +223,12 @@ const DataKategoricomp = ({ data = [] }) => {
       <h5 className="mx-0 my-1">Semua Kategori</h5>
       <div className="flex gap-2">
         <Button
+          label="Tambah Kategori"
+          icon="pi pi-plus"
+          raised
+          onClick={() => openForm()}
+        />
+        <Button
           label="Expor ke Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
@@ -224,6 +303,32 @@ const DataKategoricomp = ({ data = [] }) => {
               ></Column>
             </DataTable>
           </div>
+
+          <Dialog
+            visible={productDialog}
+            style={{ width: "450px" }}
+            header={menu.namaKategori ? "Edit Kategori" : "Tambah Kategori"}
+            modal
+            className="p-fluid"
+            footer={productDialogFooter}
+            onHide={hideDialog}
+          >
+            <div className="field">
+              <label htmlFor="name">Name Kategori</label>
+              <InputText
+                id="name"
+                defaultValue={menu.namaKategori}
+                onChange={(e) => {
+                  setMenu((data) => ({
+                    ...data,
+                    namaKategori: e.target.value,
+                  }));
+                }}
+                required
+                autoFocus
+              />
+            </div>
+          </Dialog>
 
           <Dialog
             visible={deleteAllDialog}

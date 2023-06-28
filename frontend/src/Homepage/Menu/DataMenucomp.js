@@ -378,7 +378,7 @@ const DataMenucomp = ({ data = [] }) => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header={menu.namaMenu ? "Detail Menu" : "Tambah Data"}
+            header={menu.namaMenu ? "Detail Menu" : "Tambah Menu"}
             modal
             className="p-fluid"
             footer={productDialogFooter}
