@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../Utils/Crud.css";
 import AvailableMenu from "./AvailableMenu";
+import NotAvailableMenu from "./NotAvailableMenu";
 import axios from "axios";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -371,6 +372,8 @@ const DataMenucomp = ({ data = [] }) => {
           </div>
           <br></br>
           <AvailableMenu />
+          <br></br>
+          <NotAvailableMenu />
 
           <Dialog
             visible={productDialog}

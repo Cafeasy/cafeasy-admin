@@ -1,14 +1,24 @@
-import { NavLink } from "react-router-dom"
-import Sidebarcomp from "../Sidebarcomp"
-import DataKategoricomp from "./DataKategoricomp"
+import Sidebarcomp from "../Sidebarcomp";
+import DataKategoricomp from "./DataKategoricomp";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const DataKategoripage = () => {
-    return (
-    <div>
-       <Sidebarcomp/>
-       <DataKategoricomp/>
-       </div>
-    )
-}
+  const [data, setData] = useState([]);
 
-export default DataKategoripage
+  useEffect(() => {
+    axios
+      .get(` ${process.env.REACT_APP_API_URL}/kategoriMenu/`).then((result) => {
+        setData(result.data);
+      })
+  }, []);
+
+  return (
+    <div>
+      <Sidebarcomp />
+      {data && <DataKategoricomp data={data} />}
+    </div>
+  );
+};
+
+export default DataKategoripage;

@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import Sidebarcomp from "../Sidebarcomp";
 import DataTransaksicomp from "./DataTransaksicomp";
 import { useEffect, useState } from "react";
@@ -9,12 +8,10 @@ const DataTransaksipage = () => {
 
   useEffect(() => {
     axios
-      .get(` ${process.env.REACT_APP_API_URL}/transaksi/`)
-      .then((result) => {
+      .get(` ${process.env.REACT_APP_API_URL}/transaksi/`).then((result) => {
         setData(result.data);
       })
-      .catch((error) => console.log(error));
-  }, [data]);
+  }, []);
 
   return (
     <div>

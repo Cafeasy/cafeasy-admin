@@ -157,7 +157,7 @@ const DataPelanggancomp = ({ data = [] }) => {
                 style={{ fontSize: "2rem" }}
               />
               <span>
-                Apakah anda yakin ingin menghapus <b>semua menu</b>?
+                Apakah anda yakin ingin menghapus <b>semua pelanggan</b>?
               </span>
             </div>
           </Dialog>

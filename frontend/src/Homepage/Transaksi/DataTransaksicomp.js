@@ -7,32 +7,80 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
-import { Toolbar } from "primereact/toolbar";
-import { useParams } from "react-router-dom";
+import { Dialog } from "primereact/dialog";
 
-const DataTransaksicomp = () => {
-  const [data, setData] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState(null);
-  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+const DEFAULT_MENU = {
+  idTransaksi: "",
+  idPelanggan: "",
+  namaPelanggan: "",
+  tanggal: "",
+  noMeja: "",
+  totalHarga: "",
+  statusBayar: "",
+};
+
+const DataTransaksicomp = ({ data = [] }) => {
   const toast = useRef(null);
+  const [globalFilter, setGlobalFilter] = useState(null);
+  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
+  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
+  const [menu, setMenu] = useState(DEFAULT_MENU);
 
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
   };
 
-  const confirmDeleteSelected = () => {
-    setDeleteProductsDialog(true);
+  const hideDeleteMenuDialog = () => {
+    setDeleteMenuDialog(false);
   };
 
-  useEffect(() => {
-    axios
-      .get(` ${process.env.REACT_APP_API_URL}/transaksi/`)
-      .then((result) => {
-        setData(result.data);
+  const hideDeleteAllDialog = () => {
+    setDeleteAllDialog(false);
+  };
+
+  const confirmDeleteAll = () => {
+    setDeleteAllDialog(true);
+  };
+
+  const deleteAll = async () => {
+    await axios
+      .delete(`${process.env.REACT_APP_API_URL}/deleteAllTransaksi`)
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Dihapus",
+          life: 3000,
+        });
+        setMenu(DEFAULT_MENU);
+        setDeleteMenuDialog(false);
       })
-      .catch((error) => console.log(error));
-  }, [data]);
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Dihapus",
+          life: 3000,
+        });
+      });
+  };
+
+  const deleteAllDialogFooter = (
+    <>
+      <Button
+        label="No"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDeleteAllDialog}
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={deleteAll}
+      />
+    </>
+  );
 
   const getSeverity = (data) => {
     switch (data.statusBayar) {
@@ -65,7 +113,7 @@ const DataTransaksicomp = () => {
           icon="pi pi-trash"
           severity="danger"
           raised
-          onClick={confirmDeleteSelected}
+          onClick={confirmDeleteAll}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
@@ -152,6 +200,26 @@ const DataTransaksicomp = () => {
               ></Column>
             </DataTable>
           </div>
+
+          <Dialog
+            visible={deleteAllDialog}
+            style={{ width: "32rem" }}
+            breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+            header="Konfirmasi"
+            modal
+            footer={deleteAllDialogFooter}
+            onHide={hideDeleteAllDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              <span>
+                Apakah anda yakin ingin menghapus <b>semua transaksi</b>?
+              </span>
+            </div>
+          </Dialog>
         </div>
       </div>
     </div>

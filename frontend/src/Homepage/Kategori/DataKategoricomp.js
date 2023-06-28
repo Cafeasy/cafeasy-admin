@@ -5,59 +5,145 @@ import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
-import { Toolbar } from "primereact/toolbar";
-import { useParams } from "react-router-dom";
+import { Dialog } from "primereact/dialog";
 
-const DataPelanggancomp = () => {
-  const params = useParams();
-  const urlParams = params.idUser;
+const DEFAULT_MENU = {
+  idKategori: "",
+  namaKategori: "",
+};
 
-  const [data, setData] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
-  const [deleteProductDialog, setDeleteProductDialog] = useState(false);
-  const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
+const DataKategoricomp = ({ data = [] }) => {
   const toast = useRef(null);
+  const [globalFilter, setGlobalFilter] = useState(null);
+  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
+  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
+  const [productDialog, setProductDialog] = useState(false);
+  const [menu, setMenu] = useState(DEFAULT_MENU);
 
-  const confirmDeleteSelected = () => {
-    setDeleteProductsDialog(true);
+  const hideDeleteMenuDialog = () => {
+    setDeleteMenuDialog(false);
   };
 
-  useEffect(() => {
-    axios
-      .get(` ${process.env.REACT_APP_API_URL}/kategoriMenu/`)
-      .then((result) => {
-        setData(result.data);
+  const hideDeleteAllDialog = () => {
+    setDeleteAllDialog(false);
+  };
+
+  const confirmDeleteAll = () => {
+    setDeleteAllDialog(true);
+  };
+
+  const confirmDeleteSelected = (selectedMenu) => {
+    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setDeleteMenuDialog(true);
+  };
+
+  const openForm = (selectedMenu = {}) => {
+    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setProductDialog(true);
+  };
+
+  const deleteAll = async () => {
+    await axios
+      .delete(`${process.env.REACT_APP_API_URL}/deleteAllKategoriMenu`)
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Dihapus",
+          life: 3000,
+        });
+        setMenu(DEFAULT_MENU);
+        setDeleteMenuDialog(false);
       })
-      .catch((error) => console.log(error));
-  }, [data]);
-
-  const handleDeleteItem = async (urlParams) => {
-    try {
-      await axios.delete(
-        `${process.env.REACT_APP_API_URL}/deleteTransaksiById/` + urlParams
-      );
-      setData(data.filter((item) => item._id !== urlParams));
-    } catch (error) {
-      console.error(error);
-    }
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Dihapus",
+          life: 3000,
+        });
+      });
   };
 
-  const deleteButtonTemplate = (rowData) => {
-    const deleteItem = () => {
-      handleDeleteItem(rowData._id);
-    };
-
-    return (
+  const deleteAllDialogFooter = (
+    <>
       <Button
-        icon="pi pi-trash"
-        className="p-button-danger"
-        onClick={deleteItem}
+        label="No"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDeleteAllDialog}
       />
-    );
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={deleteAll}
+      />
+    </>
+  );
+
+  const deleteMenu = async () => {
+    await axios
+      .delete(
+        `${process.env.REACT_APP_API_URL}/deleteKategoriMenuById/${menu.idKategori}`
+      )
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Dihapus",
+          life: 3000,
+        });
+        setMenu(DEFAULT_MENU);
+        setDeleteMenuDialog(false);
+      })
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Dihapus",
+          life: 3000,
+        });
+      });
   };
+
+  const deleteMenuDialogFooter = (
+    <>
+      <Button
+        label="No"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDeleteMenuDialog}
+      />
+      <Button
+        label="Yes"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={deleteMenu}
+      />
+    </>
+  );
+
+  const actionTemplate = (menu) => (
+    <>
+      <Button
+        label="Edit"
+        className="mx-2"
+        icon="pi pi-pencil"
+        rounded
+        onClick={() => openForm(menu)}
+      />
+      <Button
+        label="Hapus"
+        className="mx-2"
+        icon="pi pi-trash"
+        severity="danger"
+        rounded
+        onClick={() => confirmDeleteSelected(menu)}
+      />
+    </>
+  );
 
   const header = (
     <div className="table-header">
@@ -74,7 +160,7 @@ const DataPelanggancomp = () => {
           icon="pi pi-trash"
           severity="danger"
           raised
-          onClick={confirmDeleteSelected}
+          onClick={confirmDeleteAll}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
@@ -111,8 +197,6 @@ const DataPelanggancomp = () => {
               scrollable
               scrollHeight="500px"
               globalFilter={globalFilter}
-              selection={selectedData}
-              onSelectionChange={(e) => setSelectedData(e.value)}
               dataKey="idKategori"
               paginator
               rows={10}
@@ -120,11 +204,6 @@ const DataPelanggancomp = () => {
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
               currentPageReportTemplate="Menampilkan {first} hingga {last} dari {totalRecords} data"
             >
-              <Column
-                selectionMode="multiple"
-                headerStyle={{ width: "0.5%" }}
-                exportable={false}
-              ></Column>
               <Column
                 field="idKategori"
                 header="ID Kategori"
@@ -140,15 +219,57 @@ const DataPelanggancomp = () => {
               <Column
                 header="Aksi"
                 exportable={false}
-                body={deleteButtonTemplate}
                 style={{ width: "15%" }}
+                body={actionTemplate}
               ></Column>
             </DataTable>
           </div>
+
+          <Dialog
+            visible={deleteAllDialog}
+            style={{ width: "32rem" }}
+            breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+            header="Konfirmasi"
+            modal
+            footer={deleteAllDialogFooter}
+            onHide={hideDeleteAllDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              <span>
+                Apakah anda yakin ingin menghapus <b>semua kategori</b>?
+              </span>
+            </div>
+          </Dialog>
+
+          <Dialog
+            visible={deleteMenuDialog}
+            style={{ width: "32rem" }}
+            breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+            header="Konfirmasi"
+            modal
+            footer={deleteMenuDialogFooter}
+            onHide={hideDeleteMenuDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              {menu && (
+                <span>
+                  Apakah anda yakin ingin menghapus <b>{menu.namaKategori}</b>?
+                </span>
+              )}
+            </div>
+          </Dialog>
         </div>
       </div>
     </div>
   );
 };
 
-export default DataPelanggancomp;
+export default DataKategoricomp;

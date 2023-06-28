@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import Sidebarcomp from "../Sidebarcomp";
 import DataPelanggancomp from "./DataPelanggancomp";
 import { useEffect, useState } from "react";
@@ -8,12 +7,9 @@ const DataPelangganpage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(` ${process.env.REACT_APP_API_URL}/customer/`)
-      .then((result) => {
-        setData(result.data);
-      })
-      .catch((error) => console.log(error));
+    axios.get(` ${process.env.REACT_APP_API_URL}/customer/`).then((result) => {
+      setData(result.data);
+    });
   }, []);
 
   return (
