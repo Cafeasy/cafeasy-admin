@@ -57,24 +57,6 @@ const DataPelanggancomp = ({ data = [] }) => {
       });
   };
 
-  const leftToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        <Button
-          label="Hapus Semua"
-          icon="pi pi-trash"
-          severity="danger"
-          raised
-          onClick={confirmDeleteAll}
-        />
-      </React.Fragment>
-    );
-  };
-
-  const rightToolbarTemplate = () => {
-    return <React.Fragment></React.Fragment>;
-  };
-
   const deleteAllDialogFooter = (
     <>
       <Button
@@ -95,14 +77,23 @@ const DataPelanggancomp = ({ data = [] }) => {
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Pelanggan</h5>
-      <span className="p-input-icon-left">
-        <i className="pi pi-search" />
-        <InputText
-          type="search"
-          onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Cari..."
+      <div className="flex gap-2">
+        <Button
+          label="Hapus Semua"
+          icon="pi pi-trash"
+          severity="danger"
+          raised
+          onClick={confirmDeleteAll}
         />
-      </span>
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Cari..."
+          />
+        </span>
+      </div>
     </div>
   );
 
@@ -119,11 +110,6 @@ const DataPelanggancomp = ({ data = [] }) => {
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
           <div className="card">
-            <Toolbar
-              className="mb-4"
-              left={leftToolbarTemplate}
-              right={rightToolbarTemplate}
-            ></Toolbar>
             <DataTable
               value={arr}
               header={header}

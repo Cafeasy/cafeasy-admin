@@ -11,7 +11,6 @@ import { Toolbar } from "primereact/toolbar";
 import { useParams } from "react-router-dom";
 
 const DataTransaksicomp = () => {
-
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteProductDialog, setDeleteProductDialog] = useState(false);
@@ -35,33 +34,6 @@ const DataTransaksicomp = () => {
       .catch((error) => console.log(error));
   }, [data]);
 
-  const leftToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        <Button
-          label="Hapus Semua"
-          icon="pi pi-trash"
-          severity="danger"
-          raised
-          onClick={confirmDeleteSelected}
-        />
-      </React.Fragment>
-    );
-  };
-
-  const rightToolbarTemplate = () => {
-    return (
-      <React.Fragment>
-        <Button
-          label="Ekspor ke Spreedsheet"
-          icon="pi pi-file-excel"
-          severity="secondary"
-          raised
-        />
-      </React.Fragment>
-    );
-  };
-
   const getSeverity = (data) => {
     switch (data.statusBayar) {
       case "SUCCESS":
@@ -81,14 +53,29 @@ const DataTransaksicomp = () => {
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Transaksi</h5>
-      <span className="p-input-icon-left">
-        <i className="pi pi-search" />
-        <InputText
-          type="search"
-          onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Cari..."
+      <div className="flex gap-2">
+        <Button
+          label="Ekspor ke Spreedsheet"
+          icon="pi pi-file-excel"
+          severity="secondary"
+          raised
         />
-      </span>
+        <Button
+          label="Hapus Semua"
+          icon="pi pi-trash"
+          severity="danger"
+          raised
+          onClick={confirmDeleteSelected}
+        />
+        <span className="p-input-icon-left">
+          <i className="pi pi-search" />
+          <InputText
+            type="search"
+            onInput={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Cari..."
+          />
+        </span>
+      </div>
     </div>
   );
 
@@ -105,11 +92,6 @@ const DataTransaksicomp = () => {
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
           <div className="card">
-            <Toolbar
-              className="mb-4"
-              left={leftToolbarTemplate}
-              right={rightToolbarTemplate}
-            ></Toolbar>
             <DataTable
               value={arr}
               header={header}

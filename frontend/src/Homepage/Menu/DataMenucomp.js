@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../Utils/Crud.css";
+import AvailableMenu from "./AvailableMenu";
 import axios from "axios";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -28,6 +29,11 @@ const DataMenucomp = ({ data = [] }) => {
   const [deleteAllDialog, setDeleteAllDialog] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
   const [menu, setMenu] = useState(DEFAULT_MENU);
+  const items = [
+    {
+      path: '/DataTransaksi',
+    },
+  ];
 
   // cancel modal
   const hideDialog = () => {
@@ -368,6 +374,8 @@ const DataMenucomp = ({ data = [] }) => {
               ></Column>
             </DataTable>
           </div>
+          <br></br>
+          <AvailableMenu />
 
           <Dialog
             visible={productDialog}
