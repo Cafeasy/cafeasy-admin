@@ -176,13 +176,13 @@ const DataMenucomp = ({ data = [] }) => {
   const deleteMenuDialogFooter = (
     <>
       <Button
-        label="No"
+        label="Tidak"
         icon="pi pi-times"
         outlined
         onClick={hideDeleteMenuDialog}
       />
       <Button
-        label="Yes"
+        label="Iya"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteMenu}
@@ -193,13 +193,13 @@ const DataMenucomp = ({ data = [] }) => {
   const deleteAllDialogFooter = (
     <>
       <Button
-        label="No"
+        label="Tidak"
         icon="pi pi-times"
         outlined
         onClick={hideDeleteAllDialog}
       />
       <Button
-        label="Yes"
+        label="Iya"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteAll}
@@ -210,7 +210,7 @@ const DataMenucomp = ({ data = [] }) => {
   const productDialogFooter = (
     <React.Fragment>
       <Button
-        label="Cancel"
+        label="Batal"
         icon="pi pi-times"
         className="p-button-text"
         onClick={() => {
@@ -219,7 +219,7 @@ const DataMenucomp = ({ data = [] }) => {
         }}
       />
       <Button
-        label="Save"
+        label="Simpan"
         icon="pi pi-check"
         className="p-button-text"
         onClick={onSubmit}
@@ -394,7 +394,7 @@ const DataMenucomp = ({ data = [] }) => {
             )}
 
             <div className="field">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Name Menu</label>
               <InputText
                 id="name"
                 defaultValue={menu.namaMenu}

@@ -99,7 +99,7 @@ const DataKategoricomp = ({ data = [] }) => {
   const productDialogFooter = (
     <React.Fragment>
       <Button
-        label="Cancel"
+        label="Batal"
         icon="pi pi-times"
         className="p-button-text"
         onClick={() => {
@@ -108,7 +108,7 @@ const DataKategoricomp = ({ data = [] }) => {
         }}
       />
       <Button
-        label="Save"
+        label="Simpan"
         icon="pi pi-check"
         className="p-button-text"
         onClick={onSubmit}
@@ -142,13 +142,13 @@ const DataKategoricomp = ({ data = [] }) => {
   const deleteAllDialogFooter = (
     <>
       <Button
-        label="No"
+        label="Tidak"
         icon="pi pi-times"
         outlined
         onClick={hideDeleteAllDialog}
       />
       <Button
-        label="Yes"
+        label="Iya"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteAll}
@@ -184,13 +184,13 @@ const DataKategoricomp = ({ data = [] }) => {
   const deleteMenuDialogFooter = (
     <>
       <Button
-        label="No"
+        label="Tidak"
         icon="pi pi-times"
         outlined
         onClick={hideDeleteMenuDialog}
       />
       <Button
-        label="Yes"
+        label="Iya"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteMenu}

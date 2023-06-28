@@ -68,13 +68,13 @@ const DataTransaksicomp = ({ data = [] }) => {
   const deleteAllDialogFooter = (
     <>
       <Button
-        label="No"
+        label="Tidak"
         icon="pi pi-times"
         outlined
         onClick={hideDeleteAllDialog}
       />
       <Button
-        label="Yes"
+        label="Iya"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteAll}
