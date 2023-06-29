@@ -13,6 +13,7 @@ import { Toolbar } from "primereact/toolbar";
 import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
+import { Dropdown } from "primereact/dropdown";
 
 const DEFAULT_MENU = {
   imageFile: "",
@@ -457,7 +458,7 @@ const DataMenucomp = ({ data = [] }) => {
 
             <div className="field">
               <label htmlFor="category">Kategori</label>
-              <InputText
+              <Dropdown
                 id="category"
                 defaultValue={menu.kategoriMenu}
                 onChange={(e) => {
