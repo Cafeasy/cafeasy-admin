@@ -35,7 +35,7 @@ function Logincomp() {
       });
       if (!cookies.get("secretLogToken")) {
           if (login.data.message == "sukses") {
-            cookies.set("secretLogToken", login.data.secretLogToken);
+            cookies.set("secretLogToken", login.data.secretLogToken, { path: '/', maxAge: 24 * 60 * 60, httpOnly: false });
             var idAdminToken = cookies.get("secretLogToken");
             var decoded = jwt_decode(idAdminToken);
             var decodedIdAdmin = decoded.idAdmin;
