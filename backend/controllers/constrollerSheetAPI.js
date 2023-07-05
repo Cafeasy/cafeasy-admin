@@ -38,8 +38,8 @@ async function _writeSpreadsheet(client, sheetId, range, data) {
         range: range,
         valueInputOption: 'RAW',
         insertDataOption: 'OVERWRITE',
-        resource: {
-            "majorDimension": "ROWS",
+        requestBody: {
+
             "values": data
         },
     });
@@ -59,14 +59,15 @@ exports.getSpreadsheet = async (req, res) => {
 }
 exports.writeSpreadsheet = async (req, res) => {
     const client = await authentication();
+    const newData1 = req.body.data;
     const newData = new Set([req.body.data]);
     const data = Array.from(newData);
     try {
-        await _writeSpreadsheet(client, spreadsheetId, rangeSheet, data);
+        await _writeSpreadsheet(client, spreadsheetId, rangeSheet, newData1);
         console.log(data);
-        res.status(200).json({ message: "Success Insert data", data: data })
+        res.status(200).json({ message: "Success Insert data", data: newData1 })
     } catch (err) {
-        res.status(404).json({ message: "Failed Insert data", data: err })
+        res.status(400).json({ message: "Failed Insert data", data: err })
     }
 
 }
