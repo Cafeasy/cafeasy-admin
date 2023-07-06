@@ -33,9 +33,7 @@ const ProfileAdmincomp = () => {
     </div>
   );
 
-  console.log(data);
-
-  let arr = data.data ?? [];
+  let arr = data?.result;
 
   return (
     <div className="container">

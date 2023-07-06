@@ -1,0 +1,3 @@
+.no-before-icon::before {
+  display: none !important;
+}

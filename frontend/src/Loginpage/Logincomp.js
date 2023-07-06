@@ -34,20 +34,22 @@ function Logincomp() {
         password: password.toString(),
       });
       if (!cookies.get("secretLogToken")) {
-          if (login.data.message == "sukses") {
-            cookies.set("secretLogToken", login.data.secretLogToken);
-            var idAdminToken = cookies.get("secretLogToken");
-            var decoded = jwt_decode(idAdminToken);
-            var decodedIdAdmin = decoded.idAdmin;
-            nextNavigate(
-              "/ProfileAdmin/" + decodedIdAdmin
-            );
-          } else {
-            Swal.fire({
-              icon: "error",
-              text: login.data.message,
-            });
-          }
+        if (login.data.message == "sukses") {
+          cookies.set("secretLogToken", login.data.secretLogToken);
+          var idAdminToken = cookies.get("secretLogToken");
+          var decoded = jwt_decode(idAdminToken);
+          var decodedIdAdmin = decoded.idAdmin;
+          nextNavigate("/ProfileAdmin/" + decodedIdAdmin);
+        } else {
+          Swal.fire({
+            text: "Save is disabled in Demo Mode",
+            position: "top-end",
+            type: "warning",
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 30000,
+          });
+        }
       }
     }
   };

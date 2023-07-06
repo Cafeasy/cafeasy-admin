@@ -22,7 +22,7 @@ function Sidebarcomp() {
       return () => {};
     }
   }, []);
-  
+
   const [click, setClick] = useState(false);
 
   const [sidebar, setSidebar] = useState(true);
