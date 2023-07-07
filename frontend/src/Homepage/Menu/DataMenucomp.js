@@ -297,12 +297,7 @@ const DataMenucomp = ({ data = [] }) => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div class="title-crud">
-          <div class="d-flex flex-row-reverse">
-            <div class="p-2">Flex item 1</div>
-            <div class="p-2">Flex item 2</div>
-          </div>
-        </div>
+        <div className="title-crud"> DATATABLE MENU </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
