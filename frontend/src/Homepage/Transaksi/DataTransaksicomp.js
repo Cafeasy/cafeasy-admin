@@ -25,7 +25,10 @@ const DataTransaksicomp = ({ data = [] }) => {
   const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
   const [deleteAllDialog, setDeleteAllDialog] = useState(false);
   const [menu, setMenu] = useState(DEFAULT_MENU);
-
+  const [dataTransaksi, setdataTransaksi] = useState([]);
+  useEffect(() => {
+    setdataTransaksi(data.data);
+  }, []);
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
   };
@@ -42,6 +45,36 @@ const DataTransaksicomp = ({ data = [] }) => {
     setDeleteAllDialog(true);
   };
 
+  const exportSpreadsheet = async () => {
+    let dat1;
+    let dataPesana = [];
+    for (var i = 0; i < dataTransaksi.length; i++) {
+      dataTransaksi.map((value) => {
+        dat1 = {
+          data: [
+            [
+              "ID Transaksi", "Nama Pelanggan", "Tanggal", "Total Harga", "Status Bayar"
+            ],
+            [value.idTransaksi, value.namaPelanggan, value.tanggal, value.totalHarga, value.statusBayar]
+
+          ]
+        };
+        dataPesana[i] = [value]
+      });
+
+    }
+
+    console.log(dat1)
+
+
+    await axios
+      .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, dat1).then(() => {
+        var win = window.open('https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing', '_blank');
+        win.focus();
+      })
+      ;
+
+  }
   const deleteAll = async () => {
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/deleteAllTransaksi`)
@@ -102,11 +135,12 @@ const DataTransaksicomp = ({ data = [] }) => {
     <div className="table-header">
       <h5 className="mx-0 my-1">Semua Transaksi</h5>
       <div className="flex gap-2">
-        <Button
+        <Button on
           label="Ekspor ke Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
           raised
+          onClick={exportSpreadsheet}
         />
         <Button
           label="Hapus Semua"

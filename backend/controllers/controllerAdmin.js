@@ -140,7 +140,8 @@ exports.loginAdmin = (req, res, next) => {
                     })
                 }
                 if(result) {
-                    let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET, {expiresIn: '12h'});
+                    // let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET, {expiresIn: '12h'});
+                    let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET);
                     res.json({
                         status:'ok',
                         message: 'sukses',
