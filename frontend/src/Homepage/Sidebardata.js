@@ -5,13 +5,13 @@ import * as CgIcons from "react-icons/cg";
 import * as AiIcons from "react-icons/ai";
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
-let url = useParams();
+// let url = useParams();
 export const Sidebardata = [
   {
     title: "Profile Admin",
-    path: "/ProfileAdmin/" + url,
+    path: "/ProfileAdmin/:idadmin",
     icon: <CgIcons.CgProfile />,
     cName: "nav-text",
   },

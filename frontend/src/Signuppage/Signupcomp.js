@@ -3,44 +3,49 @@ import logodannama from "../Photos/logodannama.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const USER_DEFAULT = {
+  username: "",
+  emailCafe: "",
+  password: "",
+  namaCafe: "",
+  alamatCafe: "",
+  deskripsiCafe: "",
+  namaPemilikCafe: "",
+  noHpCafe: "",
+  image: "",
+};
+
 const Signupcomp = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [namaCafe, setNamaCafe] = useState("");
-  const [alamatCafe, setAlamat] = useState("");
-  const [deskripsiCafe, setDeskripsi] = useState("");
-  const [namaPemilikCafe, setNamaPemilik] = useState("");
-  const [noHpCafe, setNoHp] = useState("");
-  const [fotoCafe, setFoto] = useState("");
-  const [msg, setMsg] = useState("");
+  const [user, setUser] = useState(USER_DEFAULT);
   const Navigate = useNavigate();
 
-  const Signupcomp = async (e) => {
+  const handleSubmit = async (e) => {
+    const formData = new FormData();
+    formData.append("username", user.username);
+    formData.append("emailCafe", user.emailCafe);
+    formData.append("password", user.password);
+    formData.append("namaCafe", user.namaCafe);
+    formData.append("alamatCafe", user.alamatCafe);
+    formData.append("deskripsiCafe", user.deskripsiCafe);
+    formData.append("namaPemilikCafe", user.namaPemilikCafe);
+    formData.append("noHpCafe", user.noHpCafe);
+    formData.append("image", user.image);
+
     e.preventDefault();
-    try {
-      await axios.post(process.env.REACT_APP_API_URL, {
-        email: email,
-        username: username,
-        password: password,
-        namaCafe: namaCafe,
-        alamatCafe: alamatCafe,
-        deskripsiCafe: deskripsiCafe,
-        namaPemilikCafe: namaPemilikCafe,
-        noHpCafe: noHpCafe,
-        fotoCafe: fotoCafe,
+    await axios
+      .post(`${process.env.REACT_APP_API_URL}/registerAdmin`, formData)
+      .then((res) => {
+        alert("Pendaftaran Berhasil");
+        Navigate("/");
+      })
+      .catch((err) => {
+        alert("Pendaftaran Gagal");
       });
-      Navigate("/");
-    } catch (error) {
-      if (error.response) {
-        setMsg(error.response.data.msg);
-      }
-    }
   };
 
   return (
     <div className="Logform-container">
-      <form onClick={Signupcomp} className="Logform">
+      <form className="Logform">
         <div className="Logform-content">
           <h3 className="Logform-title">Daftar</h3>
 
@@ -58,8 +63,10 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Email</label>
               <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                defaultValue={user.emailCafe}
+                onChange={(e) =>
+                  setUser((data) => ({ ...data, emailCafe: e.target.value }))
+                }
                 type="email"
                 id="email"
                 className="form-control mt-1"
@@ -70,8 +77,10 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Username</label>
               <input
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                defaultValue={user.username}
+                onChange={(e) =>
+                  setUser((data) => ({ ...data, username: e.target.value }))
+                }
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Email"
@@ -85,8 +94,10 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Sandi</label>
               <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                defaultValue={user.password}
+                onChange={(e) =>
+                  setUser((data) => ({ ...data, password: e.target.value }))
+                }
                 type="password"
                 className="form-control mt-1"
                 placeholder="Masukan Sandi"
@@ -96,8 +107,10 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Nama Cafe</label>
               <input
-                value={namaCafe}
-                onChange={(e) => setNamaCafe(e.target.value)}
+                defaultValue={user.namaCafe}
+                onChange={(e) =>
+                  setUser((data) => ({ ...data, namaCafe: e.target.value }))
+                }
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Cafe"
@@ -108,8 +121,10 @@ const Signupcomp = () => {
           <div class="form-group mt-3">
             <label>Alamat Cafe</label>
             <textarea
-              value={alamatCafe}
-              onChange={(e) => setAlamat(e.target.value)}
+              defaultValue={user.alamatCafe}
+              onChange={(e) =>
+                setUser((data) => ({ ...data, alamatCafe: e.target.value }))
+              }
               type="text"
               className="form-control mt-1"
               placeholder="Masukan Alamat"
@@ -118,8 +133,10 @@ const Signupcomp = () => {
           <div class="form-group mt-3">
             <label>Deskripsi Cafe</label>
             <textarea
-              value={deskripsiCafe}
-              onChange={(e) => setDeskripsi(e.target.value)}
+              defaultValue={user.deskripsiCafe}
+              onChange={(e) =>
+                setUser((data) => ({ ...data, deskripsiCafe: e.target.value }))
+              }
               type="text"
               className="form-control mt-1"
               placeholder="Masukan Deskripsi"
@@ -131,8 +148,13 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Nama Pemilik Cafe</label>
               <input
-                value={namaPemilikCafe}
-                onChange={(e) => setNamaPemilik(e.target.value)}
+                defaultValue={user.namaPemilikCafe}
+                onChange={(e) =>
+                  setUser((data) => ({
+                    ...data,
+                    namaPemilikCafe: e.target.value,
+                  }))
+                }
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Pemilik"
@@ -141,8 +163,13 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>No Telepon</label>
               <input
-                value={noHpCafe}
-                onChange={(e) => setNoHp(e.target.value)}
+                value={user.noHpCafe}
+                onChange={(e) =>
+                  setUser((data) => ({
+                    ...data,
+                    noHpCafe: e.target.value,
+                  }))
+                }
                 type="tel"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                 className="form-control mt-1"
@@ -154,8 +181,13 @@ const Signupcomp = () => {
           <div class="form-group mt-3">
             <label>Foto Cafe</label>
             <input
-              value={fotoCafe}
-              onChange={(e) => setFoto(e.target.value)}
+              // value={fotoCafe}
+              onChange={(e) =>
+                setUser((data) => ({
+                  ...data,
+                  image: e.target.files[0],
+                }))
+              }
               type="file"
               className="form-control mt-1"
               placeholder="Masukan Alamat"
@@ -170,7 +202,11 @@ const Signupcomp = () => {
             </div>
           </div>
           <div class="d-grid gap-2 mt-3">
-            <button type="submit" class="btn btn-secondary">
+            <button
+              type="submit"
+              class="btn btn-secondary"
+              onClick={handleSubmit}
+            >
               Submit
             </button>
           </div>
