@@ -39,7 +39,7 @@ const ProfileAdmincomp = () => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> PROFILE ADMIN </div>
+        <div className="title-crud"> DATATABLE PROFILE ADMIN </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <div className="card">

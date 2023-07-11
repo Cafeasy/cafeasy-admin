@@ -24,30 +24,30 @@ function Sidebarcomp() {
     }
   }, []);
 
-  const [click, setClick] = useState(false);
+  // const [click, setClick] = useState(false);
 
-  const [sidebar, setSidebar] = useState(false);
+  // const [sidebar, setSidebar] = useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar);
+  // const showSidebar = () => setSidebar(!sidebar);
 
-  const [dropdown, setDropdown] = useState(false);
+  // const [dropdown, setDropdown] = useState(false);
 
-  const closeMobileMenu = () => setClick(false);
+  // const closeMobileMenu = () => setClick(false);
 
-  const onMouseEnter = () => {
-    if (window.innerWidth < 800) {
-      setDropdown(false);
-    } else {
-      setDropdown(true);
-    }
-  };
-  const onMouseLeave = () => {
-    if (window.innerWidth < 800) {
-      setDropdown(false);
-    } else {
-      setDropdown(false);
-    }
-  };
+  // const onMouseEnter = () => {
+  //   if (window.innerWidth < 800) {
+  //     setDropdown(false);
+  //   } else {
+  //     setDropdown(true);
+  //   }
+  // };
+  // const onMouseLeave = () => {
+  //   if (window.innerWidth < 800) {
+  //     setDropdown(false);
+  //   } else {
+  //     setDropdown(false);
+  //   }
+  // };
   return (
     <IconContext.Provider value={{ color: "#fff" }}>
       <>
