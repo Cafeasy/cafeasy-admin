@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../Homepage/Sidebarpage.css";
-import * as FaIcons from "react-icons/fa";
-import * as MdIcons from "react-icons/md";
-import { Link } from "react-router-dom";
+import * as BiIcons from "react-icons/bi";
 import { Sidebardata } from "./Sidebardata";
 import { NavLink } from "react-router-dom";
 import logodannama from "../Photos/logodannama.png";
-import Dropdown from "../Utils/Dropdown";
 import "../Photos/logodannama.png";
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
@@ -82,7 +79,7 @@ function Sidebarcomp() {
 
             <div className="sidebar-bottom">
               <span>
-                <i class="ri-logout-circle-r-line"></i> Logout
+                <BiIcons.BiLogOut />Logout
               </span>
             </div>
           </div>
