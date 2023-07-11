@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../Homepage/Sidebarpage.css";
+import axios from "axios";
 import * as BiIcons from "react-icons/bi";
 import { Sidebardata } from "./Sidebardata";
 import { NavLink } from "react-router-dom";
@@ -46,7 +47,6 @@ function Sidebarcomp() {
   //   }
   // };
   return (
-    <IconContext.Provider value={{ color: "#fff" }}>
       <>
         <nav className="sidebar">
           <br></br>
@@ -85,7 +85,6 @@ function Sidebarcomp() {
           </div>
         </nav>
       </>
-    </IconContext.Provider>
   );
 }
 
