@@ -1,4 +1,4 @@
-import Sidebarcomp from "../Sidebarcomp";
+import Layout from "../Layout";
 import DataMenucomp from "./DataMenucomp";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,7 +14,7 @@ const DataMenupage = () => {
 
   return (
     <div>
-      <Sidebarcomp />
+      <Layout />
       {data && <DataMenucomp data={data} />}
     </div>
   );

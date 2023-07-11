@@ -10,33 +10,33 @@ import * as BiIcons from "react-icons/bi";
 // let url = useParams();
 export const Sidebardata = [
   {
-    title: "Profile Admin",
     path: "/ProfileAdmin/:idadmin",
     icon: <CgIcons.CgProfile />,
     cName: "nav-text",
+    display: "Profile Admin",
   },
   {
-    title: "Data Menu",
     path: "/DataMenu",
     icon: <MdIcons.MdMenuBook />,
     cName: "nav-text",
+    display: "Data Menu",
   },
   {
-    title: "Data Transaksi",
     path: "/DataTransaksi",
     icon: <AiIcons.AiOutlineTransaction />,
     cName: "nav-text",
+    display: "Data Transaksi",
   },
   {
-    title: "Data Pelanggan",
     path: "/DataPelanggan",
     icon: <HiIcons.HiUserGroup />,
     cName: "nav-text",
+    display: "Data Pelanggan",
   },
   {
-    title: "Data Kategori",
     path: "/DataKategori",
     icon: <BiIcons.BiCategory />,
     cName: "nav-text",
+    display: "Data Kategori",
   },
 ];

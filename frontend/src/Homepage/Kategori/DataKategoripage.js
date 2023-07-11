@@ -1,4 +1,4 @@
-import Sidebarcomp from "../Sidebarcomp";
+import Layout from "../Layout";
 import DataKategoricomp from "./DataKategoricomp";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -15,7 +15,7 @@ const DataKategoripage = () => {
 
   return (
     <div>
-      <Sidebarcomp />
+      <Layout />
       {data && <DataKategoricomp data={data} />}
     </div>
   );

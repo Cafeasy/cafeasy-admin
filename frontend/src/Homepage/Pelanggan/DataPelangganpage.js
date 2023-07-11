@@ -1,4 +1,4 @@
-import Sidebarcomp from "../Sidebarcomp";
+import Layout from "../Layout";
 import DataPelanggancomp from "./DataPelanggancomp";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -14,7 +14,7 @@ const DataPelangganpage = () => {
 
   return (
     <div>
-      <Sidebarcomp />
+      <Layout />
       {data && <DataPelanggancomp data={data} />}
     </div>
   );

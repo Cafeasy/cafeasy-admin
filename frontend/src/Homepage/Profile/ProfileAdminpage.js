@@ -1,11 +1,10 @@
-import { NavLink } from "react-router-dom"
-import Sidebarcomp from "../Sidebarcomp"
+import Layout from "../Layout"
 import ProfileAdmincomp from "./ProfileAdmincomp"
 
 const ProfileAdminpage = () => {
     return (
     <div>
-       <Sidebarcomp/>
+       <Layout/>
        <ProfileAdmincomp/>
     </div>
     )

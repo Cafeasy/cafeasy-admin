@@ -1,110 +1,152 @@
-.navbar {
-  display: flex;
-  align-items: center;
-  
-  background: #DADADA;
-  color: black;
-  font-family: 'inherit';
-  font-weight: 600;
+.sidebar {
+  width: 285px;
+  height: 110%;
+  border-radius: 5%;
+  position: fixed;
   justify-content: center;
-  }
-  
-  .menu-bars {
-    margin-left: 2rem;
-    font-size: 2rem;
-    background: none;
-  }
-  
-  .nav-menu {
-    background-color: #1F2937;
-    width: 250px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    transition: 850ms;
-  }
-  
-  .nav-menu.active {
-    left: 0;
-    color: #000;
-    transition: 350ms;
-  }
-  
-  .nav-text {
-    display: flex;
-    justify-content: start;
-    font-family: 'inherit';
-    align-items: center;
-    padding: 8px 0px 8px -10px;
-    list-style: none;
-    height: 60px;
-  }
-  
-  .nav-text a {
-    text-decoration: none;
-    color: #f5f5f5;
-    font-family: 'inherit';
-    font-size: 15px;
-    width: 95%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 2px;
-    border-radius: 5px;
-  }
-  
-  .nav-text a:hover {
-    background-color: #000000;
-    height: 40px;
-    padding: 0 10px;
-  }
-  
-  .nav-menu-items {
-    width: 100%;
-  }
-  
-  .navbar-toggle {
-    background-color: #1F2937;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-  }
-  
-  span {
-    margin-left: 16px;
-  }
-
-  .navbar__title {
-    margin-right: auto;
-    font-size: 150%;
-    padding: 12px 16px;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: #1f2937;
+  margin-left: -1%;
+  padding: 0px 30px;
 }
 
-.navbar__item {
-  padding: 16px 16px;
-  cursor: pointer;
-  vertical-align: middle;
+.sidebar-top {
+  width: 100%;
+  height: 90px;
+  line-height: 70px;
 }
 
-.nav-item {
+.sidebar-toggle {
+  width: 90%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-bg {
+  background-color: #1A1A27;
+  border-radius: 8%;
+  position: absolute;
+  left: 0.0%;
+  top: -3px;
+}
+
+.sidebar-content {
+  display: flex;
+
+  justify-content: space-between;
+  flex-direction: column;
+  height: calc(100% - 5%);
+  margin-top: 30px;
+}
+
+.sidebar-content.active {
+  left: 0;
+  color: #d7ff61;
+  transition: 350ms;
+}
+
+.menu {
+  height: 80%;
+}
+
+.sidebar-bottom {
+  height: 18%;
+}
+
+.nav-link,
+.sidebar-bottom span {
   display: flex;
   align-items: center;
-  height: 80px;
+  column-gap: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.nav-links {
-  color: rgb(0, 0, 0);
+.sidebar-bottom span {
+  color: white;
+  cursor: pointer;
+}
+
+.nav-list {
+  display: flex;
+
+  row-gap: 2rem;
+  flex-direction: column;
+  color: rgb(255, 255, 255);
+}
+
+.nav-list.active {
+  display: flex;
+
+  row-gap: 2rem;
+  flex-direction: column;
+  color: red;
+}
+
+.nav-link i {
+  color: rgb(238, 238, 238);
+}
+
+.nav-active {
+  display: flex;
+  justify-content: start;
+  font-family: "inherit";
+  align-items: center;
+  padding: 8px 0px 8px -10px;
+  list-style: none;
+  height: 60px;
+}
+
+.nav-active a {
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  color: #f5f5f5;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  border-radius: 5px;
 }
 
-.nav-links:hover {
-  background-color: #1F2937;
-  border-radius: 4px;
-  transition: all 0.2s ease-out;
+.nav-active a:hover {
+  background-color: #ff7118;
+  height: 40px;
+  padding: 0 10px;
 }
+
+.nav-text {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px -10px;
+  list-style: none;
+  height: 30px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-family: "inherit";
+  font-size: 17px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0px -20px;
+  border-radius: 5px;
+}
+
+.nav-text a:hover {
+  background-color: #000000;
+  height: 40px;
+  padding: 0 10px;
+}
+
+.main__layout {
+  margin-left: 10px;
+}
+

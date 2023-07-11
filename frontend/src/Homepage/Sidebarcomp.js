@@ -4,6 +4,7 @@ import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Sidebardata } from "./Sidebardata";
+import { NavLink } from "react-router-dom";
 import logodannama from "../Photos/logodannama.png";
 import Dropdown from "../Utils/Dropdown";
 import "../Photos/logodannama.png";
@@ -25,7 +26,7 @@ function Sidebarcomp() {
 
   const [click, setClick] = useState(false);
 
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -50,45 +51,43 @@ function Sidebarcomp() {
   return (
     <IconContext.Provider value={{ color: "#fff" }}>
       <>
-        <header className="navbar">
-          <div className="navbar__title navbar__item">
-            <Link to="#" className="menu-bars">
-              <FaIcons.FaBars onClick={showSidebar} />
-            </Link>
-          </div>
-          <div
-            className="navbar__item"
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
-            <Link to="" className="nav-links" onClick={closeMobileMenu}>
-              Muhammad Adam Firdaus
-              <MdIcons.MdArrowDropDown />
-              {dropdown && <Dropdown />}
-            </Link>
-          </div>
-        </header>
-      </>
-      <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <ul className="nav-menu-items">
-          <li className="navbar-toggle">
-            <Link to="#" className="menu-bars">
-              <img src={logodannama} alt="Logo" />
-            </Link>
-          </li>
+        <nav className="sidebar">
           <br></br>
-          {Sidebardata.map((item, index) => {
-            return (
-              <li key={index} className={item.cName}>
-                <Link to={item.path}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+          <ul className="sidebar-top sidebar-bg">
+            <li className="sidebar-toggle">
+                <img src={logodannama} alt="Logo" />
+            </li>
+          </ul>
+
+          <div className="sidebar-content">
+            <div className="menu">
+              <ul className="nav-list">
+                {Sidebardata.map((item, index) => (
+                  <li className={item.cName} key={index}>
+                    <NavLink
+                      to={item.path}
+                      className={(navClass) =>
+                        navClass.isActive
+                          ? "nav-active nav-link"
+                          : "nav-link"
+                      }
+                    >
+                      {item.icon}
+                      {item.display}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="sidebar-bottom">
+              <span>
+                <i class="ri-logout-circle-r-line"></i> Logout
+              </span>
+            </div>
+          </div>
+        </nav>
+      </>
     </IconContext.Provider>
   );
 }

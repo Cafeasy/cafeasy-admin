@@ -1,4 +1,4 @@
-import Sidebarcomp from "../Sidebarcomp";
+import Layout from "../Layout";
 import DataTransaksicomp from "./DataTransaksicomp";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -15,7 +15,7 @@ const DataTransaksipage = () => {
 
   return (
     <div>
-      <Sidebarcomp />
+      <Layout />
       {data && <DataTransaksicomp data={data} />}
     </div>
   );
