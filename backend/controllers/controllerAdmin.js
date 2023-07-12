@@ -32,7 +32,8 @@ exports.createAdmin = async (req, res, next) => {
     }
 
     //sign username request from body
-    const idAdmin = "adm-" + (Math.random()).toString(32).slice(3);
+    var uniqueid = (Math.random()).toString(32).slice(2, 8);
+    var idAdmin = "adm-" + uniqueid;
     var username = req.body.username;
 
     //check username admin exist
@@ -74,10 +75,11 @@ exports.createAdmin = async (req, res, next) => {
                         message: "Berhasil mendaftar",
                         data: result
                     })
-                }).catch(err => {
-                    res.json({
-                        message: 'error register'
-                    });
+                }).catch(error => {
+                    res.status(404).json({
+                        message: "Gagal mendaftar",
+                        error: error
+                    })
                 })
             })
         } else if (admin) {
@@ -96,8 +98,11 @@ exports.getProfileAdmin = async (req, res, next) => {
             message: "Data profil admin berhasil dipanggil",
             data: {result}
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        res.status(404).json({
+            message: "Data profil admin gagal dipanggil",
+            error: error
+        })
     })
 }
 
@@ -106,20 +111,15 @@ exports.getProfileAdminByName = async (req, res, next) => {
 
     DataAdmin.find({username: `${username}`})
     .then(result => {
-        if(!result){
-            res.status(404).json({
-                message: "Data profil admin gagal dipanggil",
-                data: {result}
-            })
-        } else { 
-            res.status(200).json({
-                message: "Data profil admin berhasil dipanggil",
-                data: {result}
-            })
-        }
-        
-    }).catch(err => {
-        next(err);
+        res.status(404).json({
+            message: "Data profil admin berdasarkan username gagal dipanggil",
+            data: {result}
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Data profil admin berdasarkan username gagal dipanggil",
+            error: error
+        })
     })
 }
 
@@ -229,7 +229,10 @@ exports.updateProfileAdmin = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
+        .catch(error => {
+            res.status(404).json({
+                message: "Gagal update data profile admin",
+                error: error
+            })
         })
 }

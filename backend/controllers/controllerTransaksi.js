@@ -8,8 +8,11 @@ exports.getAllTransaksiPelanggan = async (req, res, next) => {
             data: result
         })
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        res.status(404).json({
+            message: "Semua data transaksi gagal dipanggil",
+            error: error
+        })
     })
 }
 
@@ -22,10 +25,12 @@ exports.getDetailTransaksi = async (req, res, next) => {
             message: 'Data detail transaksi berhasil dipanggil',
             data: {result}
         })      
-        
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        res.status(404).json({
+            message: "Data detail transaksi gagal dipanggil",
+            error: error
+        })
     })
 }
 
@@ -35,11 +40,14 @@ exports.deleteAllTransaksi = async (req, res, next) => {
     TransaksiPelanggan.deleteMany({})
     .then(result => {
         res.status(200).json({
-            message: 'Semua transaksi telah dihapus',
+            message: 'Semua transaksi berhasil dihapus',
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        res.status(404).json({
+            message: "Semua transaksi gagal dihapus",
+            error: error
+        })
     })
 }
 
@@ -48,18 +56,15 @@ exports.deleteTransaksiById = async (req, res, next) => {
 
     TransaksiPelanggan.deleteOne({idTransaksi: `${idTransaksi}`})
     .then(result => {
-        if(!result) {
-            res.status(404).json({
-                message: 'Gagal menghapus, idTransaksi tidak ditemukan'
-            })
-        } else {
-            res.status(200).json({
-                message: 'Transaksi telah dihapus',
-                data: result
-            })
-        }
-    }).catch(err => {
-        next(err);
+        res.status(404).json({
+            message: 'Gagal menghapus, idTransaksi tidak ditemukan',
+            data: result
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Gagal menghapus, idTransaksi tidak ditemukan",
+            error: error
+        })
     })
 }
 
@@ -79,7 +84,10 @@ exports.updateStatusBayarCash = async (req, res, next) => {
             data: result
         })
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        res.status(404).json({
+            message: "Status bayar gagal diupdate - Pembayaran Cash Gagal",
+            error: error
+        })
     })
 }

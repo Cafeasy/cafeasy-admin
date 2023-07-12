@@ -14,102 +14,80 @@ const storage = getStorage();
 
 exports.getAllMenu = (req, res, next) => {
     Menu.find({}).then(result => {
-        if(result) {
-            res.status(200).json({
-                message: 'Data semua menu berhasil dipanggil',
-                data: result
-            })
-        } else if(!result) {
-            res.status(404).json({
-                message: 'Data semua menu gagal dipanggil',
-                data: result
-            })
-        }
-    }).catch(err => {
-        next(err)
+        res.status(200).json({
+            message: 'Data semua menu berhasil dipanggil',
+            data: result
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Data semua menu gagal dipanggil",
+            error: error
+        })
     })
 }
 
 exports.getAvailableMenu = (req, res, next) => {
     Menu.find({ stokMenu: {$gt: 0} })
         .then(result => {
-            if(result) {
-                res.status(200).json({
-                    message: 'Data menu available berhasil dipanggil',
-                    data: result
-                })
-            } else if(!result) {
-                res.status(404).json({
-                    message: 'Data menu available gagal dipanggil',
-                    data: result
-                })
-            }
-        }).catch(err => {
-            next(err);
-    })
+            res.status(200).json({
+                message: 'Data menu available berhasil dipanggil',
+                data: result
+            })
+        }).catch(error => {
+            res.status(404).json({
+                message: "Data menu available gagal dipanggil",
+                error: error
+            })
+        })
 }
 
 exports.getNotAvailableMenu = (req, res, next) => {
     Menu.find({ stokMenu: {$lt: 1} })
         .then(result => {
-            if(result) {
-                res.status(200).json({
-                    message: 'Data menu not available berhasil dipanggil',
-                    data: result
-                })
-            } else if(!result) {
-                res.status(404).json({
-                    message: 'Data menu not available gagal dipanggil',
-                    data: result
-                })
-            }
-        }).catch(err => {
-            next(err);
-    })
-    
+            res.status(200).json({
+                message: 'Data menu not available berhasil dipanggil',
+                data: result
+            })
+        }).catch(error => {
+            res.status(404).json({
+                message: "Data menu not available gagal dipanggil",
+                error: error
+            })
+        })
 }
 
 exports.getMenuByCategory = (req, res, next) => {
     const kategoriMenu = req.params.kategoriMenu;
     Menu.find({ kategoriMenu: `${kategoriMenu}` })
         .then(result => {
-            if(result) {
                 res.status(200).json({
                     message: 'Data menu berdasarkan kategori berhasil dipanggil',
                     data: result
                 })
-            } else if(!result) {
-                res.status(404).json({
-                    message: 'Data menu berdasarkan kategori gagal dipanggil',
-                    data: result
-                })
-            }
         })
-        .catch(err => {
-            next(err);
-    })
+        .catch(error => {
+            res.status(404).json({
+                message: "Data menu berdasarkan kategori gagal dipanggil",
+                error: error
+            })
+        })
 }
 
 exports.getMenuDetail = (req, res, next) => {
     const idMenu = req.params.idMenu;
     Menu.find({ idMenu: `${idMenu}` })
         .then(result => {
-            if(result) {
-                res.status(200).json({
-                    message: 'Data detail menu berhasil dipanggil',
-                    data: result
-                })
-            } else if(!result) {
-                res.status(404).json({
-                    message: 'Data detail menu gagal dipanggil',
-                    data: result
-                })
-            }
-        }
-        )
-        .catch(err => {
-            next(err);
-    })
+            res.status(200).json({
+                message: 'Data detail menu berhasil dipanggil',
+                data: result
+            })
+        })
+        .catch(error => {
+            res.status(404).json({
+                message: "Data detail menu gagal dipanggil",
+                error: error
+            })
+        })
 }
 
 exports.insertNewMenu = async (req, res, next) => { 
@@ -160,8 +138,12 @@ exports.insertNewMenu = async (req, res, next) => {
                     message: "Menu berhasil ditambahkan",
                     data: result
                 })
-            }).catch(err => {
-                next(err)
+                
+            }).catch(error => {
+                res.status(404).json({
+                    message: "Menu gagal ditambahkan",
+                    data: error
+                })
             })
         } else if (menu) {
             res.json({
@@ -223,50 +205,58 @@ exports.updateDataMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
-    })
+        .catch(error => {
+            res.status(404).json({
+                message: "Gagal update data menu",
+                error: error
+            })
+        })
 }
 
 exports.deleteMenuById = async (req, res, next) => {
     const idMenu = req.params.idMenu;
 
     const storageRef = ref(storage, `menuPict/${idMenu}`);
-    if(storageRef){
-        await deleteObject(storageRef);
-    }
 
-    Menu.deleteOne({idMenu: `${idMenu}`}).then(result => {
-        if(result) {
+    getDownloadURL(storageRef).then(() => {
+        deleteObject(storageRef);
+        Menu.deleteOne({idMenu: `${idMenu}`}).then(result => {
             res.status(200).json({
-                message: "Berhasil menghapus menu berdasarkan id",
+                message: "Berhasil menghapus menu",
                 data: result
             })
-        } else if(!result) {
+        })
+    }).catch(error => {
+        if(error.code === 'storage/object-not-found'){
             res.status(404).json({
-                message: "Gagal menghapus menu berdasarkan id"
+                message: "Gagal menghapus menu",
+                error: error
             })
+        } else {
+            next(err);
         }
     })
 }
 
 exports.deleteAllMenu = async (req, res, next) => {
-    const storageRef = ref(storage, `menuPict/`);
-    if(storageRef){
-        await deleteObject(storageRef);
-    }
-    
-    Menu.deleteMany({}).then(result => {
-        if(result) {
+    const storageRef = ref(storage, `bannerPict/`);
+
+    getDownloadURL(storageRef).then(() => {
+        deleteObject(storageRef);
+        Menu.deleteMany({}).then(result => {
             res.status(200).json({
                 message: "Berhasil menghapus semua menu",
                 data: result
             })
-        } else if(!result) {
-            res.status(400).json({
-                message: "Gagal menghapus semua menu",
-                data: result
+        })
+    }).catch(error => {
+        if(error.code === 'storage/object-not-found'){
+            res.status(404).json({
+                message: "Gagal menghapus semua menu, tidak ditemukan di cloud",
+                error: error
             })
+        } else {
+            next(err);
         }
     })
 }

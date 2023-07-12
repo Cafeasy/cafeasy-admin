@@ -12,6 +12,7 @@ const adminController = require('../controllers/controllerAdmin');
 const transaksiController = require('../controllers/controllerTransaksi');
 const menuController = require('../controllers/controllerMenu');
 const kategoriMenuController = require('../controllers/controllerKategoriMenu');
+const bannerController = require('../controllers/controllerBanner');
 const customerController = require('../controllers/controllerCustomer');
 const Spreadsheet = require('../controllers/constrollerSheetAPI');
 
@@ -76,6 +77,13 @@ router.delete('/deleteAllKategoriMenu', kategoriMenuController.deleteAllKategori
 router.get('/customer', customerController.getAllCustomer);
 router.delete('/deleteCustomerById/:idPelanggan', customerController.deleteCustomerById);
 router.delete('/deleteAllCustomer', customerController.deleteAllCustomer);
+
+//router kelola data banner
+router.get('/banner', bannerController.getAllBanner);
+router.post('/insertBanner', [
+    body('namaBanner').isLength({min: 3}).withMessage('Nama banner minimal 3 karakter')
+], bannerController.insertNewBanner);
+router.delete('/deleteBannerById/:idBanner', bannerController.deleteBannerById);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);

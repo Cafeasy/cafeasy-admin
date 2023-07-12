@@ -3,19 +3,15 @@ const {validationResult} = require('express-validator');
 
 exports.getAllKategoriMenu = (req, res, next) => {
     kategoriMenu.find({}).then(result => {
-        if(result) {
-            res.status(200).json({
-                message: 'Data semua kategori menu berhasil dipanggil',
-                data: result
-            })
-        } else if(!result) {
-            res.status(404).json({
-                message: 'Data semua kategori menu gagal dipanggil',
-                data: result
-            })
-        }
-    }).catch(err => {
-        next(err)
+        res.status(200).json({
+            message: 'Data semua kategori menu berhasil dipanggil',
+            data: result
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Data semua kategori menu gagal dipanggil",
+            error: error
+        })
     })
 }
 
@@ -46,8 +42,11 @@ exports.insertKategoriMenu = async (req, res, next) => {
                     message: "Kategori menu berhasil ditambahkan",
                     data: result
                 })
-            }).catch(err => {
-                next(err)
+            }).catch(error => {
+                res.status(404).json({
+                    message: "Kategori menu gagal ditambahkan",
+                    error: error
+                })
             })
         } else if (ktMenu) {
             res.json({
@@ -78,39 +77,40 @@ exports.updateKategoriMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
-    })
+        .catch(error => {
+            res.status(404).json({
+                message: "Gagal update data kategori menu",
+                error: error
+            })
+        })
 }
 
 exports.deleteKategoriMenuById = (req, res, next) => {
     const idKategori = req.params.idKategori;
 
     kategoriMenu.deleteOne({idKategori: `${idKategori}`}).then(result => {
-        if(result) {
-            res.status(200).json({
-                message: "Berhasil menghapus kategori menu berdasarkan id",
-                data: result
-            })
-        } else if(!result) {
-            res.status(404).json({
-                message: "Gagal menghapus kategori menu berdasarkan id"
-            })
-        }
+        res.status(200).json({
+            message: "Berhasil menghapus kategori menu berdasarkan id",
+            data: result
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Gagal menghapus kategori menu berdasarkan id",
+            error: error
+        })
     })
 }
 
 exports.deleteAllKategoriMenu = (req, res, next) => {
     kategoriMenu.deleteMany({}).then(result => {
-        if(result) {
-            res.status(200).json({
-                message: "Berhasil menghapus semua kategori menu",
-                data: result
-            })
-        } else if(!result) {
-            res.status(404).json({
-                message: "Gagal menghapus semua kategori menu"
-            })
-        }
+        res.status(200).json({
+            message: "Berhasil menghapus semua kategori menu",
+            data: result
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Gagal menghapus semua kategori menu",
+            error: error
+        })
     })
 }
