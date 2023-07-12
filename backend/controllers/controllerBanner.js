@@ -26,6 +26,21 @@ exports.getAllBanner = (req, res, next) => {
     })
 }
 
+exports.getBannerById = (req, res, next) => {
+    const idBanner = req.params.idBanner;
+    dataBanner.findOne({idBanner: idBanner}).then(result => {
+        res.status(200).json({
+            message: "Data banner berdasarkan id berhasil dipanggil",
+            data: result
+        })
+    }).catch(error => {
+        res.status(404).json({
+            message: "Data banner berdasarkan id gagal dipanggil",
+            error: error
+        })
+    })
+}
+
 exports.insertNewBanner = async (req, res, next) => {
     const errors = validationResult(req);
 
@@ -82,18 +97,32 @@ exports.deleteBannerById = async (req, res, next) => {
         deleteObject(storageRef);
         dataBanner.deleteOne({idBanner: `${idBanner}`}).then(result => {
             res.status(200).json({
-                message: "Berhasil menghapus banner",
+                message: "Berhasil menghapus banner berdasarkan id",
                 data: result
             })
         })
     }).catch(error => {
         if(error.code === 'storage/object-not-found'){
             res.status(404).json({
-                message: "Gagal menghapus banner",
+                message: "Gagal menghapus banner berdasarkan id",
                 error: error
             })
         } else {
             next(err);
         }
+    })
+}
+
+exports.deleteAllBanner = (req, res, next) => {
+    dataBanner.deleteMany({}).then(result => {
+        res.status(200).json({
+            message: "Berhasil menghapus semua banner",
+            data: result
+        })
+    }).catch(error => {
+        res.status(200).json({
+            message: "Gagal menghapus semua banner",
+            error: error
+        })
     })
 }

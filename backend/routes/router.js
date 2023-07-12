@@ -80,10 +80,12 @@ router.delete('/deleteAllCustomer', customerController.deleteAllCustomer);
 
 //router kelola data banner
 router.get('/banner', bannerController.getAllBanner);
+router.get('/bannerById/:idBanner', bannerController.getBannerById);
 router.post('/insertBanner', [
     body('namaBanner').isLength({min: 3}).withMessage('Nama banner minimal 3 karakter')
 ], bannerController.insertNewBanner);
 router.delete('/deleteBannerById/:idBanner', bannerController.deleteBannerById);
+router.delete('/deleteAllBanner', bannerController.deleteAllBanner);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);
