@@ -32,8 +32,7 @@ exports.createAdmin = async (req, res, next) => {
     }
 
     //sign username request from body
-    const uniqueid = "adm-" + (Math.random()).toString(32).slice(3);
-    var idAdmin = "menus-" + uniqueid;
+    const idAdmin = "adm-" + (Math.random()).toString(32).slice(3);
     var username = req.body.username;
 
     //check username admin exist
@@ -66,7 +65,7 @@ exports.createAdmin = async (req, res, next) => {
                     deskripsiCafe: req.body.deskripsiCafe,
                     namaPemilikCafe: req.body.namaPemilikCafe,
                     noHpCafe: req.body.noHpCafe,
-                    image: `${req.file.originalname + "-" + dateTime}`,
+                    image: `profilePictAdmin/${idAdmin}`,
                     imageUrl: downloadURL
                 })
             
