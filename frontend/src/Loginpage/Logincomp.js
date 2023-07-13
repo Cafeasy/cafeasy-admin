@@ -96,9 +96,6 @@ function Logincomp() {
           <br></br>
 
           <div className="row">
-            <div className="col-md-6">
-              <a href="#">Lupa sandi?</a>
-            </div>
           </div>
           <div className="d-grid gap-2 mt-3">
             <button

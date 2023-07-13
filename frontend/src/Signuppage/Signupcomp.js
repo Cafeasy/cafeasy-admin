@@ -75,7 +75,7 @@ const Signupcomp = () => {
               />
             </div>
             <div className="col-sm">
-              <label>Username</label>
+              <label>Nama Pengguna</label>
               <input
                 defaultValue={user.username}
                 onChange={(e) =>
@@ -83,7 +83,7 @@ const Signupcomp = () => {
                 }
                 type="text"
                 className="form-control mt-1"
-                placeholder="Masukan Email"
+                placeholder="Masukan Nama Pengguna"
               />
             </div>
           </div>
@@ -173,7 +173,7 @@ const Signupcomp = () => {
                 type="tel"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                 className="form-control mt-1"
-                placeholder="Masukan Nama Pendaftar"
+                placeholder="Masukan Nomor Telepon"
               />
             </div>
           </div>
@@ -190,16 +190,12 @@ const Signupcomp = () => {
               }
               type="file"
               className="form-control mt-1"
-              placeholder="Masukan Alamat"
             />
           </div>
 
           <br></br>
 
           <div className="row">
-            <div className="col-md-6">
-              <a href="#">Lupa sandi?</a>
-            </div>
           </div>
           <div class="d-grid gap-2 mt-3">
             <button

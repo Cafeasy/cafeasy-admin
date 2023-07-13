@@ -383,7 +383,10 @@ const DataMenucomp = ({ data = [] }) => {
             modal
             className="p-fluid"
             footer={productDialogFooter}
-            onHide={hideDialog}
+            onHide={()=>{
+              hideDialog()
+              setMenu(DEFAULT_MENU)
+            }}
           >
             {menu.imageUrl && (
               <img
