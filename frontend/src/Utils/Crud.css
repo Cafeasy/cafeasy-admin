@@ -1,16 +1,161 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
-.title-crud {
+
+.title-kategori-pertama,
+.title-pelanggan-pertama,
+.title-transaksi-pertama,
+.title-menu-pertama,
+.title-profile-pertama {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 90%;
+  width: 390%;
 
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: 23px;
+  font-size: 22px;
   line-height: 24px;
 
-  color: #1f2937;
+  color: #000000;
+}
+
+.title-profile-kedua {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 357%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-profile-ketiga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 393%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-menu-kedua {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 359%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-menu-ketiga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 393%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-transaksi-kedua {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 347%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-transaksi-ketiga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 385%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-pelanggan-kedua {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 340%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-pelanggan-ketiga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 375%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-kategori-kedua {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 346%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-kategori-ketiga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 378%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
 }
 
 h1,

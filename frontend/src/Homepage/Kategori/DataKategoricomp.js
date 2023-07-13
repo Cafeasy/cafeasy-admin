@@ -261,7 +261,20 @@ const DataKategoricomp = ({ data = [] }) => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATATABLE KATEGORI </div>
+        <div className="row">
+          <div className="col-md-3">
+            <div className="title-kategori-pertama">
+              {" "}
+              DATATABLE KATEGORI{" "}
+            </div>
+          </div>
+          <div className="col-sm-4">
+            <div className="title-kategori-kedua"> Admin / </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="title-kategori-ketiga"> Data Kategori </div>
+          </div>
+        </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />

@@ -6,6 +6,7 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { useParams } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
+import { Row } from "react-bootstrap";
 
 const ProfileAdmincomp = () => {
   const params = useParams();
@@ -39,7 +40,20 @@ const ProfileAdmincomp = () => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATATABLE PROFILE ADMIN </div>
+        <div className="row">
+          <div className="col-md-3">
+            <div className="title-profile-pertama">
+              {" "}
+              DATATABLE PROFIL ADMIN{" "}
+            </div>
+          </div>
+          <div className="col-sm-4">
+            <div className="title-profile-kedua"> Admin / </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="title-profile-ketiga"> Profil Admin </div>
+          </div>
+        </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <div className="card">

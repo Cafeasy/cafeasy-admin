@@ -13,7 +13,7 @@ export const Sidebardata = [
     path: "/ProfileAdmin/:idadmin",
     icon: <CgIcons.CgProfile />,
     cName: "nav-text",
-    display: "Profile Admin",
+    display: "Profil Admin",
   },
   {
     path: "/DataMenu",

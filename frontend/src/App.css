@@ -214,4 +214,5 @@ textarea::placeholder{
 
 .color-text a {
   color: #fff;
+  font-weight: 200;
 }

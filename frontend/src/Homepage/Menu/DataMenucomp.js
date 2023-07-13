@@ -297,7 +297,20 @@ const DataMenucomp = ({ data = [] }) => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATATABLE MENU </div>
+        <div className="row">
+          <div className="col-md-3">
+            <div className="title-menu-pertama">
+              {" "}
+              DATATABLE MENU{" "}
+            </div>
+          </div>
+          <div className="col-sm-4">
+            <div className="title-menu-kedua"> Admin / </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="title-menu-ketiga"> Data Menu </div>
+          </div>
+        </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
@@ -383,9 +396,9 @@ const DataMenucomp = ({ data = [] }) => {
             modal
             className="p-fluid"
             footer={productDialogFooter}
-            onHide={()=>{
-              hideDialog()
-              setMenu(DEFAULT_MENU)
+            onHide={() => {
+              hideDialog();
+              setMenu(DEFAULT_MENU);
             }}
           >
             {menu.imageUrl && (
