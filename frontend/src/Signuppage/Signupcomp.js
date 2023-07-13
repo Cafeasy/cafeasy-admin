@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logodannama from "../Photos/logodannama.png";
+import Iconline1 from "../Photos/Iconline1.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -53,8 +53,8 @@ const Signupcomp = () => {
             <div className="col-md-3">
               <a href="LoginAdmin">Login</a>
             </div>
-            <div className="col-md-6">
-              <a href="">Daftar</a>
+            <div className="col-md-6 color-text">
+              <a href="">Daftar <img src={Iconline1} alt="Icon"/></a>
             </div>
           </div>
           <br></br>

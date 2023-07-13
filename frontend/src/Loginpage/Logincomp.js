@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logodannama from "../Photos/logodannama.png";
+import Iconline from "../Photos/Iconline.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -60,8 +60,8 @@ function Logincomp() {
           <h3 className="Logform-title">Masuk</h3>
           <div className="click-button">
             <div className="row">
-              <div className="col-md-3">
-                <a href="">Login</a>
+              <div className="col-md-3 color-text">
+                <a href="">Login <img src={Iconline} alt="Icon"/></a>
               </div>
               <div className="col-md-6">
                 <a href="RegisterAdmin">Daftar</a>
