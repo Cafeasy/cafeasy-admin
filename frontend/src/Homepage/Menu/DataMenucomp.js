@@ -321,7 +321,7 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
           <div className="col-md-3">
             <div className="title-menu-pertama">
               {" "}
-              DATATABLE PELANGGAN{" "}
+              DATATABLE MENU{" "}
             </div>
           </div>
           <div className="col-sm-4">
