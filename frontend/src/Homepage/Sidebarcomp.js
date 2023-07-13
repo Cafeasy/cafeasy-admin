@@ -87,8 +87,8 @@ function Sidebarcomp() {
           </div>
 
           <div className="sidebar-bottom">
-            <span>
-              <BiIcons.BiLogOut onClick={logout} />
+            <span onClick={logout}>
+              <BiIcons.BiLogOut  />
               Logout
             </span>
           </div>

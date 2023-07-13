@@ -18,6 +18,7 @@ const TopNav = () => {
             {/* <Link to="/settings">
               <img src={profileImg} alt="" />
             </Link> */}
+            <i>Muhammad Adam Firdaus</i>
           </div>
         </div>
       </div>
