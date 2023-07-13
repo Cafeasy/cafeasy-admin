@@ -43,8 +43,7 @@ function Logincomp() {
         } else {
           Swal.fire({
             text: "Save is disabled in Demo Mode",
-            position: "top-end",
-            type: "warning",
+
             showConfirmButton: false,
             showCloseButton: true,
             timer: 30000,

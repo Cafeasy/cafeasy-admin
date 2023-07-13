@@ -46,45 +46,55 @@ function Sidebarcomp() {
   //     setDropdown(false);
   //   }
   // };
+
+  // const logout = (e) => {
+  //   cookies.remove("Token");
+  //   window.location.href = "/";
+  //   return false;
+  // };
+
+  const logout = () => {
+    cookies.remove("secretLogToken");
+    window.location.href = "http://localhost:3000/LoginAdmin";
+  };
   return (
-      <>
-        <nav className="sidebar">
-          <br></br>
-          <ul className="sidebar-top sidebar-bg">
-            <li className="sidebar-toggle">
-                <img src={logodannama} alt="Logo" />
-            </li>
-          </ul>
+    <>
+      <nav className="sidebar">
+        <br></br>
+        <ul className="sidebar-top sidebar-bg">
+          <li className="sidebar-toggle">
+            <img src={logodannama} alt="Logo" />
+          </li>
+        </ul>
 
-          <div className="sidebar-content">
-            <div className="menu">
-              <ul className="nav-list">
-                {Sidebardata.map((item, index) => (
-                  <li className={item.cName} key={index}>
-                    <NavLink
-                      to={item.path}
-                      className={(navClass) =>
-                        navClass.isActive
-                          ? "nav-active nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      {item.icon}
-                      {item.display}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="sidebar-bottom">
-              <span>
-                <BiIcons.BiLogOut />Logout
-              </span>
-            </div>
+        <div className="sidebar-content">
+          <div className="menu">
+            <ul className="nav-list">
+              {Sidebardata.map((item, index) => (
+                <li className={item.cName} key={index}>
+                  <NavLink
+                    to={item.path}
+                    className={(navClass) =>
+                      navClass.isActive ? "nav-active nav-link" : "nav-link"
+                    }
+                  >
+                    {item.icon}
+                    {item.display}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
-        </nav>
-      </>
+
+          <div className="sidebar-bottom">
+            <span>
+              <BiIcons.BiLogOut onClick={logout} />
+              Logout
+            </span>
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }
 
