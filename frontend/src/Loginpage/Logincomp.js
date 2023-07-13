@@ -70,12 +70,13 @@ function Logincomp() {
           </div>
 
           <div className="form-group mt-3">
-            <label>Username</label>
+            <label>Nama Pengguna</label>
 
             <input
               type="text"
               required
               className="form-control mt-1"
+              placeholder="Masukan Nama Pengguna"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -87,6 +88,7 @@ function Logincomp() {
                 type="password"
                 required
                 className="form-control mt-1"
+                placeholder="Masukan Sandi"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

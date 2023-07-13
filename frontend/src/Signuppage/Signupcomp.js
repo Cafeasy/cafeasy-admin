@@ -195,15 +195,13 @@ const Signupcomp = () => {
 
           <br></br>
 
-          <div className="row">
-          </div>
           <div class="d-grid gap-2 mt-3">
             <button
               type="submit"
               class="btn btn-secondary"
               onClick={handleSubmit}
             >
-              Submit
+              Daftar
             </button>
           </div>
         </div>

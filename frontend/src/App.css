@@ -1,186 +1,204 @@
-
-
 .App {
-    width: 100vw;
-    height: 100vh;
-    
-  }
+  width: 100vw;
+  height: 100vh;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-  }
+body {
+  margin: 0;
+  padding: 0;
+}
 
-  label {
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-  }
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
 
-  a {
-    color: darkgrey;
-    text-decoration: none;
-    font-size: 14px;
-  }
+a {
+  color: darkgrey;
+  text-decoration: none;
+  font-size: 14px;
+}
 
-  a:hover {
-    color: white;
-  }
+a:hover {
+  color: white;
+}
 
-  .Logform-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-  }
+.Logform-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
 
-  .Logform {
-    background-color: #1F2937;
-    width: 550px;
-    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    padding-top: 8px;
-    padding-bottom: 40px;
-    border-radius: 20px;
-  }
+.Logform {
+  background-color: #1f2937;
+  width: 550px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 8px;
+  padding-bottom: 40px;
+  border-radius: 20px;
+}
 
-  .Logform-content {
-    padding-left: 10%;
-    padding-right: 12%;
-  }
+.Logform-content {
+  padding-left: 10%;
+  padding-right: 12%;
+}
 
-  .Logform-title{
-    text-align: center;
-    margin-bottom: 1em;
-    font-size: 20px;
-    color: white;
-    font-weight: 800;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+.Logform-title {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 1em;
+  font-size: 20px;
+  color: white;
+  font-weight: 800;
+}
 
-  @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+}
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Lato', sans-serif;
-  }
+.gambarlog {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  left: 620px;
+  top: 100px;
+  max-width: 20%;
 
-  .gambarlog {
-    position: absolute;
-    width: 400px;
-    height: 200px;
-    left: 620px;
-    top: 100px;
-    max-width: 20%;  
-    
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  }
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
 
-  .pembukuan {
-    display: flex;
-    height: 90vh;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-  }
+.pembukuan {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
 
-  .tabel {
-    background-color: #bc2244;
-    width: 80%;
-    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    padding-top: 1px;
-    padding-bottom: 50px;
-    border-radius: 20px;
-  }
+.tabel {
+  background-color: #bc2244;
+  width: 80%;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 1px;
+  padding-bottom: 50px;
+  border-radius: 20px;
+}
 
-  .container {
-    padding-left: 10%;
-    margin: 0 13%;
-    margin-top: 5%;
-  }
-  
-  .table-title {        
-    background-color: #ffffff;
-    width: 100%;
-    height: 70px;
-    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    border-radius: 5px;
-  }
-    
-  .table-title h4 {
-		margin: 25px 40px 0;
-		font-size: 17px;
-	}
+.container {
+  padding-left: 10%;
+  margin: 0 13%;
+  margin-top: 5%;
+}
 
-  .table-title button {
-    margin: -2% 20px 20px;
-		font-size: 24px;
-    border-radius: 8px;
-	}
+.table-title {
+  background-color: #ffffff;
+  width: 100%;
+  height: 70px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  border-radius: 5px;
+}
 
-  .table-title input {
-    margin: -4% 80% 0;
-    width: 25%;
-		font-size: 15px;
-    border-radius: 8px;
-	}
+.table-title h4 {
+  margin: 25px 40px 0;
+  font-size: 17px;
+}
 
-  .table-title btn {border-radius: 8px;}
+.table-title button {
+  margin: -2% 20px 20px;
+  font-size: 24px;
+  border-radius: 8px;
+}
 
-	.table-title .btn-group {
-		float: right;
-    width: 100%;
-    height: 20px;
-    top: auto;
-	}
-	.table-title .btn {
-		color: #fff;
-		float: right;
-		font-size: 13px;
-		border: none;
-		min-width: 70px;
-		border-radius: 2px;
-		border: none;
-		outline: none !important;
-		margin-left: 10px;
-	}
-	.table-title .btn i {
-		float: left;
-		font-size: 15px;
-		margin-right: 20px;
-	}
-	.table-title .btn span {
-		float:inline-start;
-		margin-top: 5px;
-	}
+.table-title input {
+  margin: -4% 80% 0;
+  width: 25%;
+  font-size: 15px;
+  border-radius: 8px;
+}
 
-  .navbar-toggle.col-xs-4 {
-    width: 33.33%;
-  }
-  
-  .navbar-form .form-group.col-xs-4 {
-    width: 33.33%;
-  }
+.table-title btn {
+  border-radius: 8px;
+}
 
-  .logo {	
-    width: 15px;
-	height: 15px;
-	border-radius: 50%;
-	margin: 20px auto;
+.table-title .btn-group {
+  float: right;
+  width: 100%;
+  height: 20px;
+  top: auto;
+}
+.table-title .btn {
+  color: #fff;
+  float: right;
+  font-size: 13px;
+  border: none;
+  min-width: 70px;
+  border-radius: 2px;
+  border: none;
+  outline: none !important;
+  margin-left: 10px;
+}
+.table-title .btn i {
+  float: left;
+  font-size: 15px;
+  margin-right: 20px;
+}
+.table-title .btn span {
+  float: inline-start;
+  margin-top: 5px;
+}
+
+.navbar-toggle.col-xs-4 {
+  width: 33.33%;
+}
+
+.navbar-form .form-group.col-xs-4 {
+  width: 33.33%;
+}
+
+.logo {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 20px auto;
 }
 
 .logo img {
-	width: 100%;
+  width: 100%;
 }
 
-.teks_atas table{
+.teks_atas table {
   font-size: 80%;
 }
 
-.teks_atas th{
-width: 5%;
-background-color: #2A3042;
-color: #fff;
+.teks_atas th {
+  width: 5%;
+  background-color: #2a3042;
+  color: #fff;
 }
 
+.row a{
+  font-family: 'Poppins', sans-serif;
+}
+
+.row label{
+  font-family: 'Poppins', sans-serif;
+}
+
+.d-grid button{
+  font-family: 'Poppins', sans-serif;
+}
+
+input::placeholder{
+  font-size: 15px;
+}
+
+textarea::placeholder{
+  font-size: 15px;
+}
