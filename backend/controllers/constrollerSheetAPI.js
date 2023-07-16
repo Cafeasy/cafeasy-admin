@@ -33,7 +33,7 @@ async function readSpreadsheet(client, sheetId, range) {
 }
 
 async function _writeSpreadsheet(client, sheetId, range, data) {
-    await client.spreadsheets.values.append({
+    const request = await (client.spreadsheets.values.append({
         spreadsheetId: sheetId,
         range: range,
         valueInputOption: 'RAW',
@@ -42,7 +42,70 @@ async function _writeSpreadsheet(client, sheetId, range, data) {
 
             "values": data
         },
+    }));
+    return request;
+}
+
+async function createNewSpreadsheet(client, sheetsId, title) {
+
+    const response = await client.spreadsheets.batchUpdate({
+        spreadsheetId: sheetsId,
+        resource: {
+            requests: [{
+                addSheet: {
+
+                    properties: {
+
+                        title: title,
+
+                        sheetType: "GRID",
+
+                    }
+                }
+            }]
+        }
     });
+    return response;
+
+}
+
+async function getSpreadSheet(client, sheetsId, sheetName) {
+    const response = await client.spreadsheets.get({
+        spreadsheetId: sheetsId,
+        ranges: [sheetName]
+    })
+    return response;
+}
+exports.getSheets = async (req, res) => {
+    const client = await authentication();
+    const sheetName = req.params.sheetName;
+    try {
+        const result = await getSpreadSheet(client, spreadsheetId, sheetName);
+
+        res.status(200).json({ message: "Success Retreive data", data: result })
+
+    } catch (err) {
+        res.status(404).json({ message: "Failed Retreive data", data: err })
+    }
+}
+exports.createSpreadsheet = async (req, res) => {
+    const client = await authentication();
+    const sheetName = req.body.sheetname;
+    const data = req.body.data
+    try {
+        await getSpreadSheet(client, spreadsheetId, sheetName);
+        const responseWrite = await _writeSpreadsheet(client, spreadsheetId, sheetName, data)
+        res.status(200).json({ message: "Success Create New Spreadsheet", data: responseWrite });
+
+    } catch {
+        try {
+            const response = await createNewSpreadsheet(client, spreadsheetId, sheetName);
+            await _writeSpreadsheet(client, spreadsheetId, sheetName, data)
+            res.status(201).json({ message: "Success Create New Spreadsheet", data: response });
+        } catch (er) {
+            res.status(404).json({ message: "Failed Retreive data", data: er })
+        }
+    }
 
 }
 
@@ -51,7 +114,7 @@ exports.getSpreadsheet = async (req, res) => {
     const client = await authentication();
     try {
         const result = await readSpreadsheet(client, spreadsheetId, rangeSheet);
-        res.status(200).json({ message: "Success Retreive data", data: result })
+        res.status(200).json({ message: "Success Retreive data", data: result, auth: client })
     } catch (err) {
         res.status(404).json({ message: "Failed Retreive data", data: err })
     }
@@ -60,12 +123,10 @@ exports.getSpreadsheet = async (req, res) => {
 exports.writeSpreadsheet = async (req, res) => {
     const client = await authentication();
     const newData1 = req.body.data;
-    const newData = new Set([req.body.data]);
-    const data = Array.from(newData);
     try {
-        await _writeSpreadsheet(client, spreadsheetId, rangeSheet, newData1);
-        console.log(data);
-        res.status(200).json({ message: "Success Insert data", data: newData1 })
+        const response = await _writeSpreadsheet(client, spreadsheetId, rangeSheet, newData1);
+        res.status(200).json({ message: "Success Create New Spreadsheet", data: JSON.stringify(response) });
+
     } catch (err) {
         res.status(400).json({ message: "Failed Insert data", data: err })
     }

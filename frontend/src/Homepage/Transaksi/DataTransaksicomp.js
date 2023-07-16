@@ -52,11 +52,7 @@ const DataTransaksicomp = ({ data = [] }) => {
       dataTransaksi.map((value) => {
         dat1 = {
           data: [
-            [
-              "ID Transaksi", "Nama Pelanggan", "Tanggal", "Total Harga", "Status Bayar"
-            ],
             [value.idTransaksi, value.namaPelanggan, value.tanggal, value.totalHarga, value.statusBayar]
-
           ]
         };
         dataPesana[i] = [value]
