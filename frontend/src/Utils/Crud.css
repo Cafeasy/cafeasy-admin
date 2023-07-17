@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
 
+.title-banner-pertama,
 .title-kategori-pertama,
 .title-pelanggan-pertama,
 .title-transaksi-pertama,
@@ -158,6 +159,34 @@
   color: #000000;
 }
 
+.title-banner-kedua {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 348%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.title-banner-ketiga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 382%;
+
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
 h1,
 h2,
 h3,
@@ -203,6 +232,17 @@ h6 {
   margin-bottom: 2rem;
   width: 93%;
   -webkit-line-clamp: 2;
+}
+
+.cards {
+  background: #f8f9fa;
+  color: #000000;
+  border: 1px solid #dee2e6;
+  border-width: 1px 1px 1px 1px;
+  padding: 2rem;
+  width: 93%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 .datatable-crud-demo .table-header {
