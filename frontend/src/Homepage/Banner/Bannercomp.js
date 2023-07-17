@@ -4,13 +4,15 @@ import axios from "axios";
 import { DataTable } from "primereact/datatable";
 import { Button } from "primereact/button";
 import { Column } from "primereact/column";
-import { Carousel } from "primereact/carousel";
 import { InputText } from "primereact/inputtext";
+import { FileUpload } from "primereact/fileupload";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 
-const DEFAULT_MENU = {
-  namaKategori: "",
+const DEFAULT_BANNER = {
+  imageFile: "",
+  idBanner: "",
+  namaBanner: "",
 };
 
 const Bannercomp = ({ data = [] }) => {
@@ -19,11 +21,11 @@ const Bannercomp = ({ data = [] }) => {
   const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
   const [deleteAllDialog, setDeleteAllDialog] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
-  const [menu, setMenu] = useState(DEFAULT_MENU);
-  const [banner, setBanner] = useState([]);
+  const [banner, setBanner] = useState(DEFAULT_BANNER);
+  const [banners, setBanners] = useState([]);
 
   useEffect(() => {
-    setBanner(data.data);
+    setBanners(data);
   }, []);
 
   const responsiveOptions = [
@@ -57,7 +59,7 @@ const Bannercomp = ({ data = [] }) => {
   };
 
   const confirmDeleteSelected = (selectedMenu) => {
-    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setBanner((data) => ({ ...data, ...selectedMenu }));
     setDeleteMenuDialog(true);
   };
 
@@ -67,57 +69,38 @@ const Bannercomp = ({ data = [] }) => {
 
   const onSubmit = async () => {
     const formData = new FormData();
-    formData.append("namaKategori", menu.namaKategori);
+    formData.append("idBanner", banner.idBanner);
+    formData.append("namaBanner", banner.namaBanner);
+    formData.append("image", banner.imageFile);
 
-    if (menu.idMenu) {
-      await axios
-        .put(
-          `${process.env.REACT_APP_API_URL}/updateKategoriMenu/${menu.idKategori}`,
-          formData
-        )
-        .then((response) => {
-          toast.current.show({
-            severity: "success",
-            summary: "Success",
-            detail: "Data Berhasil Disimpan",
-            life: 3000,
-          });
-          setProductDialog(false);
-        })
-        .catch((response) => {
-          toast.current.show({
-            severity: "error",
-            summary: "Failed",
-            detail: "Data Gagal Disimpan",
-            life: 3000,
-          });
+    await axios
+      .post(`${process.env.REACT_APP_API_URL}/insertBanner/`, formData)
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Disimpan",
+          life: 3000,
         });
-    } else {
-      await axios
-        .post(`${process.env.REACT_APP_API_URL}/insertKategoriMenu/`, formData)
-        .then((response) => {
-          toast.current.show({
-            severity: "success",
-            summary: "Success",
-            detail: "Data Berhasil Disimpan",
-            life: 3000,
-          });
-          setProductDialog(false);
-        })
-        .catch((response) => {
-          toast.current.show({
-            severity: "error",
-            summary: "Failed",
-            detail: "Data Gagal Disimpan",
-            life: 3000,
-          });
+        setProductDialog(false);
+      })
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Disimpan",
+          life: 3000,
         });
-    }
+      });
   };
 
   const openForm = (selectedMenu = {}) => {
-    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setBanner((data) => ({ ...data, ...selectedMenu }));
     setProductDialog(true);
+  };
+
+  const invoiceUploadHandler = (e) => {
+    setBanner((data) => ({ ...data, imageFile: e.files[0] }));
   };
 
   const productDialogFooter = (
@@ -128,7 +111,7 @@ const Bannercomp = ({ data = [] }) => {
         className="p-button-text"
         onClick={() => {
           hideDialog();
-          setMenu(DEFAULT_MENU);
+          setBanner(DEFAULT_BANNER);
         }}
       />
       <Button
@@ -142,7 +125,7 @@ const Bannercomp = ({ data = [] }) => {
 
   const deleteAll = async () => {
     await axios
-      .delete(`${process.env.REACT_APP_API_URL}/deleteAllKategoriMenu`)
+      .delete(`${process.env.REACT_APP_API_URL}/deleteAllBanner`)
       .then((response) => {
         toast.current.show({
           severity: "success",
@@ -150,7 +133,7 @@ const Bannercomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
-        setMenu(DEFAULT_MENU);
+        setBanner(DEFAULT_BANNER);
         setDeleteMenuDialog(false);
       })
       .catch((response) => {
@@ -183,7 +166,7 @@ const Bannercomp = ({ data = [] }) => {
   const deleteMenu = async () => {
     await axios
       .delete(
-        `${process.env.REACT_APP_API_URL}/deleteKategoriMenuById/${menu.idKategori}`
+        `${process.env.REACT_APP_API_URL}/deleteBannerById/${banner.idBanner}`
       )
       .then((response) => {
         toast.current.show({
@@ -192,7 +175,7 @@ const Bannercomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
-        setMenu(DEFAULT_MENU);
+        setBanner(DEFAULT_BANNER);
         setDeleteMenuDialog(false);
       })
       .catch((response) => {
@@ -225,13 +208,6 @@ const Bannercomp = ({ data = [] }) => {
   const actionTemplate = (menu) => (
     <>
       <Button
-        label="Edit"
-        className="mx-2"
-        icon="pi pi-pencil"
-        rounded
-        onClick={() => openForm(menu)}
-      />
-      <Button
         label="Hapus"
         className="mx-2"
         icon="pi pi-trash"
@@ -247,16 +223,10 @@ const Bannercomp = ({ data = [] }) => {
       <h5 className="mx-0 my-1">Data Banner</h5>
       <div className="flex gap-2">
         <Button
-          label="Tambah Kategori"
+          label="Tambah Banner"
           icon="pi pi-plus"
           raised
           onClick={() => openForm()}
-        />
-        <Button
-          label="Expor ke Spreedsheet"
-          icon="pi pi-file-excel"
-          severity="secondary"
-          raised
         />
         <Button
           label="Hapus Semua"
@@ -277,25 +247,13 @@ const Bannercomp = ({ data = [] }) => {
     </div>
   );
 
-  const productTemplate = (data) => {
-    return (
-      <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
-        <div className="mb-3">
-          <img
-            src={data.imageUrl}
-            alt={data.imageUrl}
-            className="w-6 shadow-2"
-          />
-        </div>
-        <div>
-          <h4 className="mb-1">{data.idBanner}</h4>
-          <h6 className="mt-0 mb-6">${data.namaBanner}</h6>
-        </div>
-      </div>
-    );
-  };
-
-  console.log(data);
+  const imageBody = (data) => (
+    <img
+      src={data.imageUrl}
+      alt={data.imageUrl}
+      className="w-6rem shadow-2 border-round"
+    />
+  );
 
   let arr = data.data ?? [];
 
@@ -317,39 +275,96 @@ const Bannercomp = ({ data = [] }) => {
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
-          <div className="cards">
-            <Carousel
+          <div className="card">
+            <DataTable
+              value={banners}
+              paginator
               header={header}
-              value={banner}
-              numVisible={3}
-              numScroll={5}
-              responsiveOptions={responsiveOptions}
-              itemTemplate={productTemplate}
-            />
+              rows={10}
+              paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+              rowsPerPageOptions={[5, 10, 25]}
+              dataKey="idMenu"
+              resizableColumns
+              showGridlines
+              stripedRows
+              tableStyle={{ minWidth: "50rem" }}
+              scrollable
+              scrollHeight="700px"
+              globalFilter={globalFilter}
+              currentPageReportTemplate="Menampilkan {first} hingga {last} dari {totalRecords} data"
+            >
+              <Column
+                field="idBanner"
+                header="ID Banner"
+                sortable
+                style={{ minWidth: "10rem" }}
+              ></Column>
+              <Column
+                field="namaBanner"
+                header="Nama Banner"
+                sortable
+                style={{ minWidth: "10rem" }}
+              ></Column>
+              <Column
+                field="imageUrl"
+                header="Gambar"
+                body={imageBody}
+                sortable
+                style={{ minWidth: "10rem" }}
+              ></Column>
+              <Column
+                header="Aksi"
+                exportable={false}
+                style={{ minWidth: "5rem" }}
+                body={actionTemplate}
+              ></Column>
+            </DataTable>
           </div>
 
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header={menu.namaKategori ? "Edit Kategori" : "Tambah Kategori"}
+            header={banner.namaBanner ? "Edit Banner" : "Tambah Banner"}
             modal
             className="p-fluid"
             footer={productDialogFooter}
             onHide={hideDialog}
           >
+            {banner.imageUrl && (
+              <img
+                src={banner.imageUrl}
+                alt={banner.namaMenu}
+                className="w-full m-auto mb-3"
+                style={{ borderRadius: "8px" }}
+              />
+            )}
+
             <div className="field">
-              <label htmlFor="name">Name Kategori</label>
+              <label htmlFor="name">Name Banner</label>
               <InputText
                 id="name"
-                defaultValue={menu.namaKategori}
+                defaultValue={banner.namaBanner}
                 onChange={(e) => {
-                  setMenu((data) => ({
+                  setBanner((data) => ({
                     ...data,
-                    namaKategori: e.target.value,
+                    namaBanner: e.target.value,
                   }));
                 }}
                 required
                 autoFocus
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="foto">Image</label>
+              <FileUpload
+                name="files"
+                accept="image/*"
+                customUpload={true}
+                uploadHandler={invoiceUploadHandler}
+                mode="basic"
+                auto={true}
+                chooseLabel={banner.imageFile.name ?? "Tambah Foto"}
               />
             </div>
           </Dialog>
@@ -388,9 +403,9 @@ const Bannercomp = ({ data = [] }) => {
                 className="pi pi-exclamation-triangle mr-3"
                 style={{ fontSize: "2rem" }}
               />
-              {menu && (
+              {banner && (
                 <span>
-                  Apakah anda yakin ingin menghapus <b>{menu.namaKategori}</b>?
+                  Apakah anda yakin ingin menghapus <b>{banner.namaKategori}</b>?
                 </span>
               )}
             </div>

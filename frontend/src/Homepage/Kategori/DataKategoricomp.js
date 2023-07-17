@@ -8,47 +8,47 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 
-const DEFAULT_MENU = {
+const DEFAULT_KATEGORI = {
   namaKategori: "",
 };
 
 const DataKategoricomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
-  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
-  const [productDialog, setProductDialog] = useState(false);
-  const [menu, setMenu] = useState(DEFAULT_MENU);
+  const [deleteKategDialog, setDeleteKategDialog] = useState(false);
+  const [deleteAllKategDialog, setDeleteAllKategDialog] = useState(false);
+  const [kategoriDialog, setKategoriDialog] = useState(false);
+  const [kategori, setKategori] = useState(DEFAULT_KATEGORI);
 
-  const hideDeleteMenuDialog = () => {
-    setDeleteMenuDialog(false);
+  const hideDeleteKategDialog = () => {
+    setDeleteKategDialog(false);
   };
 
-  const hideDeleteAllDialog = () => {
-    setDeleteAllDialog(false);
+  const hideDeleteAllKategDialog = () => {
+    setDeleteAllKategDialog(false);
   };
 
-  const confirmDeleteAll = () => {
-    setDeleteAllDialog(true);
+  const confirmDeleteAllKateg = () => {
+    setDeleteAllKategDialog(true);
   };
 
-  const confirmDeleteSelected = (selectedMenu) => {
-    setMenu((data) => ({ ...data, ...selectedMenu }));
-    setDeleteMenuDialog(true);
+  const confirmDeleteKategSelected = (selectedMenu) => {
+    setKategori((data) => ({ ...data, ...selectedMenu }));
+    setDeleteKategDialog(true);
   };
 
-  const hideDialog = () => {
-    setProductDialog(false);
+  const hideKategDialog = () => {
+    setKategoriDialog(false);
   };
 
-  const onSubmit = async () => {
+  const SubmitKateg = async () => {
     const formData = new FormData();
-    formData.append("namaKategori", menu.namaKategori);
+    formData.append("namaKategori", kategori.namaKategori);
 
-    if (menu.idMenu) {
+    if (kategori.idMenu) {
       await axios
         .put(
-          `${process.env.REACT_APP_API_URL}/updateKategoriMenu/${menu.idKategori}`,
+          `${process.env.REACT_APP_API_URL}/updateKategoriMenu/${kategori.idKategori}`,
           formData
         )
         .then((response) => {
@@ -58,7 +58,7 @@ const DataKategoricomp = ({ data = [] }) => {
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-          setProductDialog(false);
+          setKategoriDialog(false);
         })
         .catch((response) => {
           toast.current.show({
@@ -78,7 +78,7 @@ const DataKategoricomp = ({ data = [] }) => {
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-          setProductDialog(false);
+          setKategoriDialog(false);
         })
         .catch((response) => {
           toast.current.show({
@@ -91,32 +91,32 @@ const DataKategoricomp = ({ data = [] }) => {
     }
   };
 
-  const openForm = (selectedMenu = {}) => {
-    setMenu((data) => ({ ...data, ...selectedMenu }));
-    setProductDialog(true);
+  const FormKateg = (selectedMenu = {}) => {
+    setKategori((data) => ({ ...data, ...selectedMenu }));
+    setKategoriDialog(true);
   };
 
-  const productDialogFooter = (
+  const KategoriDialogFooter = (
     <React.Fragment>
       <Button
         label="Batal"
         icon="pi pi-times"
         className="p-button-text"
         onClick={() => {
-          hideDialog();
-          setMenu(DEFAULT_MENU);
+          hideKategDialog();
+          setKategori(DEFAULT_KATEGORI);
         }}
       />
       <Button
         label="Simpan"
         icon="pi pi-check"
         className="p-button-text"
-        onClick={onSubmit}
+        onClick={SubmitKateg}
       />
     </React.Fragment>
   );
 
-  const deleteAll = async () => {
+  const deleteAllKateg = async () => {
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/deleteAllKategoriMenu`)
       .then((response) => {
@@ -126,8 +126,8 @@ const DataKategoricomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
-        setMenu(DEFAULT_MENU);
-        setDeleteMenuDialog(false);
+        setKategori(DEFAULT_KATEGORI);
+        setDeleteKategDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -139,27 +139,27 @@ const DataKategoricomp = ({ data = [] }) => {
       });
   };
 
-  const deleteAllDialogFooter = (
+  const deleteAllKategDialogFooter = (
     <>
       <Button
         label="Tidak"
         icon="pi pi-times"
         outlined
-        onClick={hideDeleteAllDialog}
+        onClick={hideDeleteAllKategDialog}
       />
       <Button
         label="Iya"
         icon="pi pi-check"
         severity="danger"
-        onClick={deleteAll}
+        onClick={deleteAllKateg}
       />
     </>
   );
 
-  const deleteMenu = async () => {
+  const deleteKateg = async () => {
     await axios
       .delete(
-        `${process.env.REACT_APP_API_URL}/deleteKategoriMenuById/${menu.idKategori}`
+        `${process.env.REACT_APP_API_URL}/deleteKategoriMenuById/${kategori.idKategori}`
       )
       .then((response) => {
         toast.current.show({
@@ -168,8 +168,8 @@ const DataKategoricomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
-        setMenu(DEFAULT_MENU);
-        setDeleteMenuDialog(false);
+        setKategori(DEFAULT_KATEGORI);
+        setDeleteKategDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -181,31 +181,31 @@ const DataKategoricomp = ({ data = [] }) => {
       });
   };
 
-  const deleteMenuDialogFooter = (
+  const deleteKategDialogFooter = (
     <>
       <Button
         label="Tidak"
         icon="pi pi-times"
         outlined
-        onClick={hideDeleteMenuDialog}
+        onClick={hideDeleteKategDialog}
       />
       <Button
         label="Iya"
         icon="pi pi-check"
         severity="danger"
-        onClick={deleteMenu}
+        onClick={deleteKateg}
       />
     </>
   );
 
-  const actionTemplate = (menu) => (
+  const actionButtonKateg = (kategori) => (
     <>
       <Button
         label="Edit"
         className="mx-2"
         icon="pi pi-pencil"
         rounded
-        onClick={() => openForm(menu)}
+        onClick={() => FormKateg(kategori)}
       />
       <Button
         label="Hapus"
@@ -213,7 +213,7 @@ const DataKategoricomp = ({ data = [] }) => {
         icon="pi pi-trash"
         severity="danger"
         rounded
-        onClick={() => confirmDeleteSelected(menu)}
+        onClick={() => confirmDeleteKategSelected(kategori)}
       />
     </>
   );
@@ -226,7 +226,7 @@ const DataKategoricomp = ({ data = [] }) => {
           label="Tambah Kategori"
           icon="pi pi-plus"
           raised
-          onClick={() => openForm()}
+          onClick={() => FormKateg()}
         />
         <Button
           label="Expor ke Spreedsheet"
@@ -239,7 +239,7 @@ const DataKategoricomp = ({ data = [] }) => {
           icon="pi pi-trash"
           severity="danger"
           raised
-          onClick={confirmDeleteAll}
+          onClick={confirmDeleteAllKateg}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
@@ -312,27 +312,27 @@ const DataKategoricomp = ({ data = [] }) => {
                 header="Aksi"
                 exportable={false}
                 style={{ width: "15%" }}
-                body={actionTemplate}
+                body={actionButtonKateg}
               ></Column>
             </DataTable>
           </div>
 
           <Dialog
-            visible={productDialog}
+            visible={kategoriDialog}
             style={{ width: "450px" }}
-            header={menu.namaKategori ? "Edit Kategori" : "Tambah Kategori"}
+            header={kategori.namaKategori ? "Edit Kategori" : "Tambah Kategori"}
             modal
             className="p-fluid"
-            footer={productDialogFooter}
-            onHide={hideDialog}
+            footer={KategoriDialogFooter}
+            onHide={hideKategDialog}
           >
             <div className="field">
               <label htmlFor="name">Name Kategori</label>
               <InputText
                 id="name"
-                defaultValue={menu.namaKategori}
+                defaultValue={kategori.namaKategori}
                 onChange={(e) => {
-                  setMenu((data) => ({
+                  setKategori((data) => ({
                     ...data,
                     namaKategori: e.target.value,
                   }));
@@ -344,13 +344,13 @@ const DataKategoricomp = ({ data = [] }) => {
           </Dialog>
 
           <Dialog
-            visible={deleteAllDialog}
+            visible={deleteAllKategDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
             modal
-            footer={deleteAllDialogFooter}
-            onHide={hideDeleteAllDialog}
+            footer={deleteAllKategDialogFooter}
+            onHide={hideDeleteAllKategDialog}
           >
             <div className="confirmation-content">
               <i
@@ -364,22 +364,22 @@ const DataKategoricomp = ({ data = [] }) => {
           </Dialog>
 
           <Dialog
-            visible={deleteMenuDialog}
+            visible={deleteKategDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
             modal
-            footer={deleteMenuDialogFooter}
-            onHide={hideDeleteMenuDialog}
+            footer={deleteKategDialogFooter}
+            onHide={hideDeleteKategDialog}
           >
             <div className="confirmation-content">
               <i
                 className="pi pi-exclamation-triangle mr-3"
                 style={{ fontSize: "2rem" }}
               />
-              {menu && (
+              {kategori && (
                 <span>
-                  Apakah anda yakin ingin menghapus <b>{menu.namaKategori}</b>?
+                  Apakah anda yakin ingin menghapus <b>{kategori.namaKategori}</b>?
                 </span>
               )}
             </div>

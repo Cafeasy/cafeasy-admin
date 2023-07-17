@@ -24,7 +24,7 @@ const DEFAULT_MENU = {
   namaMenu: "",
 };
 
-const DataMenucomp = ({ data=[], kategori=[] }) => {
+const DataMenucomp = ({ data = [], kategori = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
@@ -33,9 +33,9 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
   const [menu, setMenu] = useState(DEFAULT_MENU);
   const [menus, setMenus] = useState([]);
 
-  useEffect(()=> {
-    setMenus(data)
-  }, [])
+  useEffect(() => {
+    setMenus(data);
+  }, []);
 
   // cancel modal
   const hideDialog = () => {
@@ -67,12 +67,12 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
         .then((response) => {
           let index;
           const filteredData = menus.some((x, i) => {
-            index = i
-            return x.idMenu === menu.idMenu
-          })
+            index = i;
+            return x.idMenu === menu.idMenu;
+          });
           const newMenus = [...menus];
           newMenus.splice(index, 1, response.data.data);
-          setMenus(newMenus)
+          setMenus(newMenus);
           setProductDialog(false);
           toast.current.show({
             severity: "success",
@@ -81,7 +81,7 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
             life: 3000,
           });
 
-          setMenu(DEFAULT_MENU)
+          setMenu(DEFAULT_MENU);
         })
         .catch((response) => {
           toast.current.show({
@@ -95,11 +95,8 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
       await axios
         .post(`${process.env.REACT_APP_API_URL}/insertMenu/`, formData)
         .then((response) => {
-          console.log(response)
-          setMenus((prevData) => ([
-            ...prevData,
-            response.data.data
-          ]));
+          console.log(response);
+          setMenus((prevData) => [...prevData, response.data.data]);
           setProductDialog(false);
           toast.current.show({
             severity: "success",
@@ -319,10 +316,7 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
         <br></br>
         <div className="row">
           <div className="col-md-3">
-            <div className="title-menu-pertama">
-              {" "}
-              DATATABLE MENU{" "}
-            </div>
+            <div className="title-menu-pertama"> DATATABLE MENU </div>
           </div>
           <div className="col-sm-4">
             <div className="title-menu-kedua"> Admin / </div>
@@ -417,8 +411,8 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
             className="p-fluid"
             footer={productDialogFooter}
             onHide={() => {
-              hideDialog()
-              setMenu(DEFAULT_MENU)
+              hideDialog();
+              setMenu(DEFAULT_MENU);
             }}
           >
             {menu.imageUrl && (
@@ -503,7 +497,7 @@ const DataMenucomp = ({ data=[], kategori=[] }) => {
                     kategoriMenu: e.value,
                   }));
                 }}
-                options={kategori.map(x=>x.namaKategori)}
+                options={kategori.map((x) => x.namaKategori)}
                 required
                 autoFocus
               />
