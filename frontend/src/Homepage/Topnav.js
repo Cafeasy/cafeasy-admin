@@ -7,8 +7,7 @@ const TopNav = () => {
   return (
     <div className="top__nav">
       <div className="top__nav-wrapper">
-        <div className="search__box">
-        </div>
+        <div className="search__box"></div>
         <div className="top__nav-right">
           <span className="notification">
             <i class="ri-notification-3-line"></i>
@@ -18,6 +17,7 @@ const TopNav = () => {
             {/* <Link to="/settings">
               <img src={profileImg} alt="" />
             </Link> */}
+            <i>Muhammad Adam Firdaus</i>
           </div>
         </div>
       </div>

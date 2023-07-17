@@ -5,6 +5,8 @@ import * as CgIcons from "react-icons/cg";
 import * as AiIcons from "react-icons/ai";
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
+import * as FaIcons from "react-icons/fa";
+// import { useParams } from "react-router-dom";
 
 let params = "adm-c8f3vds7ao";
 export const Sidebardata = [
@@ -12,7 +14,7 @@ export const Sidebardata = [
     path: "/ProfileAdmin/" + params,
     icon: <CgIcons.CgProfile />,
     cName: "nav-text",
-    display: "Profile Admin",
+    display: "Profil Admin",
   },
   {
     path: "/DataMenu",
@@ -37,5 +39,11 @@ export const Sidebardata = [
     icon: <BiIcons.BiCategory />,
     cName: "nav-text",
     display: "Data Kategori",
+  },
+  {
+    path: "/DataBanner",
+    icon: <FaIcons.FaImages />,
+    cName: "nav-text",
+    display: "Data Banner",
   },
 ];

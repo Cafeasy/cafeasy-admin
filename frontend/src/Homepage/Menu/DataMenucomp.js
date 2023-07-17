@@ -24,13 +24,18 @@ const DEFAULT_MENU = {
   namaMenu: "",
 };
 
-const DataMenucomp = ({ data = [] }) => {
+const DataMenucomp = ({ data = [], kategori = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
   const [deleteAllDialog, setDeleteAllDialog] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
   const [menu, setMenu] = useState(DEFAULT_MENU);
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    setMenus(data);
+  }, []);
 
   // cancel modal
   const hideDialog = () => {
@@ -60,13 +65,23 @@ const DataMenucomp = ({ data = [] }) => {
           formData
         )
         .then((response) => {
+          let index;
+          const filteredData = menus.some((x, i) => {
+            index = i;
+            return x.idMenu === menu.idMenu;
+          });
+          const newMenus = [...menus];
+          newMenus.splice(index, 1, response.data.data);
+          setMenus(newMenus);
+          setProductDialog(false);
           toast.current.show({
             severity: "success",
             summary: "Success",
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-          setProductDialog(false);
+
+          setMenu(DEFAULT_MENU);
         })
         .catch((response) => {
           toast.current.show({
@@ -80,13 +95,15 @@ const DataMenucomp = ({ data = [] }) => {
       await axios
         .post(`${process.env.REACT_APP_API_URL}/insertMenu/`, formData)
         .then((response) => {
+          console.log(response);
+          setMenus((prevData) => [...prevData, response.data.data]);
+          setProductDialog(false);
           toast.current.show({
             severity: "success",
             summary: "Success",
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-          setProductDialog(false);
         })
         .catch((response) => {
           toast.current.show({
@@ -297,13 +314,23 @@ const DataMenucomp = ({ data = [] }) => {
     <div className="container">
       <div className="py-4">
         <br></br>
-        <div className="title-crud"> DATATABLE MENU </div>
+        <div className="row">
+          <div className="col-md-3">
+            <div className="title-menu-pertama"> DATATABLE MENU </div>
+          </div>
+          <div className="col-sm-4">
+            <div className="title-menu-kedua"> Admin / </div>
+          </div>
+          <div className="col-sm-2">
+            <div className="title-menu-ketiga"> Data Menu </div>
+          </div>
+        </div>
         <br></br> <br></br>
         <div className="datatable-crud-demo">
           <Toast ref={toast} />
           <div className="card">
             <DataTable
-              value={arr}
+              value={menus}
               paginator
               header={header}
               rows={10}
@@ -379,13 +406,13 @@ const DataMenucomp = ({ data = [] }) => {
           <Dialog
             visible={productDialog}
             style={{ width: "450px" }}
-            header={menu.namaMenu ? "Detail Menu" : "Tambah Menu"}
+            header={menu.idMenu ? "Detail Menu" : "Tambah Menu"}
             modal
             className="p-fluid"
             footer={productDialogFooter}
-            onHide={()=>{
-              hideDialog()
-              setMenu(DEFAULT_MENU)
+            onHide={() => {
+              hideDialog();
+              setMenu(DEFAULT_MENU);
             }}
           >
             {menu.imageUrl && (
@@ -463,13 +490,14 @@ const DataMenucomp = ({ data = [] }) => {
               <label htmlFor="category">Kategori</label>
               <Dropdown
                 id="category"
-                defaultValue={menu.kategoriMenu}
+                value={menu.kategoriMenu}
                 onChange={(e) => {
                   setMenu((data) => ({
                     ...data,
-                    kategoriMenu: e.target.value,
+                    kategoriMenu: e.value,
                   }));
                 }}
+                options={kategori.map((x) => x.namaKategori)}
                 required
                 autoFocus
               />

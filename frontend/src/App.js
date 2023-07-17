@@ -19,6 +19,7 @@ import Landingpage from "./Landing/Landingpage";
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import "./App.css";
+import Bannerpage from './Homepage/Banner/Bannerpage';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Route exact path="/DataTransaksi" element={<DataTransaksipage />}></Route>
           <Route exact path="/DataPelanggan" element={<DataPelangganpage />}></Route>
           <Route exact path="/DataKategori" element={<DataKategoripage />}></Route>
+          <Route exact path="/DataBanner" element={<Bannerpage />}></Route>
       </Routes>
     </Router>
   );

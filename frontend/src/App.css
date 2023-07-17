@@ -202,3 +202,17 @@ input::placeholder{
 textarea::placeholder{
   font-size: 15px;
 }
+
+.col-md-3 img{
+  margin-left: -46%;
+  margin-bottom: -5%;
+}
+
+.col-md-6 img {
+  margin-left: -25%;
+}
+
+.color-text a {
+  color: #fff;
+  font-weight: 200;
+}

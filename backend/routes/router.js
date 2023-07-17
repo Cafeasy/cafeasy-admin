@@ -2,7 +2,7 @@ require("dotenv").config();
 const router = require("express").Router();
 const express = require('express');
 const app = express();
-const {body} = require('express-validator');
+const { body } = require('express-validator');
 
 //call auth to required
 const authenticate = require('../auth/authenticate');
@@ -20,12 +20,12 @@ const Spreadsheet = require('../controllers/constrollerSheetAPI');
 //here for routing
 //routes regis-login-logout admin
 router.post('/registerAdmin', [
-    body('username').isLength({min: 4}).withMessage('Username minimal 4 karakter'), 
-    body('password').isLength({min: 8}).withMessage('Password minimal 8 karakter'),
-    body('namaCafe').isLength({min: 2}).withMessage('Nama Cafe minimal 2 karakter'),
-    body('alamatCafe').isLength({min: 4}).withMessage('Alamat Cafe minimal 4 karakter'),
-    body('namaPemilikCafe').isLength({min: 3}).withMessage('Nama Pemilik minimal 3 karakter'),
-    body('noHpCafe').isLength({min: 9}).withMessage('Nomor Hp terkait minimal 9 karakter')],
+    body('username').isLength({ min: 4 }).withMessage('Username minimal 4 karakter'),
+    body('password').isLength({ min: 8 }).withMessage('Password minimal 8 karakter'),
+    body('namaCafe').isLength({ min: 2 }).withMessage('Nama Cafe minimal 2 karakter'),
+    body('alamatCafe').isLength({ min: 4 }).withMessage('Alamat Cafe minimal 4 karakter'),
+    body('namaPemilikCafe').isLength({ min: 3 }).withMessage('Nama Pemilik minimal 3 karakter'),
+    body('noHpCafe').isLength({ min: 9 }).withMessage('Nomor Hp terkait minimal 9 karakter')],
     adminController.createAdmin);
 router.post('/login', adminController.loginAdmin);
 router.post('/logout', adminController.logoutAdmin);
@@ -50,14 +50,14 @@ router.get('/notAvailableMenu', menuController.getNotAvailableMenu);
 router.get('/menuByCategory/:kategoriMenu', menuController.getMenuByCategory);
 router.get('/detailMenu/:idMenu', menuController.getMenuDetail);
 router.post('/insertMenu', [
-    body('namaMenu').isLength({min: 3}).withMessage('Nama Menu minimal 3 karakter'),
-    body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
-    body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
+    body('namaMenu').isLength({ min: 3 }).withMessage('Nama Menu minimal 3 karakter'),
+    body('hargaMenu').isInt({ min: 2000 }).withMessage('Harga Menu minimal diatas Rp.2000'),
+    body('stokMenu').isInt({ min: 1 }).withMessage('Stok Menu minimal 1'),
 ], menuController.insertNewMenu);
 router.put('/updateDataMenu/:idMenu', [
-    body('namaMenu').isLength({min: 3}).withMessage('Nama Menu minimal 3 karakter'),
-    body('hargaMenu').isInt({min: 2000}).withMessage('Harga Menu minimal diatas Rp.2000'),
-    body('stokMenu').isInt({min: 1}).withMessage('Stok Menu minimal 1'),
+    body('namaMenu').isLength({ min: 3 }).withMessage('Nama Menu minimal 3 karakter'),
+    body('hargaMenu').isInt({ min: 2000 }).withMessage('Harga Menu minimal diatas Rp.2000'),
+    body('stokMenu').isInt({ min: 1 }).withMessage('Stok Menu minimal 1'),
 ], menuController.updateDataMenu);
 router.delete('/deleteMenuById/:idMenu', menuController.deleteMenuById);
 router.delete('/deleteAllMenu', menuController.deleteAllMenu);
@@ -65,10 +65,10 @@ router.delete('/deleteAllMenu', menuController.deleteAllMenu);
 //routes kelola data kategori menu
 router.get('/kategoriMenu', kategoriMenuController.getAllKategoriMenu);
 router.post('/insertKategoriMenu', [
-    body('namaKategori').isLength({min: 3}).withMessage('Nama Kategori Menu minimal 3 karakter')
+    body('namaKategori').isLength({ min: 3 }).withMessage('Nama Kategori Menu minimal 3 karakter')
 ], kategoriMenuController.insertKategoriMenu);
 router.put('/updateKategoriMenu/:idKategori', [
-    body('namaKategori').isLength({min: 3}).withMessage('Nama Kategori Menu minimal 3 karakter')
+    body('namaKategori').isLength({ min: 3 }).withMessage('Nama Kategori Menu minimal 3 karakter')
 ], kategoriMenuController.updateKategoriMenu);
 router.delete('/deleteKategoriMenuById/:idKategori', kategoriMenuController.deleteKategoriMenuById);
 router.delete('/deleteAllKategoriMenu', kategoriMenuController.deleteAllKategoriMenu);
@@ -82,11 +82,13 @@ router.delete('/deleteAllCustomer', customerController.deleteAllCustomer);
 router.get('/banner', bannerController.getAllBanner);
 router.get('/bannerById/:idBanner', bannerController.getBannerById);
 router.post('/insertBanner', [
-    body('namaBanner').isLength({min: 3}).withMessage('Nama banner minimal 3 karakter')
+    body('namaBanner').isLength({ min: 3 }).withMessage('Nama banner minimal 3 karakter')
 ], bannerController.insertNewBanner);
 router.delete('/deleteBannerById/:idBanner', bannerController.deleteBannerById);
 router.delete('/deleteAllBanner', bannerController.deleteAllBanner);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
+router.get('/getSheet/:sheetName', Spreadsheet.getSheets);
+router.post('/createNewSpreadsheet', Spreadsheet.createSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);
 module.exports = router;
