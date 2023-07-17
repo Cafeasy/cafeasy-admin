@@ -10,7 +10,7 @@ import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import jwt_decode from "jwt-decode";
-
+import { useParams } from "react-router-dom";
 function Sidebarcomp() {
   const cookies = new Cookies();
   const nextNavigate = useNavigate();
@@ -52,6 +52,8 @@ function Sidebarcomp() {
   //   window.location.href = "/";
   //   return false;
   // };
+  const params = useParams();
+  const urlParams = params.idAdmin;
 
   const logout = () => {
     cookies.remove("secretLogToken");
