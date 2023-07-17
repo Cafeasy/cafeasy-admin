@@ -10,7 +10,7 @@ import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
 import { Toolbar } from "primereact/toolbar";
 
-const DEFAULT_MENU = {
+const DEFAULT_PELANGGAN = {
   id: "",
   name: "",
 };
@@ -18,23 +18,24 @@ const DEFAULT_MENU = {
 const DataPelanggancomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
-  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
-  const [menu, setMenu] = useState(DEFAULT_MENU);
+  const [deletePelangganDialog, setDeletePelangganDialog] = useState(false);
+  const [deleteAllPelangganDialog, setDeleteAllPelangganDialog] =
+    useState(false);
+  const [pelanggan, setPelanggan] = useState(DEFAULT_PELANGGAN);
 
-  const hideDeleteMenuDialog = () => {
-    setDeleteMenuDialog(false);
+  const hideDeletePelangganDialog = () => {
+    setDeletePelangganDialog(false);
   };
 
-  const hideDeleteAllDialog = () => {
-    setDeleteAllDialog(false);
+  const hideDeleteAllPelangganDialog = () => {
+    setDeleteAllPelangganDialog(false);
   };
 
-  const confirmDeleteAll = () => {
-    setDeleteAllDialog(true);
+  const confirmDeleteAllPelanggan = () => {
+    setDeleteAllPelangganDialog(true);
   };
 
-  const deleteAll = async () => {
+  const deleteAllPelanggan = async () => {
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/deleteAllCustomer`)
       .then((response) => {
@@ -44,8 +45,8 @@ const DataPelanggancomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
-        setMenu(DEFAULT_MENU);
-        setDeleteMenuDialog(false);
+        setPelanggan(DEFAULT_PELANGGAN);
+        setDeletePelangganDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -57,19 +58,19 @@ const DataPelanggancomp = ({ data = [] }) => {
       });
   };
 
-  const deleteAllDialogFooter = (
+  const deleteAllPelangganDialogFooter = (
     <>
       <Button
         label="Tidak"
         icon="pi pi-times"
         outlined
-        onClick={hideDeleteAllDialog}
+        onClick={hideDeleteAllPelangganDialog}
       />
       <Button
         label="Iya"
         icon="pi pi-check"
         severity="danger"
-        onClick={deleteAll}
+        onClick={deleteAllPelanggan}
       />
     </>
   );
@@ -83,7 +84,7 @@ const DataPelanggancomp = ({ data = [] }) => {
           icon="pi pi-trash"
           severity="danger"
           raised
-          onClick={confirmDeleteAll}
+          onClick={confirmDeleteAllPelanggan}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
@@ -107,10 +108,7 @@ const DataPelanggancomp = ({ data = [] }) => {
         <br></br>
         <div className="row">
           <div className="col-md-3">
-            <div className="title-pelanggan-pertama">
-              {" "}
-              DATATABLE PELANGGAN{" "}
-            </div>
+            <div className="title-pelanggan-pertama"> DATATABLE PELANGGAN </div>
           </div>
           <div className="col-sm-4">
             <div className="title-pelanggan-kedua"> Admin / </div>
@@ -156,13 +154,13 @@ const DataPelanggancomp = ({ data = [] }) => {
           </div>
 
           <Dialog
-            visible={deleteAllDialog}
+            visible={deleteAllPelangganDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
             modal
-            footer={deleteAllDialogFooter}
-            onHide={hideDeleteAllDialog}
+            footer={deleteAllPelangganDialogFooter}
+            onHide={hideDeleteAllPelangganDialog}
           >
             <div className="confirmation-content">
               <i

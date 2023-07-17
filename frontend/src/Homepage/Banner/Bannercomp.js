@@ -18,9 +18,9 @@ const DEFAULT_BANNER = {
 const Bannercomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
-  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
-  const [productDialog, setProductDialog] = useState(false);
+  const [deleteBannerDialog, setDeleteBannerDialog] = useState(false);
+  const [deleteAllBannerDialog, setDeleteAllBannerDialog] = useState(false);
+  const [bannerDialog, setBannerDialog] = useState(false);
   const [banner, setBanner] = useState(DEFAULT_BANNER);
   const [banners, setBanners] = useState([]);
 
@@ -28,46 +28,28 @@ const Bannercomp = ({ data = [] }) => {
     setBanners(data);
   }, []);
 
-  const responsiveOptions = [
-    {
-      breakpoint: "1199px",
-      numVisible: 1,
-      numScroll: 1,
-    },
-    {
-      breakpoint: "991px",
-      numVisible: 2,
-      numScroll: 1,
-    },
-    {
-      breakpoint: "767px",
-      numVisible: 1,
-      numScroll: 1,
-    },
-  ];
-
-  const hideDeleteMenuDialog = () => {
-    setDeleteMenuDialog(false);
+  const hideDeleteBannerDialog = () => {
+    setDeleteBannerDialog(false);
   };
 
-  const hideDeleteAllDialog = () => {
-    setDeleteAllDialog(false);
+  const hideDeleteAllBannerDialog = () => {
+    setDeleteAllBannerDialog(false);
   };
 
-  const confirmDeleteAll = () => {
-    setDeleteAllDialog(true);
+  const confirmDeleteAllBanner = () => {
+    setDeleteAllBannerDialog(true);
   };
 
-  const confirmDeleteSelected = (selectedMenu) => {
+  const confirmDeleteBannerSelected = (selectedMenu) => {
     setBanner((data) => ({ ...data, ...selectedMenu }));
-    setDeleteMenuDialog(true);
+    setDeleteBannerDialog(true);
   };
 
-  const hideDialog = () => {
-    setProductDialog(false);
+  const hideBannerDialog = () => {
+    setBannerDialog(false);
   };
 
-  const onSubmit = async () => {
+  const SubmitBanner = async () => {
     const formData = new FormData();
     formData.append("idBanner", banner.idBanner);
     formData.append("namaBanner", banner.namaBanner);
@@ -82,7 +64,7 @@ const Bannercomp = ({ data = [] }) => {
           detail: "Data Berhasil Disimpan",
           life: 3000,
         });
-        setProductDialog(false);
+        setBannerDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -94,23 +76,23 @@ const Bannercomp = ({ data = [] }) => {
       });
   };
 
-  const openForm = (selectedMenu = {}) => {
+  const FormBanner = (selectedMenu = {}) => {
     setBanner((data) => ({ ...data, ...selectedMenu }));
-    setProductDialog(true);
+    setBannerDialog(true);
   };
 
   const invoiceUploadHandler = (e) => {
     setBanner((data) => ({ ...data, imageFile: e.files[0] }));
   };
 
-  const productDialogFooter = (
+  const BannerDialogFooter = (
     <React.Fragment>
       <Button
         label="Batal"
         icon="pi pi-times"
         className="p-button-text"
         onClick={() => {
-          hideDialog();
+          hideBannerDialog();
           setBanner(DEFAULT_BANNER);
         }}
       />
@@ -118,12 +100,12 @@ const Bannercomp = ({ data = [] }) => {
         label="Simpan"
         icon="pi pi-check"
         className="p-button-text"
-        onClick={onSubmit}
+        onClick={SubmitBanner}
       />
     </React.Fragment>
   );
 
-  const deleteAll = async () => {
+  const deleteAllBanner = async () => {
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/deleteAllBanner`)
       .then((response) => {
@@ -134,7 +116,7 @@ const Bannercomp = ({ data = [] }) => {
           life: 3000,
         });
         setBanner(DEFAULT_BANNER);
-        setDeleteMenuDialog(false);
+        setDeleteBannerDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -146,24 +128,24 @@ const Bannercomp = ({ data = [] }) => {
       });
   };
 
-  const deleteAllDialogFooter = (
+  const deleteAllBannerDialogFooter = (
     <>
       <Button
         label="Tidak"
         icon="pi pi-times"
         outlined
-        onClick={hideDeleteAllDialog}
+        onClick={hideDeleteAllBannerDialog}
       />
       <Button
         label="Iya"
         icon="pi pi-check"
         severity="danger"
-        onClick={deleteAll}
+        onClick={deleteAllBanner}
       />
     </>
   );
 
-  const deleteMenu = async () => {
+  const deleteMenuBanner = async () => {
     await axios
       .delete(
         `${process.env.REACT_APP_API_URL}/deleteBannerById/${banner.idBanner}`
@@ -176,7 +158,7 @@ const Bannercomp = ({ data = [] }) => {
           life: 3000,
         });
         setBanner(DEFAULT_BANNER);
-        setDeleteMenuDialog(false);
+        setDeleteBannerDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -188,24 +170,24 @@ const Bannercomp = ({ data = [] }) => {
       });
   };
 
-  const deleteMenuDialogFooter = (
+  const deleteBannerDialogFooter = (
     <>
       <Button
         label="Tidak"
         icon="pi pi-times"
         outlined
-        onClick={hideDeleteMenuDialog}
+        onClick={hideDeleteBannerDialog}
       />
       <Button
         label="Iya"
         icon="pi pi-check"
         severity="danger"
-        onClick={deleteMenu}
+        onClick={deleteMenuBanner}
       />
     </>
   );
 
-  const actionTemplate = (menu) => (
+  const actionButtonBanner = (banner) => (
     <>
       <Button
         label="Hapus"
@@ -213,7 +195,7 @@ const Bannercomp = ({ data = [] }) => {
         icon="pi pi-trash"
         severity="danger"
         rounded
-        onClick={() => confirmDeleteSelected(menu)}
+        onClick={() => confirmDeleteBannerSelected(banner)}
       />
     </>
   );
@@ -226,14 +208,14 @@ const Bannercomp = ({ data = [] }) => {
           label="Tambah Banner"
           icon="pi pi-plus"
           raised
-          onClick={() => openForm()}
+          onClick={() => FormBanner()}
         />
         <Button
           label="Hapus Semua"
           icon="pi pi-trash"
           severity="danger"
           raised
-          onClick={confirmDeleteAll}
+          onClick={confirmDeleteAllBanner}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
@@ -316,19 +298,19 @@ const Bannercomp = ({ data = [] }) => {
                 header="Aksi"
                 exportable={false}
                 style={{ minWidth: "5rem" }}
-                body={actionTemplate}
+                body={actionButtonBanner}
               ></Column>
             </DataTable>
           </div>
 
           <Dialog
-            visible={productDialog}
+            visible={bannerDialog}
             style={{ width: "450px" }}
             header={banner.namaBanner ? "Edit Banner" : "Tambah Banner"}
             modal
             className="p-fluid"
-            footer={productDialogFooter}
-            onHide={hideDialog}
+            footer={BannerDialogFooter}
+            onHide={hideBannerDialog}
           >
             {banner.imageUrl && (
               <img
@@ -370,13 +352,13 @@ const Bannercomp = ({ data = [] }) => {
           </Dialog>
 
           <Dialog
-            visible={deleteAllDialog}
+            visible={deleteAllBannerDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
             modal
-            footer={deleteAllDialogFooter}
-            onHide={hideDeleteAllDialog}
+            footer={deleteAllBannerDialogFooter}
+            onHide={hideDeleteAllBannerDialog}
           >
             <div className="confirmation-content">
               <i
@@ -390,13 +372,13 @@ const Bannercomp = ({ data = [] }) => {
           </Dialog>
 
           <Dialog
-            visible={deleteMenuDialog}
+            visible={deleteBannerDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
             modal
-            footer={deleteMenuDialogFooter}
-            onHide={hideDeleteMenuDialog}
+            footer={deleteBannerDialogFooter}
+            onHide={hideDeleteBannerDialog}
           >
             <div className="confirmation-content">
               <i

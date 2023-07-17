@@ -9,7 +9,7 @@ import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 
-const DEFAULT_MENU = {
+const DEFAULT_TRANSAKSI = {
   idTransaksi: "",
   idPelanggan: "",
   namaPelanggan: "",
@@ -22,27 +22,30 @@ const DEFAULT_MENU = {
 const DataTransaksicomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
-  const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
-  const [deleteAllDialog, setDeleteAllDialog] = useState(false);
-  const [menu, setMenu] = useState(DEFAULT_MENU);
+  const [deleteTransaksiDialog, setDeleteTransaksiDialog] = useState(false);
+  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] =
+    useState(false);
+  const [transaksi, setTransaksi] = useState(DEFAULT_TRANSAKSI);
   const [dataTransaksi, setdataTransaksi] = useState([]);
+
   useEffect(() => {
     setdataTransaksi(data.data);
   }, []);
+  
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
   };
 
-  const hideDeleteMenuDialog = () => {
-    setDeleteMenuDialog(false);
+  const hideDeleteTransaksiDialog = () => {
+    setDeleteTransaksiDialog(false);
   };
 
-  const hideDeleteAllDialog = () => {
-    setDeleteAllDialog(false);
+  const hideDeleteAllTransaksiDialog = () => {
+    setDeleteAllTransaksiDialog(false);
   };
 
-  const confirmDeleteAll = () => {
-    setDeleteAllDialog(true);
+  const confirmDeleteAllTransaksi = () => {
+    setDeleteAllTransaksiDialog(true);
   };
 
   const exportSpreadsheet = async () => {
@@ -52,26 +55,32 @@ const DataTransaksicomp = ({ data = [] }) => {
       dataTransaksi.map((value) => {
         dat1 = {
           data: [
-            [value.idTransaksi, value.namaPelanggan, value.tanggal, value.totalHarga, value.statusBayar]
-          ]
+            [
+              value.idTransaksi,
+              value.namaPelanggan,
+              value.tanggal,
+              value.totalHarga,
+              value.statusBayar,
+            ],
+          ],
         };
-        dataPesana[i] = [value]
+        dataPesana[i] = [value];
       });
-
     }
 
-    console.log(dat1)
-
+    console.log(dat1);
 
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, dat1).then(() => {
-        var win = window.open('https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing', '_blank');
+      .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, dat1)
+      .then(() => {
+        var win = window.open(
+          "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",
+          "_blank"
+        );
         win.focus();
-      })
-      ;
-
-  }
-  const deleteAll = async () => {
+      });
+  };
+  const deleteAllTransaksi = async () => {
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/deleteAllTransaksi`)
       .then((response) => {
@@ -81,8 +90,8 @@ const DataTransaksicomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
-        setMenu(DEFAULT_MENU);
-        setDeleteMenuDialog(false);
+        setTransaksi(DEFAULT_TRANSAKSI);
+        setDeleteTransaksiDialog(false);
       })
       .catch((response) => {
         toast.current.show({
@@ -94,19 +103,19 @@ const DataTransaksicomp = ({ data = [] }) => {
       });
   };
 
-  const deleteAllDialogFooter = (
+  const deleteAllTransaksiDialogFooter = (
     <>
       <Button
         label="Tidak"
         icon="pi pi-times"
         outlined
-        onClick={hideDeleteAllDialog}
+        onClick={hideDeleteAllTransaksiDialog}
       />
       <Button
         label="Iya"
         icon="pi pi-check"
         severity="danger"
-        onClick={deleteAll}
+        onClick={deleteAllTransaksi}
       />
     </>
   );
@@ -131,7 +140,8 @@ const DataTransaksicomp = ({ data = [] }) => {
     <div className="table-header">
       <h5 className="mx-0 my-1">Semua Transaksi</h5>
       <div className="flex gap-2">
-        <Button on
+        <Button
+          on
           label="Ekspor ke Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
@@ -143,7 +153,7 @@ const DataTransaksicomp = ({ data = [] }) => {
           icon="pi pi-trash"
           severity="danger"
           raised
-          onClick={confirmDeleteAll}
+          onClick={confirmDeleteAllTransaksi}
         />
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
@@ -167,10 +177,7 @@ const DataTransaksicomp = ({ data = [] }) => {
         <br></br>
         <div className="row">
           <div className="col-md-3">
-            <div className="title-transaksi-pertama">
-              {" "}
-              DATATABLE TRANSAKSI{" "}
-            </div>
+            <div className="title-transaksi-pertama"> DATATABLE TRANSAKSI </div>
           </div>
           <div className="col-sm-4">
             <div className="title-transaksi-kedua"> Admin / </div>
@@ -245,13 +252,13 @@ const DataTransaksicomp = ({ data = [] }) => {
           </div>
 
           <Dialog
-            visible={deleteAllDialog}
+            visible={deleteAllTransaksiDialog}
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
             modal
-            footer={deleteAllDialogFooter}
-            onHide={hideDeleteAllDialog}
+            footer={deleteAllTransaksiDialogFooter}
+            onHide={hideDeleteAllTransaksiDialog}
           >
             <div className="confirmation-content">
               <i
