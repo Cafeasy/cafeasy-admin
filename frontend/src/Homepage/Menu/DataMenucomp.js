@@ -49,8 +49,10 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
   };
 
   // submit
+
   const onSubmit = async () => {
     const formData = new FormData();
+
     formData.append("image", menu.imageFile);
     formData.append("hargaMenu", menu.hargaMenu);
     formData.append("stokMenu", menu.stokMenu);
@@ -59,7 +61,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
     formData.append("namaMenu", menu.namaMenu);
 
     if (menu.idMenu) {
-      await axios
+      axios
         .put(
           `${process.env.REACT_APP_API_URL}/updateDataMenu/${menu.idMenu}`,
           formData

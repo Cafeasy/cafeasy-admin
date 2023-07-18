@@ -155,6 +155,7 @@ const DataKategoricomp = ({ data = [] }) => {
       />
     </>
   );
+  useEffect(() => {});
 
   const deleteKateg = async () => {
     await axios
@@ -168,6 +169,7 @@ const DataKategoricomp = ({ data = [] }) => {
           detail: "Data Berhasil Dihapus",
           life: 3000,
         });
+
         setKategori(DEFAULT_KATEGORI);
         setDeleteKategDialog(false);
       })
@@ -263,10 +265,7 @@ const DataKategoricomp = ({ data = [] }) => {
         <br></br>
         <div className="row">
           <div className="col-md-3">
-            <div className="title-kategori-pertama">
-              {" "}
-              DATATABLE KATEGORI{" "}
-            </div>
+            <div className="title-kategori-pertama"> DATATABLE KATEGORI </div>
           </div>
           <div className="col-sm-4">
             <div className="title-kategori-kedua"> Admin / </div>
@@ -379,7 +378,8 @@ const DataKategoricomp = ({ data = [] }) => {
               />
               {kategori && (
                 <span>
-                  Apakah anda yakin ingin menghapus <b>{kategori.namaKategori}</b>?
+                  Apakah anda yakin ingin menghapus{" "}
+                  <b>{kategori.namaKategori}</b>?
                 </span>
               )}
             </div>
