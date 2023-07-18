@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../Homepage/Sidebarpage.css";
 import axios from "axios";
+import * as ImIcons from "react-icons/im";
+import * as MdIcons from "react-icons/md";
+import * as AiIcons from "react-icons/ai";
+import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
+import * as FaIcons from "react-icons/fa";
 import { Sidebardata } from "./Sidebardata";
 import { NavLink } from "react-router-dom";
 import logodannama from "../Photos/logodannama.png";
@@ -21,6 +26,45 @@ function Sidebarcomp() {
       return () => {};
     }
   }, []);
+
+  const Sidebardata = [
+    {
+      path: "/ProfileAdmin/:idadmin",
+      icon: <ImIcons.ImProfile />,
+      cName: "nav-text",
+      display: "Profil Admin",
+    },
+    {
+      path: "/DataMenu",
+      icon: <MdIcons.MdMenuBook />,
+      cName: "nav-text",
+      display: "Data Menu",
+    },
+    {
+      path: "/DataTransaksi",
+      icon: <AiIcons.AiOutlineTransaction />,
+      cName: "nav-text",
+      display: "Data Transaksi",
+    },
+    {
+      path: "/DataPelanggan",
+      icon: <HiIcons.HiUserGroup />,
+      cName: "nav-text",
+      display: "Data Pelanggan",
+    },
+    {
+      path: "/DataKategori",
+      icon: <BiIcons.BiCategory />,
+      cName: "nav-text",
+      display: "Data Kategori",
+    },
+    {
+      path: "/DataBanner",
+      icon: <FaIcons.FaImages />,
+      cName: "nav-text",
+      display: "Data Banner",
+    },
+  ];
 
   // const [click, setClick] = useState(false);
 
@@ -90,7 +134,7 @@ function Sidebarcomp() {
 
           <div className="sidebar-bottom">
             <span onClick={logout}>
-              <BiIcons.BiLogOut  />
+              <BiIcons.BiLogOut />
               Logout
             </span>
           </div>
