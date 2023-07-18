@@ -7,7 +7,6 @@ import * as AiIcons from "react-icons/ai";
 import * as HiIcons from "react-icons/hi";
 import * as BiIcons from "react-icons/bi";
 import * as FaIcons from "react-icons/fa";
-import { Sidebardata } from "./Sidebardata";
 import { NavLink } from "react-router-dom";
 import logodannama from "../Photos/logodannama.png";
 import "../Photos/logodannama.png";
