@@ -23,7 +23,6 @@ import Bannerpage from './Homepage/Banner/Bannerpage';
 
 const App = () => {
   return (
-<<<<<<< Updated upstream
     <Router>
       <Routes>
           <Route exact path="/" element={<Landingpage />}></Route>
@@ -37,24 +36,6 @@ const App = () => {
           <Route exact path="/DataBanner" element={<Bannerpage />}></Route>
       </Routes>
     </Router>
-=======
-    <div className="routes">
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Loginpage />}></Route>
-          <Route exact path="/Register" element={<Signuppage />}></Route>
-        </Routes>
-      </BrowserRouter>
-
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/Pembukuan" element={<Pembukuancomp />}></Route>
-          <Route exact path="/Kelola" element={<Kelolacomp />}></Route>
-          <Route exact path="/Persediaan" element={<Persediaancomp />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
->>>>>>> Stashed changes
   );
 };
 export default App;
