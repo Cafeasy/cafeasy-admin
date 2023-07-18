@@ -11,6 +11,8 @@ import { Row } from "react-bootstrap";
 const ProfileAdmincomp = () => {
   const params = useParams();
   const urlParams = params.idAdmin;
+
+  console.log(urlParams);
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
 
@@ -21,7 +23,7 @@ const ProfileAdmincomp = () => {
   }, [data]);
 
   console.log(data);
-  
+
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Admin</h5>

@@ -19,16 +19,13 @@ function Sidebarcomp() {
   const cookies = new Cookies();
   const nextNavigate = useNavigate();
 
-  useEffect(() => {
-    if (!cookies.get("secretLogToken")) {
-      nextNavigate("/LoginAdmin");
-      return () => {};
-    }
-  }, []);
+  var secretLogToken = cookies.get("secretLogToken");
+  var decoded = jwt_decode(secretLogToken);
+  var decodedIdAdmin = decoded.idAdmin;
 
   const Sidebardata = [
     {
-      path: "/ProfileAdmin/:idadmin",
+      path: "/ProfileAdmin/" + decodedIdAdmin,
       icon: <ImIcons.ImProfile />,
       cName: "nav-text",
       display: "Profil Admin",
@@ -95,8 +92,6 @@ function Sidebarcomp() {
   //   window.location.href = "/";
   //   return false;
   // };
-  const params = useParams();
-  const urlParams = params.idAdmin;
 
   const logout = () => {
     cookies.remove("secretLogToken");
