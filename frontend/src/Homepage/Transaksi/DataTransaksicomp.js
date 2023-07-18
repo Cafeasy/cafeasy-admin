@@ -23,7 +23,8 @@ const DataTransaksicomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteTransaksiDialog, setDeleteTransaksiDialog] = useState(false);
-  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] = useState(false);
+  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] =
+    useState(false);
   const [TransaksiDialog, setTransaksiDialog] = useState(false);
   const [transaksi, setTransaksi] = useState(DEFAULT_TRANSAKSI);
   const [dataTransaksi, setdataTransaksi] = useState([]);
@@ -34,6 +35,11 @@ const DataTransaksicomp = ({ data = [] }) => {
 
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
+  };
+
+  const confirmDeleteSelected = (selectedMenu) => {
+    setTransaksi((data) => ({ ...data, ...selectedMenu }));
+    setDeleteTransaksiDialog(true);
   };
 
   const hideDeleteTransaksiDialog = () => {
@@ -139,7 +145,53 @@ const DataTransaksicomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
+
+  const deleteTransaksi = async () => {
+    await axios
+      .delete(`${process.env.REACT_APP_API_URL}/deleteTransaksiById/${transaksi.idTransaksi}`)
+      .then((response) => {
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Dihapus",
+          life: 3000,
+        });
+        setTransaksi(DEFAULT_TRANSAKSI);
+        setDeleteTransaksiDialog(false);
+      })
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Dihapus",
+          life: 3000,
+        });
+      });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  };
+
+  const deleteTransaksiDialogFooter = (
+    <>
+      <Button
+        label="Tidak"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDeleteTransaksiDialog}
+      />
+      <Button
+        label="Iya"
+        icon="pi pi-check"
+        severity="danger"
+        onClick={deleteTransaksi}
+      />
+    </>
+  );
 
   const deleteAllTransaksiDialogFooter = (
     <>
@@ -173,6 +225,19 @@ const DataTransaksicomp = ({ data = [] }) => {
         return null;
     }
   };
+
+  const actionButtonTransaksi = (transaksi) => (
+    <>
+      <Button
+        label="Hapus"
+        className="mx-2"
+        icon="pi pi-trash"
+        severity="danger"
+        rounded
+        onClick={() => confirmDeleteSelected(transaksi)}
+      />
+    </>
+  );
 
   const header = (
     <div className="table-header">
@@ -286,8 +351,36 @@ const DataTransaksicomp = ({ data = [] }) => {
                 sortable
                 style={{ minWidth: "10rem" }}
               ></Column>
+              <Column
+                header="Aksi"
+                exportable={false}
+                style={{ minWidth: "12rem" }}
+                body={actionButtonTransaksi}
+              ></Column>
             </DataTable>
           </div>
+
+          <Dialog
+            visible={deleteTransaksiDialog}
+            style={{ width: "32rem" }}
+            breakpoints={{ "960px": "75vw", "641px": "90vw" }}
+            header="Konfirmasi"
+            modal
+            footer={deleteTransaksiDialogFooter}
+            onHide={hideDeleteTransaksiDialog}
+          >
+            <div className="confirmation-content">
+              <i
+                className="pi pi-exclamation-triangle mr-3"
+                style={{ fontSize: "2rem" }}
+              />
+              {transaksi && (
+                <span>
+                  Apakah anda yakin ingin menghapus <b>{transaksi.namaPelanggan}</b>?
+                </span>
+              )}
+            </div>
+          </Dialog>
 
           <Dialog
             visible={deleteAllTransaksiDialog}

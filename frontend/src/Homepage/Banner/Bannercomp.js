@@ -74,6 +74,9 @@ const Bannercomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const FormBanner = (selectedMenu = {}) => {
@@ -126,6 +129,9 @@ const Bannercomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteAllBannerDialogFooter = (
@@ -168,6 +174,9 @@ const Bannercomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteBannerDialogFooter = (
@@ -387,7 +396,8 @@ const Bannercomp = ({ data = [] }) => {
               />
               {banner && (
                 <span>
-                  Apakah anda yakin ingin menghapus <b>{banner.namaKategori}</b>?
+                  Apakah anda yakin ingin menghapus <b>{banner.namaKategori}</b>
+                  ?
                 </span>
               )}
             </div>

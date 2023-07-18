@@ -82,7 +82,6 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-
           setMenu(DEFAULT_MENU);
         })
         .catch((response) => {
@@ -168,6 +167,9 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteAll = async () => {

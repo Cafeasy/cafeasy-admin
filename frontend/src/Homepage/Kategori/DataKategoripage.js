@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const DataKategoripage = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     axios
       .get(` ${process.env.REACT_APP_API_URL}/kategoriMenu/`).then((result) => {
-        setData(result.data);
-      })
+        setData(result.data.data);
+      });
   }, []);
 
   return (

@@ -19,6 +19,11 @@ const DataKategoricomp = ({ data = [] }) => {
   const [deleteAllKategDialog, setDeleteAllKategDialog] = useState(false);
   const [kategoriDialog, setKategoriDialog] = useState(false);
   const [kategori, setKategori] = useState(DEFAULT_KATEGORI);
+  const [kategoris, setKategoris] = useState([]);
+
+  useEffect(() => {
+    setKategoris(data);
+  }, []);
 
   const hideDeleteKategDialog = () => {
     setDeleteKategDialog(false);
@@ -43,22 +48,32 @@ const DataKategoricomp = ({ data = [] }) => {
 
   const SubmitKateg = async () => {
     const formData = new FormData();
+
     formData.append("namaKategori", kategori.namaKategori);
 
-    if (kategori.idMenu) {
-      await axios
+    if (kategori.idKategori) {
+      axios
         .put(
           `${process.env.REACT_APP_API_URL}/updateKategoriMenu/${kategori.idKategori}`,
           formData
         )
         .then((response) => {
+          let index;
+          const filteredData = kategoris.some((x, i) => {
+            index = i;
+            return x.idKategori === kategori.idKategori;
+          });
+          const newKategoris = [...kategoris];
+          newKategoris.splice(index, 1, response.data.data);
+          setKategoris(newKategoris);
+          setKategoriDialog(false);
           toast.current.show({
             severity: "success",
             summary: "Success",
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-          setKategoriDialog(false);
+          setKategoriDialog(DEFAULT_KATEGORI);
         })
         .catch((response) => {
           toast.current.show({
@@ -68,17 +83,22 @@ const DataKategoricomp = ({ data = [] }) => {
             life: 3000,
           });
         });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } else {
       await axios
         .post(`${process.env.REACT_APP_API_URL}/insertKategoriMenu/`, formData)
         .then((response) => {
+          console.log(response);
+          setKategoris((prevData) => [...prevData, response.data.data]);
+          setKategoriDialog(false);
           toast.current.show({
             severity: "success",
             summary: "Success",
             detail: "Data Berhasil Disimpan",
             life: 3000,
           });
-          setKategoriDialog(false);
         })
         .catch((response) => {
           toast.current.show({
@@ -137,9 +157,9 @@ const DataKategoricomp = ({ data = [] }) => {
           life: 3000,
         });
       });
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteAllKategDialogFooter = (
@@ -184,9 +204,9 @@ const DataKategoricomp = ({ data = [] }) => {
           life: 3000,
         });
       });
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteKategDialogFooter = (
@@ -261,8 +281,6 @@ const DataKategoricomp = ({ data = [] }) => {
     </div>
   );
 
-  console.log(data);
-
   let arr = data.data ?? [];
 
   return (
@@ -285,7 +303,7 @@ const DataKategoricomp = ({ data = [] }) => {
           <Toast ref={toast} />
           <div className="card">
             <DataTable
-              value={arr}
+              value={kategoris}
               header={header}
               resizableColumns
               showGridlines

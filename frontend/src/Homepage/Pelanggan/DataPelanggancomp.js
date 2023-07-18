@@ -56,6 +56,9 @@ const DataPelanggancomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteAllPelangganDialogFooter = (
