@@ -5,13 +5,14 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { Tag } from "primereact/tag";
 import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "bootstrap";
 
 const DEFAULT_TRANSAKSI = {
-  idTransaksi: "",
-  idPelanggan: "",
   namaPelanggan: "",
   tanggal: "",
   noMeja: "",
@@ -23,18 +24,26 @@ const DataTransaksicomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteTransaksiDialog, setDeleteTransaksiDialog] = useState(false);
-  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] =
-    useState(false);
+  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] = useState(false);
   const [TransaksiDialog, setTransaksiDialog] = useState(false);
   const [transaksi, setTransaksi] = useState(DEFAULT_TRANSAKSI);
   const [dataTransaksi, setdataTransaksi] = useState([]);
 
   useEffect(() => {
-    setdataTransaksi(data.data);
+    setdataTransaksi(data);
   }, []);
+
+  const openForm = (selectedMenu = {}) => {
+    setTransaksi((data) => ({ ...data, ...selectedMenu }));
+    setTransaksiDialog(true);
+  };
 
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
+  };
+
+  const hideTransaksiDialog = () => {
+    setTransaksiDialog(false);
   };
 
   const confirmDeleteSelected = (selectedMenu) => {
@@ -56,40 +65,46 @@ const DataTransaksicomp = ({ data = [] }) => {
 
   const SubmitTransaksi = async () => {
     const formData = new FormData();
-    formData.append("image", transaksi.imageFile);
 
-    await axios
-      .put(
-        `${process.env.REACT_APP_API_URL}/updateDataMenu/${transaksi.idTransaksi}`,
-        formData
-      )
-      .then((response) => {
-        let index;
-        const filteredData = dataTransaksi.some((x, i) => {
-          index = i;
-          return x.idTransaksi === transaksi.idTransaksi;
-        });
-        const newMenus = [...dataTransaksi];
-        newMenus.splice(index, 1, response.data.data);
-        setdataTransaksi(newMenus);
-        setTransaksiDialog(false);
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Data Berhasil Disimpan",
-          life: 3000,
-        });
+    formData.append("namaPelanggan", transaksi.namaPelanggan);
+    formData.append("tanggal", transaksi.tanggal);
+    formData.append("noMeja", transaksi.noMeja);
+    formData.append("totalHarga", transaksi.totalHarga);
+    formData.append("statusBayar", transaksi.statusBayar);
 
-        setTransaksi(DEFAULT_TRANSAKSI);
-      })
-      .catch((response) => {
-        toast.current.show({
-          severity: "error",
-          summary: "Failed",
-          detail: "Data Gagal Disimpan",
-          life: 3000,
+    if (transaksi.idTransaksi)
+      axios
+        .put(
+          `${process.env.REACT_APP_API_URL}/updateDataMenu/${transaksi.idTransaksi}`,
+          formData
+        )
+        .then((response) => {
+          let index;
+          const filteredData = dataTransaksi.some((x, i) => {
+            index = i;
+            return x.idTransaksi === transaksi.idTransaksi;
+          });
+          const newdataTransaksi = [...dataTransaksi];
+          newdataTransaksi.splice(index, 1, response.data.data);
+          setdataTransaksi(newdataTransaksi);
+          setTransaksiDialog(false);
+          toast.current.show({
+            severity: "success",
+            summary: "Success",
+            detail: "Data Berhasil Disimpan",
+            life: 3000,
+          });
+
+          setTransaksi(DEFAULT_TRANSAKSI);
+        })
+        .catch((response) => {
+          toast.current.show({
+            severity: "error",
+            summary: "Failed",
+            detail: "Data Gagal Disimpan",
+            life: 3000,
+          });
         });
-      });
   };
 
   const exportSpreadsheet = async () => {
@@ -124,6 +139,7 @@ const DataTransaksicomp = ({ data = [] }) => {
         win.focus();
       });
   };
+
   const deleteAllTransaksi = async () => {
     await axios
       .delete(`${process.env.REACT_APP_API_URL}/deleteAllTransaksi`)
@@ -178,6 +194,26 @@ const DataTransaksicomp = ({ data = [] }) => {
     }, 1000);
   };
 
+  const transaksiDialogFooter = (
+    <React.Fragment>
+      <Button
+        label="Batal"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={() => {
+          hideTransaksiDialog();
+          setTransaksi(DEFAULT_TRANSAKSI);
+        }}
+      />
+      <Button
+        label="Simpan"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={SubmitTransaksi}
+      />
+    </React.Fragment>
+  );
+
   const deleteTransaksiDialogFooter = (
     <>
       <Button
@@ -231,6 +267,13 @@ const DataTransaksicomp = ({ data = [] }) => {
   const actionButtonTransaksi = (transaksi) => (
     <>
       <Button
+        label="Edit Status"
+        className="mx-2"
+        icon="pi pi-pencil"
+        rounded
+        onClick={() => openForm(transaksi)}
+      />
+      <Button
         label="Hapus"
         className="mx-2"
         icon="pi pi-trash"
@@ -272,8 +315,6 @@ const DataTransaksicomp = ({ data = [] }) => {
     </div>
   );
 
-  console.log(data);
-
   let arr = data.data ?? [];
 
   return (
@@ -296,7 +337,7 @@ const DataTransaksicomp = ({ data = [] }) => {
           <Toast ref={toast} />
           <div className="card">
             <DataTable
-              value={arr}
+              value={dataTransaksi}
               header={header}
               resizableColumns
               showGridlines
@@ -361,6 +402,17 @@ const DataTransaksicomp = ({ data = [] }) => {
               ></Column>
             </DataTable>
           </div>
+
+          <ConfirmPopup
+            visible={TransaksiDialog}
+            onHide={() => {
+              hideTransaksiDialog();
+              setTransaksi(DEFAULT_TRANSAKSI);
+            }}
+            accept={SubmitTransaksi}
+            message="Apakah anda ingin mengganti status bayar?"
+            icon="pi pi-exclamation-triangle"
+          />
 
           <Dialog
             visible={deleteTransaksiDialog}
