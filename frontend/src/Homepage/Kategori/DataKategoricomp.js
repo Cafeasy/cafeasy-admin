@@ -137,6 +137,9 @@ const DataKategoricomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
   };
 
   const deleteAllKategDialogFooter = (
@@ -179,6 +182,9 @@ const DataKategoricomp = ({ data = [] }) => {
           life: 3000,
         });
       });
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
   };
 
   const deleteKategDialogFooter = (

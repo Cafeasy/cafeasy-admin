@@ -20,6 +20,11 @@ const ProfileAdmincomp = () => {
       .then((res) => setData(res.data.data));
   }, [data]);
 
+<<<<<<< Updated upstream
+=======
+  console.log(data);
+
+>>>>>>> Stashed changes
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Admin</h5>
@@ -58,7 +63,7 @@ const ProfileAdmincomp = () => {
         <div className="datatable-crud-demo">
           <div className="card">
             <DataTable
-              value={arr}
+              value={data?.result}
               header={header}
               resizableColumns
               showGridlines

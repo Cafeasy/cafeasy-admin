@@ -23,15 +23,15 @@ const DataTransaksicomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteTransaksiDialog, setDeleteTransaksiDialog] = useState(false);
-  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] =
-    useState(false);
+  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] = useState(false);
+  const [TransaksiDialog, setTransaksiDialog] = useState(false);
   const [transaksi, setTransaksi] = useState(DEFAULT_TRANSAKSI);
   const [dataTransaksi, setdataTransaksi] = useState([]);
 
   useEffect(() => {
     setdataTransaksi(data.data);
   }, []);
-  
+
   const statusBody = (data) => {
     return <Tag value={data.statusBayar} severity={getSeverity(data)}></Tag>;
   };
@@ -46,6 +46,44 @@ const DataTransaksicomp = ({ data = [] }) => {
 
   const confirmDeleteAllTransaksi = () => {
     setDeleteAllTransaksiDialog(true);
+  };
+
+  const SubmitTransaksi = async () => {
+    const formData = new FormData();
+    formData.append("image", transaksi.imageFile);
+
+    await axios
+      .put(
+        `${process.env.REACT_APP_API_URL}/updateDataMenu/${transaksi.idTransaksi}`,
+        formData
+      )
+      .then((response) => {
+        let index;
+        const filteredData = dataTransaksi.some((x, i) => {
+          index = i;
+          return x.idTransaksi === transaksi.idTransaksi;
+        });
+        const newMenus = [...dataTransaksi];
+        newMenus.splice(index, 1, response.data.data);
+        setdataTransaksi(newMenus);
+        setTransaksiDialog(false);
+        toast.current.show({
+          severity: "success",
+          summary: "Success",
+          detail: "Data Berhasil Disimpan",
+          life: 3000,
+        });
+
+        setTransaksi(DEFAULT_TRANSAKSI);
+      })
+      .catch((response) => {
+        toast.current.show({
+          severity: "error",
+          summary: "Failed",
+          detail: "Data Gagal Disimpan",
+          life: 3000,
+        });
+      });
   };
 
   const exportSpreadsheet = async () => {
