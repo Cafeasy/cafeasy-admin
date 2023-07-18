@@ -42,11 +42,9 @@ function Logincomp() {
           nextNavigate("/ProfileAdmin/" + decodedIdAdmin);
         } else {
           Swal.fire({
-            text: "Save is disabled in Demo Mode",
-
-            showConfirmButton: false,
-            showCloseButton: true,
-            timer: 30000,
+            icon: "error",
+            title: "Oops...",
+            text: "Username atau Password salah",
           });
         }
       }

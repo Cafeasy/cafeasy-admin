@@ -152,7 +152,9 @@ const DataTransaksicomp = ({ data = [] }) => {
 
   const deleteTransaksi = async () => {
     await axios
-      .delete(`${process.env.REACT_APP_API_URL}/deleteTransaksiById/${transaksi.idTransaksi}`)
+      .delete(
+        `${process.env.REACT_APP_API_URL}/deleteTransaksiById/${transaksi.idTransaksi}`
+      )
       .then((response) => {
         toast.current.show({
           severity: "success",
@@ -376,7 +378,8 @@ const DataTransaksicomp = ({ data = [] }) => {
               />
               {transaksi && (
                 <span>
-                  Apakah anda yakin ingin menghapus <b>{transaksi.namaPelanggan}</b>?
+                  Apakah anda yakin ingin menghapus{" "}
+                  <b>{transaksi.namaPelanggan}</b>?
                 </span>
               )}
             </div>
