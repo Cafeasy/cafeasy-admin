@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Iconline from "../Photos/Iconline.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import jwt_decode from "jwt-decode";
@@ -11,10 +10,6 @@ import jwt_decode from "jwt-decode";
 // import { Navigate } from "react-router-dom";
 // import ProfileAdmincomp from "../Homepage/ProfileAdmincomp";
 // import PropTypes from 'prop-types'
-=======
-import { Navigate } from "react-router-dom";
-import Sidebarpage from "../Homepage/Sidebarpage";
->>>>>>> Stashed changes
 
 function Logincomp() {
   const cookies = new Cookies();
@@ -66,7 +61,9 @@ function Logincomp() {
           <div className="click-button">
             <div className="row">
               <div className="col-md-3 color-text">
-                <a href="">Login <img src={Iconline} alt="Icon"/></a>
+                <a href="">
+                  Login <img src={Iconline} alt="Icon" />
+                </a>
               </div>
               <div className="col-md-6">
                 <a href="RegisterAdmin">Daftar</a>
@@ -102,8 +99,7 @@ function Logincomp() {
 
           <br></br>
 
-          <div className="row">
-          </div>
+          <div className="row"></div>
           <div className="d-grid gap-2 mt-3">
             <button
               color="red"
@@ -120,22 +116,7 @@ function Logincomp() {
     </div>
   );
 
-<<<<<<< Updated upstream
   // return <div className="app">{ renderForm}</div>;
 }
 
-=======
-  return (
-    <div className="app">
-      {isSubmitted ? (
-        <div>
-          <Sidebarpage></Sidebarpage>
-        </div>
-      ) : (
-        renderForm
-      )}
-    </div>
-  );
-};
->>>>>>> Stashed changes
 export default Logincomp;

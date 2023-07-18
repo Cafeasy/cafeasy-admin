@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React from "react";
 import { useState, useEffect } from "react";
 import * as MdIcons from "react-icons/md";
@@ -48,5 +47,3 @@ export const Sidebardata = [
     display: "Data Banner",
   },
 ];
-=======
->>>>>>> Stashed changes

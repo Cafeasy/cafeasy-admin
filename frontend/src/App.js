@@ -1,13 +1,9 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';  
-import 'primereact/resources/primereact.css';                       
-import 'primeicons/primeicons.css';                                 
-import 'primeflex/primeflex.css';  
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.css";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Loginpage from "./Loginpage/Loginpage";
 import Signuppage from "./Signuppage/Signuppage";
 import ProfileAdminpage from "./Homepage/Profile/ProfileAdminpage";
@@ -19,42 +15,39 @@ import Landingpage from "./Landing/Landingpage";
 import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import "./App.css";
-import Bannerpage from './Homepage/Banner/Bannerpage';
+import Bannerpage from "./Homepage/Banner/Bannerpage";
 
 const App = () => {
   return (
-<<<<<<< Updated upstream
     <Router>
       <Routes>
-          <Route exact path="/" element={<Landingpage />}></Route>
-          <Route exact path="/LoginAdmin" element={<Loginpage />}></Route>
-          <Route exact path="/RegisterAdmin" element={<Signuppage />}></Route>
-          <Route exact path="/ProfileAdmin/:idAdmin" element={<ProfileAdminpage />}></Route>
-          <Route exact path="/DataMenu" element={<DataMenupage />}></Route>
-          <Route exact path="/DataTransaksi" element={<DataTransaksipage />}></Route>
-          <Route exact path="/DataPelanggan" element={<DataPelangganpage />}></Route>
-          <Route exact path="/DataKategori" element={<DataKategoripage />}></Route>
-          <Route exact path="/DataBanner" element={<Bannerpage />}></Route>
+        <Route exact path="/" element={<Landingpage />}></Route>
+        <Route exact path="/LoginAdmin" element={<Loginpage />}></Route>
+        <Route exact path="/RegisterAdmin" element={<Signuppage />}></Route>
+        <Route
+          exact
+          path="/ProfileAdmin/:idAdmin"
+          element={<ProfileAdminpage />}
+        ></Route>
+        <Route exact path="/DataMenu" element={<DataMenupage />}></Route>
+        <Route
+          exact
+          path="/DataTransaksi"
+          element={<DataTransaksipage />}
+        ></Route>
+        <Route
+          exact
+          path="/DataPelanggan"
+          element={<DataPelangganpage />}
+        ></Route>
+        <Route
+          exact
+          path="/DataKategori"
+          element={<DataKategoripage />}
+        ></Route>
+        <Route exact path="/DataBanner" element={<Bannerpage />}></Route>
       </Routes>
     </Router>
-=======
-    <div className="routes">
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Loginpage />}></Route>
-          <Route exact path="/Register" element={<Signuppage />}></Route>
-        </Routes>
-      </BrowserRouter>
-
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/Pembukuan" element={<Pembukuancomp />}></Route>
-          <Route exact path="/Kelola" element={<Kelolacomp />}></Route>
-          <Route exact path="/Persediaan" element={<Persediaancomp />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
->>>>>>> Stashed changes
   );
 };
 export default App;
