@@ -23,8 +23,6 @@ const ProfileAdmincomp = () => {
       .then((res) => setData(res.data.data));
   }, [data]);
 
-  console.log(data);
-
   const header = (
     <div className="table-header">
       <h5 className="mx-0 my-1">Deskripsi Admin</h5>
@@ -39,8 +37,9 @@ const ProfileAdmincomp = () => {
     </div>
   );
 
-  let arr = data.result;
+  let arr = data.result ?? [];
 
+  console.log(arr[0]);
   return (
     <div className="container">
       <div className="py-4">
@@ -120,7 +119,7 @@ const ProfileAdmincomp = () => {
                           <label>ID Admin</label>
                         </div>
                         <div class="col-md-6">
-                          <p>Kshiti123</p>
+                          <p>{arr[0]?.idAdmin}</p>
                         </div>
                       </div>
                       <div class="row">
