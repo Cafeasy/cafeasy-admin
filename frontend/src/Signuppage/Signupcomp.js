@@ -36,7 +36,8 @@ const Signupcomp = () => {
       .post(`${process.env.REACT_APP_API_URL}/registerAdmin`, formData)
       .then((res) => {
         alert("Pendaftaran Berhasil");
-        Navigate("/");
+        // Navigate("/");
+        console.log(res.data);
       })
       .catch((err) => {
         alert("Pendaftaran Gagal");
@@ -54,7 +55,9 @@ const Signupcomp = () => {
               <a href="LoginAdmin">Login</a>
             </div>
             <div className="col-md-6 color-text">
-              <a href="">Daftar <img src={Iconline1} alt="Icon"/></a>
+              <a href="">
+                Daftar <img src={Iconline1} alt="Icon" />
+              </a>
             </div>
           </div>
           <br></br>

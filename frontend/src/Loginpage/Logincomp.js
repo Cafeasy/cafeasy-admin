@@ -44,7 +44,7 @@ function Logincomp() {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "Username atau Password salah",
+            text: "Username atau Password salah!!!",
           });
         }
       }

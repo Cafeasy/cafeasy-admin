@@ -1,9 +1,7 @@
-import Signupcomp from "../Signuppage/Signupcomp"
+import Signupcomp from "../Signuppage/Signupcomp";
 
 const Signuppage = () => {
-    return (
-       <Signupcomp/>
-    )
-}
+  return <Signupcomp />;
+};
 
-export default Signuppage
+export default Signuppage;
