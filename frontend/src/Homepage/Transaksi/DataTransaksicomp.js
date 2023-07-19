@@ -24,7 +24,8 @@ const DataTransaksicomp = ({ data = [] }) => {
   const toast = useRef(null);
   const [globalFilter, setGlobalFilter] = useState(null);
   const [deleteTransaksiDialog, setDeleteTransaksiDialog] = useState(false);
-  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] = useState(false);
+  const [deleteAllTransaksiDialog, setDeleteAllTransaksiDialog] =
+    useState(false);
   const [TransaksiDialog, setTransaksiDialog] = useState(false);
   const [transaksi, setTransaksi] = useState(DEFAULT_TRANSAKSI);
   const [dataTransaksi, setdataTransaksi] = useState([]);
@@ -105,6 +106,9 @@ const DataTransaksicomp = ({ data = [] }) => {
             life: 3000,
           });
         });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const exportSpreadsheet = async () => {
@@ -267,7 +271,7 @@ const DataTransaksicomp = ({ data = [] }) => {
   const actionButtonTransaksi = (transaksi) => (
     <>
       <Button
-        label="Edit Status"
+        label="Bayar Cash"
         className="mx-2"
         icon="pi pi-pencil"
         rounded

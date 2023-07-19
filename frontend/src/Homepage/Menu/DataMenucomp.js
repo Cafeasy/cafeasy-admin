@@ -209,7 +209,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
           life: 3000,
         });
         setMenu(DEFAULT_MENU);
-        setDeleteMenuDialog(false);
+        setDeleteMenuDialog(true);
       })
       .catch((response) => {
         toast.current.show({
@@ -219,6 +219,9 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
           life: 3000,
         });
       });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const deleteMenuDialogFooter = (
