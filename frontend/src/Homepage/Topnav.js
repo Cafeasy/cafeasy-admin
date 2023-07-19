@@ -3,6 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../Homepage/Topnav.css";
 
+import Cookies from "universal-cookie";
+import jwt_decode from "jwt-decode";
+const cookies = new Cookies();
+var secretLogToken = cookies.get("secretLogToken");
+var decoded = jwt_decode(secretLogToken);
+var decodedIdAdmin = decoded.idAdmin;
+
+console.log(decoded);
 const TopNav = () => {
   return (
     <div className="top__nav">
@@ -17,7 +25,7 @@ const TopNav = () => {
             {/* <Link to="/settings">
               <img src={profileImg} alt="" />
             </Link> */}
-            <i>Muhammad Adam Firdaus</i>
+            <i>{decodedIdAdmin}</i>
           </div>
         </div>
       </div>

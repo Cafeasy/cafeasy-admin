@@ -23,6 +23,7 @@ function Sidebarcomp() {
   var decoded = jwt_decode(secretLogToken);
   var decodedIdAdmin = decoded.idAdmin;
 
+  console.log(decoded);
   const Sidebardata = [
     {
       path: "/ProfileAdmin/" + decodedIdAdmin,

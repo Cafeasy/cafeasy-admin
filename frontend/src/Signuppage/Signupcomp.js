@@ -37,7 +37,7 @@ const Signupcomp = () => {
       .then((res) => {
         alert("Pendaftaran Berhasil");
         // Navigate("/");
-        console.log(res.data);
+        console.log(res.formData);
       })
       .catch((err) => {
         alert("Pendaftaran Gagal");
