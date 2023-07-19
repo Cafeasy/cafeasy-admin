@@ -160,12 +160,6 @@ exports.updateDataMenu = async (req, res, next) => {
         err.data = errors.array();
         return res.send(err);
     }
-
-    if(!req.file) {
-        const err = new Error('image harus diupload, pastikan format image berupa png/jpg/jpeg');
-        err.errorStatus = 422;
-        return res.send(err.message);
-    }
     
     const idMenu = req.params.idMenu;
     const namaMenu = req.body.namaMenu;
@@ -174,30 +168,29 @@ exports.updateDataMenu = async (req, res, next) => {
     const deskripsiMenu = req.body.deskripsiMenu;
     const kategoriMenu = req.body.kategoriMenu;
 
-    const storageRef = ref(storage, `menuPict/${idMenu}`);
-    if(storageRef){
-        await deleteObject(storageRef);
-    }
-
-    const metadata = {
-        contentType: req.file.mimetype,
-    };
-
-    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-    const downloadURL = await getDownloadURL(snapshot.ref);
-
-    const image = `menuPict/${idMenu}`;
-    const imageUrl = downloadURL;
-
-    Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
-    { $set: { 
-        namaMenu: `${namaMenu}`, 
-        hargaMenu: `${hargaMenu}`, 
-        stokMenu: `${stokMenu}`,
-        deskripsiMenu: `${deskripsiMenu}`,
-        kategoriMenu: `${kategoriMenu}`,
-        image: `${image}`,
-        imageUrl: `${imageUrl}`
+    if(req.file) {
+        const storageRef = ref(storage, `menuPict/${idMenu}`);
+        deleteObject(storageRef);
+    
+        const metadata = {
+            contentType: req.file.mimetype,
+        };
+    
+        const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+        const downloadURL = await getDownloadURL(snapshot.ref);
+    
+        const image = `menuPict/${idMenu}`;
+        const imageUrl = downloadURL;
+    
+        Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
+        { $set: { 
+            namaMenu: `${namaMenu}`, 
+            hargaMenu: `${hargaMenu}`, 
+            stokMenu: `${stokMenu}`,
+            deskripsiMenu: `${deskripsiMenu}`,
+            kategoriMenu: `${kategoriMenu}`,
+            image: `${image}`,
+            imageUrl: `${imageUrl}`
         } }, { new: true })
         .then(result => {
             res.status(200).json({
@@ -211,6 +204,28 @@ exports.updateDataMenu = async (req, res, next) => {
                 error: error
             })
         })
+    } else if (!req.file) {
+        Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
+        { $set: { 
+            namaMenu: `${namaMenu}`, 
+            hargaMenu: `${hargaMenu}`, 
+            stokMenu: `${stokMenu}`,
+            deskripsiMenu: `${deskripsiMenu}`,
+            kategoriMenu: `${kategoriMenu}`
+        } }, { new: true })
+        .then(result => {
+            res.status(200).json({
+                message: 'Berhasil update data menu',
+                data: result
+            })
+        })
+        .catch(error => {
+            res.status(404).json({
+                message: "Gagal update data menu",
+                error: error
+            })
+        })
+    }
 }
 
 exports.deleteMenuById = async (req, res, next) => {
