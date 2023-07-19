@@ -6,6 +6,7 @@ const config = require('../config/firebaseConfig');
 
 const {initializeApp} = require('firebase/app');
 const {getStorage} = require('firebase/storage');
+const {deleteObject} = require('firebase/storage');
 const {ref} = require('firebase/storage');
 const {getDownloadURL} = require('firebase/storage');
 const {uploadBytesResumable} = require('firebase/storage');
@@ -179,12 +180,6 @@ exports.updateProfileAdmin = async (req, res, next) => {
         return res.send(err);
     }
 
-    if(!req.file) {
-        const err = new Error('image harus diupload, pastikan format image berupa png/jpg/jpeg');
-        err.errorStatus = 422;
-        return res.send(err.message);
-    }
-
     const idAdmin = req.params.idAdmin;
     const emailCafe = req.body.emailCafe;
     const username = req.body.username;
@@ -195,44 +190,75 @@ exports.updateProfileAdmin = async (req, res, next) => {
     const namaPemilikCafe = req.body.namaPemilikCafe;
     const noHpCafe = req.body.noHpCafe;
 
-    const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
-    if(storageRef){
-        await deleteObject(storageRef);
-    }
+    // const admin = await DataAdmin.find({username: username});
+    // if(!admin) {
+        if(req.file) {
+            const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
+            deleteObject(storageRef);
+        
+            const metadata = {
+                contentType: req.file.mimetype,
+            };
+        
+            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+        
+            const image = `profilePictAdmin/${idAdmin}`;
+            const imageUrl = downloadURL;
 
-    const metadata = {
-        contentType: req.file.mimetype,
-    };
-
-    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-    const downloadURL = await getDownloadURL(snapshot.ref);
-
-    const image = `profilePictAdmin/${idAdmin}`;
-    const imageUrl = downloadURL;
-
-    DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
-    { $set: { 
-        emailCafe: `${emailCafe}`, 
-        username: `${username}`, 
-        password: `${password}`,
-        namaCafe: `${namaCafe}`,
-        alamatCafe: `${alamatCafe}`,
-        deskripsiCafe: `${deskripsiCafe}`,
-        namaPemilikCafe: `${namaPemilikCafe}`,
-        noHpCafe: `${noHpCafe}`,
-        image: `${image}`,
-        imageUrl: `${imageUrl}`
-        } }, { new: true })
-        .then(result => {
-            res.status(200).json({
-                message: 'Berhasil update data profile admin',
-                data: result
+            DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
+            { $set: { 
+                emailCafe: `${emailCafe}`, 
+                username: `${username}`, 
+                password: `${password}`,
+                namaCafe: `${namaCafe}`,
+                alamatCafe: `${alamatCafe}`,
+                deskripsiCafe: `${deskripsiCafe}`,
+                namaPemilikCafe: `${namaPemilikCafe}`,
+                noHpCafe: `${noHpCafe}`,
+                image: `${image}`,
+                imageUrl: `${imageUrl}`
+            } }, { new: true })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Berhasil update data profile admin',
+                    data: result
+                })
             })
-        })
-        .catch(error => {
-            res.status(404).json({
-                message: "Gagal update data profile admin",
-                error: error
+            .catch(error => {
+                res.status(404).json({
+                    message: "Gagal update data profile admin",
+                    error: error
+                })
             })
-        })
+        } else if (!req.file) {
+            DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
+            { $set: { 
+                emailCafe: `${emailCafe}`, 
+                username: `${username}`, 
+                password: `${password}`,
+                namaCafe: `${namaCafe}`,
+                alamatCafe: `${alamatCafe}`,
+                deskripsiCafe: `${deskripsiCafe}`,
+                namaPemilikCafe: `${namaPemilikCafe}`,
+                noHpCafe: `${noHpCafe}`
+            } }, { new: true })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Berhasil update data profile admin',
+                    data: result
+                })
+            })
+            .catch(error => {
+                res.status(404).json({
+                    message: "Gagal update data profile admin",
+                    error: error
+                })
+            })
+        }
+    // } else if (admin) {
+    //     res.status(400).json({
+    //         message: "username sudah ada, coba username lain"
+    //     })
+    // }
 }
