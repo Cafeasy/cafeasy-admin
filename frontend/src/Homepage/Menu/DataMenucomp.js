@@ -125,16 +125,14 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
     const sheetName = "Data Menu";
     for (var i = 0; i < menus.length; i++) {
       menus.map((value) => {
-        dataMenuArray[i + 1] = [value.idMenu, value.namaMenu, value.deskripsiMenu, value.hargaMenu, value.stokMenu, value.imageUrl];
+    
+        dataMenuArray.push([value.idMenu, value.namaMenu, value.deskripsiMenu, value.hargaMenu, value.stokMenu, value.imageUrl])
       });
 
     }
-    console.log(dataMenuArray.length)
+    console.log(dataMenuArray)
 
     data = { sheetName: sheetName, data: dataMenuArray, }
-
-
-
     console.log(data);
     await axios.post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data).then(() => {
       var win = window.open(
