@@ -90,8 +90,9 @@ exports.getSheets = async (req, res) => {
 }
 exports.createSpreadsheet = async (req, res) => {
     const client = await authentication();
-    const sheetName = req.body.sheetname;
+    const sheetName = req.body.sheetName;
     const data = req.body.data
+    console.log(sheetName, data)
     try {
         await getSpreadSheet(client, spreadsheetId, sheetName);
         const responseWrite = await _writeSpreadsheet(client, spreadsheetId, sheetName, data)
@@ -103,7 +104,7 @@ exports.createSpreadsheet = async (req, res) => {
             await _writeSpreadsheet(client, spreadsheetId, sheetName, data)
             res.status(201).json({ message: "Success Create New Spreadsheet", data: response });
         } catch (er) {
-            res.status(404).json({ message: "Failed Retreive data", data: er })
+            res.status(400).json({ message: "Failed Retreive data", data: er })
         }
     }
 

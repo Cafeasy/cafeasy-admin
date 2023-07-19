@@ -14,6 +14,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
 import { Dropdown } from "primereact/dropdown";
+import { Menu } from "@mui/material";
 
 const DEFAULT_MENU = {
   imageFile: "",
@@ -115,6 +116,33 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
           });
         });
     }
+  };
+
+  const EksporToSpreadsheet = async () => {
+    let dataMenuArray = [];
+    let data;
+    dataMenuArray[0] = ['Id Menu', 'Nama Menu', 'Deskripsi Menu', 'Harga Menu', 'Stok Menu', 'Image']
+    const sheetName = "Data Menu";
+    for (var i = 0; i < menus.length; i++) {
+      menus.map((value) => {
+        dataMenuArray[i + 1] = [value.idMenu, value.namaMenu, value.deskripsiMenu, value.hargaMenu, value.stokMenu, value.imageUrl];
+      });
+
+    }
+    console.log(dataMenuArray.length)
+
+    data = { sheetName: sheetName, data: dataMenuArray, }
+
+
+
+    console.log(data);
+    await axios.post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data).then(() => {
+      var win = window.open(
+        "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",
+        "_blank"
+      );
+      win.focus();
+    });
   };
 
   const bodyTemplate = (rowData) => {
@@ -272,6 +300,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
           icon="pi pi-file-excel"
           severity="secondary"
           raised
+          onClick={() => EksporToSpreadsheet()}
         />
         <Button
           label="Hapus Semua"
