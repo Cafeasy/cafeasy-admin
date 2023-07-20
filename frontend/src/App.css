@@ -36,7 +36,6 @@ a:hover {
   background-color: #1f2937;
   width: 550px;
   box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-  padding-top: 8px;
   padding-bottom: 40px;
   border-radius: 20px;
 }
@@ -50,7 +49,7 @@ a:hover {
 .Logform-title {
   text-align: center;
   font-family: 'Poppins', sans-serif;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
   font-size: 20px;
   color: white;
   font-weight: 800;
@@ -193,6 +192,7 @@ a:hover {
 
 .d-grid button{
   font-family: 'Poppins', sans-serif;
+  margin-top: 2%;
 }
 
 input::placeholder{

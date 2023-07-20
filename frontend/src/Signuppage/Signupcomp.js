@@ -146,7 +146,6 @@ const Signupcomp = () => {
             />
           </div>
 
-          <br></br>
           <div className="row">
             <div className="col-sm">
               <label>Nama Pemilik Cafe</label>
@@ -195,9 +194,6 @@ const Signupcomp = () => {
               className="form-control mt-1"
             />
           </div>
-
-          <br></br>
-
           <div class="d-grid gap-2 mt-3">
             <button
               type="submit"

@@ -76,7 +76,7 @@ const DataTransaksicomp = ({ data = [] }) => {
     if (transaksi.idTransaksi)
       axios
         .put(
-          `${process.env.REACT_APP_API_URL}/updateDataMenu/${transaksi.idTransaksi}`,
+          `${process.env.REACT_APP_API_URL}/updateStatusBayarCash/${transaksi.idTransaksi}`,
           formData
         )
         .then((response) => {
@@ -254,13 +254,19 @@ const DataTransaksicomp = ({ data = [] }) => {
 
   const getSeverity = (data) => {
     switch (data.statusBayar) {
+      case "SUKSES BAYAR CASH":
+        return "success";
+
       case "SUCCESS":
         return "success";
 
-      case "settlement":
+      case "PENDING":
         return "warning";
 
-      case "Belum bayar":
+      case "Pembayaran Dilakukan Di kasir":
+        return "warning";
+
+      case "BELUM BAYAR":
         return "danger";
 
       default:

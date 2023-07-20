@@ -257,12 +257,6 @@ const DataKategoricomp = ({ data = [] }) => {
           onClick={() => FormKateg()}
         />
         <Button
-          label="Expor ke Spreedsheet"
-          icon="pi pi-file-excel"
-          severity="secondary"
-          raised
-        />
-        <Button
           label="Hapus Semua"
           icon="pi pi-trash"
           severity="danger"

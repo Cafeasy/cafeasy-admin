@@ -12,8 +12,6 @@ import { Row } from "react-bootstrap";
 const ProfileAdmincomp = () => {
   const params = useParams();
   const urlParams = params.idAdmin;
-
-  console.log(urlParams);
   const [data, setData] = useState([]);
   const [globalFilter, setGlobalFilter] = useState(null);
 
@@ -38,6 +36,8 @@ const ProfileAdmincomp = () => {
   );
 
   let arr = data.result ?? [];
+
+  console.log(urlParams);
 
   console.log(arr[0]);
   return (
@@ -65,34 +65,18 @@ const ProfileAdmincomp = () => {
                 <div class="col-md-4">
                   <div class="profile-img">
                     <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+                      src={arr[0]?.imageUrl}
                       alt=""
                     />
-                    <div class="file btn btn-lg btn-primary">
-                      Change Photo
-                      <input type="file" name="file" />
-                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="profile-head">
-                    <h5>{data.namaPemilikCafe}</h5>
-                    <h6>Nama Cafe</h6>
-                    <p class="proile-rating">Email</p>
+                    <h5>{arr[0]?.namaPemilikCafe}</h5>
+                    <h6>{arr[0]?.namaCafe}</h6>
+                    <p class="proile-rating">{arr[0]?.emailCafe}</p>
+                    <br></br> <br></br> <br></br>
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <li class="nav-item">
-                        <a
-                          class="nav-link active"
-                          id="home-tab"
-                          data-toggle="tab"
-                          href="#home"
-                          role="tab"
-                          aria-controls="home"
-                          aria-selected="true"
-                        >
-                          About
-                        </a>
-                      </li>
                     </ul>
                   </div>
                 </div>
@@ -127,7 +111,7 @@ const ProfileAdmincomp = () => {
                           <label>Username</label>
                         </div>
                         <div class="col-md-6">
-                          <p>Kshiti Ghelani</p>
+                          <p>{arr[0]?.username}</p>
                         </div>
                       </div>
                       <div class="row">
@@ -135,7 +119,7 @@ const ProfileAdmincomp = () => {
                           <label>Password</label>
                         </div>
                         <div class="col-md-6">
-                          <p>kshitighelani@gmail.com</p>
+                          <p>{arr[0]?.password}</p>
                         </div>
                       </div>
                       <div class="row">
@@ -143,7 +127,7 @@ const ProfileAdmincomp = () => {
                           <label>Alamat Cafe</label>
                         </div>
                         <div class="col-md-6">
-                          <p>123 456 7890</p>
+                          <p>{arr[0]?.alamatCafe}</p>
                         </div>
                       </div>
                       <div class="row">
@@ -151,7 +135,7 @@ const ProfileAdmincomp = () => {
                           <label>Deskripsi Cafe</label>
                         </div>
                         <div class="col-md-6">
-                          <p>Web Developer and Designer</p>
+                          <p>{arr[0]?.deskripsiCafe}</p>
                         </div>
                       </div>
                       <div class="row">
@@ -159,7 +143,7 @@ const ProfileAdmincomp = () => {
                           <label>Nomor Telepon</label>
                         </div>
                         <div class="col-md-6">
-                          <p>Web Developer and Designer</p>
+                          <p>{arr[0]?.noHpCafe}</p>
                         </div>
                       </div>
                     </div>

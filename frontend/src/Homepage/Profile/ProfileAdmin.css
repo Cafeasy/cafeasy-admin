@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
+
 .profil-bungkus {
   display: flex;
   padding: 3%;
@@ -17,17 +19,18 @@
 
 .profile-img img {
   width: 80%;
-  margin-left: -5%;
+  margin-left: -50%;
   height: 100%;
   border-radius: 5%;
 }
 
 .profile-img .file {
+  display: flex;
   position: relative;
   overflow: hidden;
-  margin-top: -34%;
+  margin-top: -22%;
   width: 80%;
-  margin-left: -5%;
+  margin-left: -15%;
   border: none;
   border-radius: 5%;
   font-size: 15px;
@@ -42,25 +45,33 @@
 }
 
 .profile-head h5 {
+  display: flex;
+  font-family: 'Poppins', sans-serif;
   color: #000000;
-  margin-left: 10%;
+  margin-top: 5%;
+  margin-left: -10%;
 }
 
 .profile-head h6 {
+  display: flex;
+  font-family: 'Poppins', sans-serif;
   color: #000000;
-  margin-left: 10%;
+  margin-top: 5%;
+  margin-left: -10%;
 }
 
 .profile-head p {
   color: #000000;
-  margin-left: 10%;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 5%;
+  margin-left: -10%;
 }
 
 .profile-edit-btn {
   border: none;
   border-radius: 1.5rem;
   width: 150%;
-  margin-left: -30%;
+  margin-left: -40%;
   padding: 2%;
   font-weight: 600;
   color: #6c757d;
@@ -81,12 +92,15 @@
 }
 .profile-head .nav-tabs .nav-link {
   font-weight: 600;
-  border: none;
+  border: 20%;
 }
-.profile-head .nav-tabs .nav-link.active {
-  border: none;
-  border-bottom: 2px solid #0062cc;
+.nav-tabs {
+  border: 1px solid rgb(209, 209, 209);
+  width: 30rem;
+  margin-left:-81%;
+  color: #000000;
 }
+
 .profile-work {
   padding: 14%;
   margin-top: -15%;
@@ -108,13 +122,15 @@
 }
 .profile-tab label {
   font-weight: 600;
+  font-family: 'Poppins', sans-serif;
   color: #000000;
-  margin-left: 7%;
+  margin-left: -15%;
 }
 .profile-tab p {
   font-weight: 600;
-  font-size: 95%;
-  width: 150%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 85%;
+  width: 130%;
   color: #2a3042;
-  margin-left: 15%;
+  margin-left: -30%;
 }

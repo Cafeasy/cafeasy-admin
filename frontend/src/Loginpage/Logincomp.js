@@ -95,8 +95,6 @@ function Logincomp() {
             </div>
           </div>
 
-          <br></br>
-
           <div className="row"></div>
           <div className="d-grid gap-2 mt-3">
             <button
