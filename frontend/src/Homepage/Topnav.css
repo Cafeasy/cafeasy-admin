@@ -47,6 +47,7 @@
 
 .profile i {
   font-family: 'Poppins', sans-serif;
+  font-style: normal;
 }
 
 .notification i {
@@ -63,6 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-style: normal;
   color: rgb(0, 0, 0);
   font-size: 90%;
 }
