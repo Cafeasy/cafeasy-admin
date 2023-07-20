@@ -19,6 +19,13 @@ function Sidebarcomp() {
   const cookies = new Cookies();
   const nextNavigate = useNavigate();
 
+  useEffect(() => {
+    if (!cookies.get("secretLogToken")) {
+      nextNavigate("/LoginAdmin");
+      return () => {};
+    }
+  }, []);
+
   var secretLogToken = cookies.get("secretLogToken");
   var decoded = jwt_decode(secretLogToken);
   var decodedIdAdmin = decoded.idAdmin;

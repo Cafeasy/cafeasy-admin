@@ -6,11 +6,7 @@ import "../Homepage/Topnav.css";
 import Cookies from "universal-cookie";
 import jwt_decode from "jwt-decode";
 const cookies = new Cookies();
-var secretLogToken = cookies.get("secretLogToken");
-var decoded = jwt_decode(secretLogToken);
-var decodedIdAdmin = decoded.idAdmin;
 
-console.log(decoded);
 const TopNav = () => {
   return (
     <div className="top__nav">
@@ -25,7 +21,7 @@ const TopNav = () => {
             {/* <Link to="/settings">
               <img src={profileImg} alt="" />
             </Link> */}
-            <i>{decodedIdAdmin}</i>
+            {/* <i>{}</i> */}
           </div>
         </div>
       </div>
