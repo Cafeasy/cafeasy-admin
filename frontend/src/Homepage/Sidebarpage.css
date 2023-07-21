@@ -46,11 +46,6 @@
   display: flex;
   row-gap: 1.5rem;
   flex-direction: column;
-  color: rgb(255, 255, 255);
-}
-
-.sidebar-link i {
-  color: rgb(238, 238, 238);
 }
 
 .sidebar-active {
@@ -110,31 +105,76 @@
   margin-left: 15%;
 }
 
-.menu-button {
-  width: 32px;
-  background-color: #262697;
-  position: absolute;
-  overflow: hidden;
-}
+@media only screen and (max-width: 600px) {
+  .sidebar {
+    width: 80px;
+  }
 
-.menu-label {
-  position: relative;
-  display: block;
-  height: 20px;
-  cursor: pointer;
-}
+  .sidebar-text a {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
+  .sidebar-active {
+    background-color: #1f2937;
+  }
 
-i.bi {
-  font-size: 32px;
-  width: fit-content;
-  color: white;
-  cursor: pointer;
+  .sidebar-bottom span {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .icon-logout {
+    position: absolute;
+    top: 85%;
+    right: 30px;
+  }
+
+  .icon-profil {
+    position: absolute;
+    top: 19%;
+    right: 30px;
+  }
+
+  .icon-menu {
+    position: absolute;
+    top: 27%;
+    right: 30px;
+  }
+
+  .icon-transaksi {
+    position: absolute;
+    top: 35%;
+    right: 30px;
+  }
+
+  .icon-pelanggan {
+    position: absolute;
+    top: 43%;
+    right: 30px;
+  }
+
+  .icon-kategori {
+    position: absolute;
+    top: 52%;
+    right: 30px;
+  }
+
+  .icon-banner {
+    position: absolute;
+    top: 61%;
+    right: 30px;
+  }
+
+  .sidebar-toggle {
+    width: 266%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .main__layout {

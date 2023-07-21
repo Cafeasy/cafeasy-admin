@@ -17,6 +17,7 @@ import jwt_decode from "jwt-decode";
 function Sidebarcomp() {
   const cookies = new Cookies();
   const nextNavigate = useNavigate();
+  const [isExpanded, setExpendState] = useState(false);
 
   useEffect(() => {
     if (!cookies.get("secretLogToken")) {
@@ -30,40 +31,41 @@ function Sidebarcomp() {
   var decodedIdAdmin = decoded.idAdmin;
 
   console.log(decoded);
+
   const Sidebardata = [
     {
       path: "/ProfileAdmin/" + decodedIdAdmin,
-      icon: <ImIcons.ImProfile />,
+      icon: <ImIcons.ImProfile className="icon-profil" />,
       cName: "sidebar-text",
       display: "Profil Admin",
     },
     {
       path: "/DataMenu",
-      icon: <MdIcons.MdMenuBook />,
+      icon: <MdIcons.MdMenuBook className="icon-menu" />,
       cName: "sidebar-text",
       display: "Data Menu",
     },
     {
       path: "/DataTransaksi",
-      icon: <AiIcons.AiOutlineTransaction />,
+      icon: <AiIcons.AiOutlineTransaction className="icon-transaksi" />,
       cName: "sidebar-text",
       display: "Data Transaksi",
     },
     {
       path: "/DataPelanggan",
-      icon: <HiIcons.HiUserGroup />,
+      icon: <HiIcons.HiUserGroup className="icon-pelanggan" />,
       cName: "sidebar-text",
       display: "Data Pelanggan",
     },
     {
       path: "/DataKategori",
-      icon: <BiIcons.BiCategory />,
+      icon: <BiIcons.BiCategory className="icon-kategori" />,
       cName: "sidebar-text",
       display: "Data Kategori",
     },
     {
       path: "/DataBanner",
-      icon: <FaIcons.FaImages />,
+      icon: <FaIcons.FaImages className="icon-banner" />,
       cName: "sidebar-text",
       display: "Data Banner",
     },
@@ -81,6 +83,7 @@ function Sidebarcomp() {
           <li className="sidebar-toggle">
             <img src={logodannama} alt="Logo" />
           </li>
+          
         </ul>
 
         <div className="sidebar-content">
@@ -104,12 +107,13 @@ function Sidebarcomp() {
 
           <div className="sidebar-bottom">
             <span onClick={logout}>
-              <BiIcons.BiLogOut />
+              <BiIcons.BiLogOut className="icon-logout" />
               Logout
             </span>
           </div>
         </div>
       </nav>
+      
     </>
   );
 }

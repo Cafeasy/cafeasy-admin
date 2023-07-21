@@ -46,3 +46,10 @@
   font-family: 'Poppins', sans-serif;
   font-style: normal;
 }
+
+@media only screen and (max-width: 600px) {
+  .topnav {
+    left: 10px;
+    width: 100%;
+  }
+}
