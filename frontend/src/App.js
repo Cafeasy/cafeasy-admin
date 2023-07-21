@@ -12,7 +12,6 @@ import DataTransaksipage from "./Homepage/Transaksi/DataTransaksipage";
 import DataPelangganpage from "./Homepage/Pelanggan/DataPelangganpage";
 import DataKategoripage from "./Homepage/Kategori/DataKategoripage";
 import Landingpage from "./Landing/Landingpage";
-import "./Loginpage/Loginpage.css";
 import "./Homepage/Sidebarpage.css";
 import "./App.css";
 import Bannerpage from "./Homepage/Banner/Bannerpage";

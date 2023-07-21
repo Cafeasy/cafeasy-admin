@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import jwt_decode from "jwt-decode";
+import "../Utils/Sign.css";
 // const jwt = require('jsonwebtoken');
 // import { Link } from 'react-router-dom';
 // import { Navigate } from "react-router-dom";
@@ -71,7 +72,6 @@ function Logincomp() {
 
           <div className="form-group mt-3">
             <label>Nama Pengguna</label>
-
             <input
               type="text"
               required
@@ -81,6 +81,7 @@ function Logincomp() {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
+
           <div className="form-group mt-3">
             <div className="inputbutton">
               <label>Sandi</label>
@@ -93,6 +94,7 @@ function Logincomp() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+
           </div>
           <div className="d-grid gap-2 mt-3">
             <button
@@ -105,6 +107,7 @@ function Logincomp() {
               Masuk
             </button>
           </div>
+          
         </div>
       </form>
     </div>
