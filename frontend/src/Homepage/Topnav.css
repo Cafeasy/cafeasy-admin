@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
-
-.top__nav {
+.topnav {
   position: fixed;
   top: 0;
   left: 260px;
@@ -11,14 +9,14 @@
   line-height: 70px;
 }
 
-.top__nav-wrapper {
+.topnav-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0px 30px;
 }
 
-.top__nav-right {
+.topnav-right {
   display: flex;
   align-items: center;
   column-gap: 2rem;
@@ -35,36 +33,16 @@
   height: 40px;
 }
 
-.profile img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  object-fit: cover;
-}
-
-.profile i {
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-}
-
-.notification i {
-  color: var(--small-text-color);
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-.notification {
-  position: relative;
-}
-
-.profile {
+.profil {
   display: flex;
   align-items: center;
   justify-content: center;
   font-style: normal;
   color: rgb(0, 0, 0);
   font-size: 90%;
+}
+
+.profil i {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
 }

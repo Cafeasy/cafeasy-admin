@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import "../../Utils/Crud.css";
 import "../Profile/ProfileAdmin.css";
-import axios from "axios";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import { useParams } from "react-router-dom";
-import { InputText } from "primereact/inputtext";
-import { Row } from "react-bootstrap";
 
 const ProfileAdmincomp = () => {
   const params = useParams();
   const urlParams = params.idAdmin;
   const [data, setData] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState(null);
 
   useEffect(() => {
     axios
@@ -21,25 +15,10 @@ const ProfileAdmincomp = () => {
       .then((res) => setData(res.data.data));
   }, [data]);
 
-  const header = (
-    <div className="table-header">
-      <h5 className="mx-0 my-1">Deskripsi Admin</h5>
-      <span className="p-input-icon-left">
-        <i className="pi pi-search" />
-        <InputText
-          type="search"
-          onInput={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search..."
-        />
-      </span>
-    </div>
-  );
-
   let arr = data.result ?? [];
-
   console.log(urlParams);
-
   console.log(arr[0]);
+
   return (
     <div className="container">
       <div className="py-4">
@@ -63,27 +42,23 @@ const ProfileAdmincomp = () => {
             <form method="post">
               <div class="row">
                 <div class="col-md-4">
-                  <div class="profile-img">
-                    <img
-                      src={arr[0]?.imageUrl}
-                      alt=""
-                    />
+                  <div class="profil-img">
+                    <img src={arr[0]?.imageUrl} alt="" />
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="profile-head">
+                  <div class="profil-title">
                     <h5>{arr[0]?.namaPemilikCafe}</h5>
                     <h6>{arr[0]?.namaCafe}</h6>
-                    <p class="proile-rating">{arr[0]?.emailCafe}</p>
+                    <p class="profil-email">{arr[0]?.emailCafe}</p>
                     <br></br> <br></br> <br></br>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    </ul>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist"></ul>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <input
                     type="submit"
-                    class="profile-edit-btn"
+                    class="profil-edit-btn"
                     name="btnAddMore"
                     value="Edit Profile"
                   />
@@ -91,7 +66,7 @@ const ProfileAdmincomp = () => {
               </div>
               <div class="row">
                 <div class="col-md-8">
-                  <div class="tab-content profile-tab" id="myTabContent">
+                  <div class="tab-content profil-teks" id="myTabContent">
                     <div
                       class="tab-pane fade show active"
                       id="home"

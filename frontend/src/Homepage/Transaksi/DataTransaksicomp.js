@@ -254,7 +254,7 @@ const DataTransaksicomp = ({ data = [] }) => {
 
   const getSeverity = (data) => {
     switch (data.statusBayar) {
-      case "SUKSES BAYAR CASH":
+      case "Sukses Bayar Cash":
         return "success";
 
       case "SUCCESS":

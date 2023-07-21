@@ -10,11 +10,10 @@ import * as FaIcons from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import logodannama from "../Photos/logodannama.png";
 import "../Photos/logodannama.png";
-import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import jwt_decode from "jwt-decode";
-import { useParams } from "react-router-dom";
+
 function Sidebarcomp() {
   const cookies = new Cookies();
   const nextNavigate = useNavigate();
@@ -35,76 +34,45 @@ function Sidebarcomp() {
     {
       path: "/ProfileAdmin/" + decodedIdAdmin,
       icon: <ImIcons.ImProfile />,
-      cName: "nav-text",
+      cName: "sidebar-text",
       display: "Profil Admin",
     },
     {
       path: "/DataMenu",
       icon: <MdIcons.MdMenuBook />,
-      cName: "nav-text",
+      cName: "sidebar-text",
       display: "Data Menu",
     },
     {
       path: "/DataTransaksi",
       icon: <AiIcons.AiOutlineTransaction />,
-      cName: "nav-text",
+      cName: "sidebar-text",
       display: "Data Transaksi",
     },
     {
       path: "/DataPelanggan",
       icon: <HiIcons.HiUserGroup />,
-      cName: "nav-text",
+      cName: "sidebar-text",
       display: "Data Pelanggan",
     },
     {
       path: "/DataKategori",
       icon: <BiIcons.BiCategory />,
-      cName: "nav-text",
+      cName: "sidebar-text",
       display: "Data Kategori",
     },
     {
       path: "/DataBanner",
       icon: <FaIcons.FaImages />,
-      cName: "nav-text",
+      cName: "sidebar-text",
       display: "Data Banner",
     },
   ];
-
-  // const [click, setClick] = useState(false);
-
-  // const [sidebar, setSidebar] = useState(false);
-
-  // const showSidebar = () => setSidebar(!sidebar);
-
-  // const [dropdown, setDropdown] = useState(false);
-
-  // const closeMobileMenu = () => setClick(false);
-
-  // const onMouseEnter = () => {
-  //   if (window.innerWidth < 800) {
-  //     setDropdown(false);
-  //   } else {
-  //     setDropdown(true);
-  //   }
-  // };
-  // const onMouseLeave = () => {
-  //   if (window.innerWidth < 800) {
-  //     setDropdown(false);
-  //   } else {
-  //     setDropdown(false);
-  //   }
-  // };
-
-  // const logout = (e) => {
-  //   cookies.remove("Token");
-  //   window.location.href = "/";
-  //   return false;
-  // };
-
   const logout = () => {
     cookies.remove("secretLogToken");
     window.location.href = "http://localhost:3000/LoginAdmin";
   };
+
   return (
     <>
       <nav className="sidebar">
@@ -116,23 +84,23 @@ function Sidebarcomp() {
         </ul>
 
         <div className="sidebar-content">
-          <div className="menu">
-            <ul className="nav-list">
-              {Sidebardata.map((item, index) => (
-                <li className={item.cName} key={index}>
-                  <NavLink
-                    to={item.path}
-                    className={(navClass) =>
-                      navClass.isActive ? "nav-active nav-link" : "nav-link"
-                    }
-                  >
-                    {item.icon}
-                    {item.display}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="sidebar-list">
+            {Sidebardata.map((item, index) => (
+              <li className={item.cName} key={index}>
+                <NavLink
+                  to={item.path}
+                  className={(navClass) =>
+                    navClass.isActive
+                      ? "sidebar-active sidebar-link"
+                      : "sidebar-link"
+                  }
+                >
+                  {item.icon}
+                  {item.display}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
 
           <div className="sidebar-bottom">
             <span onClick={logout}>

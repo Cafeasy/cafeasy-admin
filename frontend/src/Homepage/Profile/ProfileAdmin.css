@@ -13,18 +13,19 @@
   border: 1px solid #dee2e6;
   border-width: 1px 0 1px 0;
 }
-.profile-img {
+
+.profil-img {
   text-align: center;
 }
 
-.profile-img img {
+.profil-img img {
   width: 80%;
   margin-left: -50%;
   height: 100%;
   border-radius: 5%;
 }
 
-.profile-img .file {
+.profil-img .file {
   display: flex;
   position: relative;
   overflow: hidden;
@@ -37,14 +38,7 @@
   background: #212529b8;
 }
 
-.profile-img .file input {
-  position: absolute;
-  opacity: 0;
-  right: 0;
-  top: 0;
-}
-
-.profile-head h5 {
+.profil-title h5 {
   display: flex;
   font-family: 'Poppins', sans-serif;
   color: #000000;
@@ -52,7 +46,7 @@
   margin-left: -10%;
 }
 
-.profile-head h6 {
+.profil-title h6 {
   display: flex;
   font-family: 'Poppins', sans-serif;
   color: #000000;
@@ -60,14 +54,14 @@
   margin-left: -10%;
 }
 
-.profile-head p {
+.profil-title p {
   color: #000000;
   font-family: 'Poppins', sans-serif;
   margin-top: 5%;
   margin-left: -10%;
 }
 
-.profile-edit-btn {
+.profil-edit-btn {
   border: none;
   border-radius: 1.5rem;
   width: 150%;
@@ -77,56 +71,31 @@
   color: #6c757d;
   cursor: pointer;
 }
-.proile-rating {
+
+.profil-email {
   font-size: 12px;
   color: #818182;
   margin-top: 5%;
 }
-.proile-rating span {
-  color: #495057;
-  font-size: 15px;
-  font-weight: 600;
-}
-.profile-head .nav-tabs {
+
+.profil-title .nav-tabs {
   margin-bottom: 5%;
 }
-.profile-head .nav-tabs .nav-link {
-  font-weight: 600;
-  border: 20%;
-}
+
 .nav-tabs {
   border: 1px solid rgb(209, 209, 209);
   width: 30rem;
   margin-left:-81%;
-  color: #000000;
 }
 
-.profile-work {
-  padding: 14%;
-  margin-top: -15%;
-}
-.profile-work p {
-  font-size: 12px;
-  color: #818182;
-  font-weight: 600;
-  margin-top: 10%;
-}
-.profile-work a {
-  text-decoration: none;
-  color: #495057;
-  font-weight: 600;
-  font-size: 14px;
-}
-.profile-work ul {
-  list-style: none;
-}
-.profile-tab label {
+.profil-teks label {
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
   color: #000000;
   margin-left: -15%;
 }
-.profile-tab p {
+
+.profil-teks p {
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
   font-size: 85%;
