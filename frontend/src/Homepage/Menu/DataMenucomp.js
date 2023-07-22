@@ -121,26 +121,40 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
   const EksporToSpreadsheet = async () => {
     let dataMenuArray = [];
     let data;
-    dataMenuArray[0] = ['Id Menu', 'Nama Menu', 'Deskripsi Menu', 'Harga Menu', 'Stok Menu', 'Image']
+    dataMenuArray[0] = [
+      "Id Menu",
+      "Nama Menu",
+      "Deskripsi Menu",
+      "Harga Menu",
+      "Stok Menu",
+      "Image",
+    ];
     const sheetName = "Data Menu";
     for (var i = 0; i < menus.length; i++) {
       menus.map((value) => {
-    
-        dataMenuArray.push([value.idMenu, value.namaMenu, value.deskripsiMenu, value.hargaMenu, value.stokMenu, value.imageUrl])
+        dataMenuArray.push([
+          value.idMenu,
+          value.namaMenu,
+          value.deskripsiMenu,
+          value.hargaMenu,
+          value.stokMenu,
+          value.imageUrl,
+        ]);
       });
-
     }
-    console.log(dataMenuArray)
+    console.log(dataMenuArray);
 
-    data = { sheetName: sheetName, data: dataMenuArray, }
+    data = { sheetName: sheetName, data: dataMenuArray };
     console.log(data);
-    await axios.post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data).then(() => {
-      var win = window.open(
-        "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",
-        "_blank"
-      );
-      win.focus();
-    });
+    await axios
+      .post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data)
+      .then(() => {
+        var win = window.open(
+          "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",
+          "_blank"
+        );
+        win.focus();
+      });
   };
 
   const bodyTemplate = (rowData) => {
@@ -291,12 +305,14 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
       <h5 className="mx-0 my-1">Semua Menu</h5>
       <div className="flex gap-2">
         <Button
+          className="button-tambah"
           label="Tambah Menu"
           icon="pi pi-plus"
           raised
           onClick={() => openForm()}
         />
         <Button
+          className="button-spreed"
           label="Ekspor ke Spreedsheet"
           icon="pi pi-file-excel"
           severity="secondary"
@@ -304,15 +320,17 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
           onClick={() => EksporToSpreadsheet()}
         />
         <Button
+          className="button-hapus"
           label="Hapus Semua"
           icon="pi pi-trash"
           severity="danger"
           raised
           onClick={confirmDeleteAll}
         />
-        <span className="p-input-icon-left">
+        <span className="p-input-icon-left search-i ">
           <i className="pi pi-search" />
           <InputText
+                    className="button-cari"
             type="search"
             onInput={(e) => setGlobalFilter(e.target.value)}
             placeholder="Cari..."

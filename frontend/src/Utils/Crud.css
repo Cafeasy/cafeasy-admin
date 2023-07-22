@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap");
 
 .title-banner-pertama,
 .title-kategori-pertama,
@@ -11,7 +11,7 @@
   justify-content: center;
   width: 390%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 22px;
   line-height: 24px;
@@ -20,12 +20,12 @@
 }
 
 .title-profile-kedua {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 357%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -39,7 +39,7 @@
   justify-content: center;
   width: 393%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -48,12 +48,12 @@
 }
 
 .title-menu-kedua {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 359%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -67,7 +67,7 @@
   justify-content: center;
   width: 393%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -76,12 +76,12 @@
 }
 
 .title-transaksi-kedua {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 347%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -95,7 +95,7 @@
   justify-content: center;
   width: 385%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -104,12 +104,12 @@
 }
 
 .title-pelanggan-kedua {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 340%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -123,7 +123,7 @@
   justify-content: center;
   width: 375%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -132,12 +132,12 @@
 }
 
 .title-kategori-kedua {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 346%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -151,7 +151,7 @@
   justify-content: center;
   width: 378%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -160,12 +160,12 @@
 }
 
 .title-banner-kedua {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 348%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 24px;
@@ -179,7 +179,7 @@
   justify-content: center;
   width: 382%;
 
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -207,7 +207,7 @@ h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 10%;
 }
 h2 {
   font-size: 2rem;
@@ -247,40 +247,6 @@ h6 {
   padding-bottom: 2%;
   justify-content: space-between;
 }
-@media screen and (max-width: 960px) {
-  .datatable-crud-demo .table-header {
-    align-items: flex-start;
-  }
-}
-.datatable-crud-demo .product-image {
-  width: 100px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-.datatable-crud-demo .p-dialog {
-  width: 150px;
-  margin: 0 auto 2rem auto;
-  display: block;
-}
-.datatable-crud-demo .confirmation-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-@media screen and (max-width: 960px) {
-  .datatable-crud-demo .p-toolbar {
-    flex-wrap: wrap;
-  }
-  .datatable-crud-demo .p-toolbar .p-button {
-    margin-bottom: 0.25rem;
-  }
-  .datatable-crud-demo .table-header {
-    flex-direction: column;
-  }
-  .datatable-crud-demo .table-header .p-input-icon-left,
-  .datatable-crud-demo .table-header input {
-    width: 100%;
-  }
-}
 
 .p-datatable .p-datatable-thead > tr > th {
   text-align: left;
@@ -314,7 +280,7 @@ h6 {
   color: #2a3042;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -326,4 +292,311 @@ h6 {
   line-height: 24px;
 
   color: #1f2937;
+}
+
+@media only screen and (max-width: 600px) {
+  .title-banner-pertama,
+  .title-kategori-pertama,
+  .title-pelanggan-pertama,
+  .title-transaksi-pertama,
+  .title-menu-pertama,
+  .title-profile-pertama {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+    width: 78%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-menu-pertama {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+    width: 58%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-profile-kedua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    width: 31%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-profile-ketiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -7%;
+    width: 72%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-menu-kedua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    width: 31%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-menu-ketiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -7%;
+    width: 70%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-transaksi-kedua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 347%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-transaksi-ketiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 385%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-pelanggan-kedua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 340%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-pelanggan-ketiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 375%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-kategori-kedua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 346%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-kategori-ketiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 378%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-banner-kedua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 348%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .title-banner-ketiga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 382%;
+
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: #000000;
+  }
+
+  .p-datatable .p-datatable-header {
+    background: #f8f9fa;
+    color: #000000;
+    border: 1px solid #dee2e6;
+    border-width: 1px 0 1px 0;
+    padding: 1rem 1rem;
+    font-weight: 700;
+  }
+
+  .card {
+    margin-bottom: 2rem;
+    width: 84%;
+    -webkit-line-clamp: 2;
+  }
+
+  .datatable-crud-demo .table-header {
+    display: flex;
+    align-items: center;
+    /* margin-bottom: -20%; */
+    padding-top: 1%;
+    padding-bottom: 2%;
+    justify-content: space-between;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    text-align: left;
+    padding: 1rem 1rem;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    font-weight: 700;
+    color: #ffffff;
+    background: #2a3042;
+    transition: box-shadow 0.2s;
+  }
+
+  .p-datatable .p-sortable-column.p-highlight {
+    background: #eef2ff;
+    color: #4338ca;
+  }
+
+  .button-tambah {
+    font-size: 12px;
+    margin-left: 4%;
+    height: 40px;
+    width: 160px;
+  }
+
+  .button-spreed {
+    font-size: 12px;
+    margin-top: 7%;
+    margin-left: -25%;
+    height: 40px;
+    width: 160px;
+  }
+
+  .button-hapus {
+    font-size: 13px;
+    margin-top: 14%;
+    margin-left: -25%;
+    height: 40px;
+    width: 160px;
+  }
+
+  .button-cari {
+    margin-top: 90%;
+    margin-left: -105%;
+    font-size: 12px;
+    height: 40px;
+    width: 160px;
+  }
+
+  .button-cari {
+    margin-top: 90%;
+    margin-left: -105%;
+    font-size: 12px;
+    height: 40px;
+    width: 160px;
+  }
+
+  .search-i i{
+    margin-left: -104%;
+    margin-top: 39%;
+  }
+
+  .table-header {
+    position: relative;
+    display: flex;
+    height: fit-content;
+  }
+
+  .table-header > h5 {
+    display: flex;
+    text-align: center;
+    font-size: 13px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
 }
