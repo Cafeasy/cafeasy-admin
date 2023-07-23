@@ -217,7 +217,7 @@ function Update() {
           </div>
 
           <div className="row">
-            <div class="col-sm d-grid">
+            <div class="col-sm d-grid mt-3">
             <Link
                 type="button"
                 className="text-decoration-none btn btn-success"
@@ -227,7 +227,7 @@ function Update() {
               </Link>
             </div>
 
-            <div class="col-sm d-grid">
+            <div class="col-sm d-grid mt-3">
               <Link
                 type="button"
                 className="text-decoration-none btn btn-secondary"
