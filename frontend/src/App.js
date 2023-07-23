@@ -12,6 +12,7 @@ import DataTransaksipage from "./Homepage/Transaksi/DataTransaksipage";
 import DataPelangganpage from "./Homepage/Pelanggan/DataPelangganpage";
 import DataKategoripage from "./Homepage/Kategori/DataKategoripage";
 import Landingpage from "./Landing/Landingpage";
+import Update from "./Homepage/Update";
 import "./Homepage/Sidebarpage.css";
 import "./App.css";
 import Bannerpage from "./Homepage/Banner/Bannerpage";
@@ -23,6 +24,11 @@ const App = () => {
         <Route exact path="/" element={<Landingpage />}></Route>
         <Route exact path="/LoginAdmin" element={<Loginpage />}></Route>
         <Route exact path="/RegisterAdmin" element={<Signuppage />}></Route>
+        <Route
+          exact
+          path="/Update/:idAdmin"
+          element={<Update />}
+        ></Route>
         <Route
           exact
           path="/ProfileAdmin/:idAdmin"

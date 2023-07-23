@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Iconline1 from "../Photos/Iconline1.png";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const USER_DEFAULT = {
+const USER_UPDATE = {
   username: "",
   emailCafe: "",
   password: "",
@@ -15,29 +15,36 @@ const USER_DEFAULT = {
   image: "",
 };
 
-const Signupcomp = () => {
-  const [user, setUser] = useState(USER_DEFAULT);
+function Update() {
+  const params = useParams();
+  const urlParams = params.idAdmin;
+  const [Update, setUpdate] = useState(USER_UPDATE);
   const Navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     const formData = new FormData();
-    formData.append("username", user.username);
-    formData.append("emailCafe", user.emailCafe);
-    formData.append("password", user.password);
-    formData.append("namaCafe", user.namaCafe);
-    formData.append("alamatCafe", user.alamatCafe);
-    formData.append("deskripsiCafe", user.deskripsiCafe);
-    formData.append("namaPemilikCafe", user.namaPemilikCafe);
-    formData.append("noHpCafe", user.noHpCafe);
-    formData.append("image", user.image);
+    
+    formData.append("username", Update.username);
+    formData.append("emailCafe", Update.emailCafe);
+    formData.append("password", Update.password);
+    formData.append("namaCafe", Update.namaCafe);
+    formData.append("alamatCafe", Update.alamatCafe);
+    formData.append("deskripsiCafe", Update.deskripsiCafe);
+    formData.append("namaPemilikCafe", Update.namaPemilikCafe);
+    formData.append("noHpCafe", Update.noHpCafe);
+    formData.append("image", Update.image);
 
     e.preventDefault();
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/registerAdmin`, formData)
+      .put(
+        `${process.env.REACT_APP_API_URL}/updateProfile/` + urlParams,
+        formData
+      )
       .then((res) => {
         alert("Pendaftaran Berhasil");
-        Navigate("/LoginAdmin");
+        Navigate("/ProfileAdmin/:idAdmin");
         console.log(res.formData);
+        setUpdate(USER_UPDATE);
       })
       .catch((err) => {
         alert("Pendaftaran Gagal");
@@ -48,27 +55,15 @@ const Signupcomp = () => {
     <div className="Logform-container">
       <form className="Logform">
         <div className="Logform-content">
-          <h3 className="Logform-title">Daftar</h3>
-
-          <div className="row">
-            <div className="col-md-3">
-              <a href="LoginAdmin">Login</a>
-            </div>
-            <div className="col-md-6 color-text">
-              <a href="">
-                Daftar <img src={Iconline1} alt="Icon" />
-              </a>
-            </div>
-          </div>
           <br></br>
 
           <div className="row">
             <div className="col-sm">
               <label>Email</label>
               <input
-                defaultValue={user.emailCafe}
+                defaultValue={Update.emailCafe}
                 onChange={(e) =>
-                  setUser((data) => ({ ...data, emailCafe: e.target.value }))
+                  setUpdate((data) => ({ ...data, emailCafe: e.target.value }))
                 }
                 type="email"
                 id="email"
@@ -80,9 +75,9 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Nama Pengguna</label>
               <input
-                defaultValue={user.username}
+                defaultValue={Update.username}
                 onChange={(e) =>
-                  setUser((data) => ({ ...data, username: e.target.value }))
+                  setUpdate((data) => ({ ...data, username: e.target.value }))
                 }
                 type="text"
                 className="form-control mt-1"
@@ -97,9 +92,9 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Sandi</label>
               <input
-                defaultValue={user.password}
+                defaultValue={Update.password}
                 onChange={(e) =>
-                  setUser((data) => ({ ...data, password: e.target.value }))
+                  setUpdate((data) => ({ ...data, password: e.target.value }))
                 }
                 type="password"
                 className="form-control mt-1"
@@ -110,9 +105,9 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Nama Cafe</label>
               <input
-                defaultValue={user.namaCafe}
+                defaultValue={Update.namaCafe}
                 onChange={(e) =>
-                  setUser((data) => ({ ...data, namaCafe: e.target.value }))
+                  setUpdate((data) => ({ ...data, namaCafe: e.target.value }))
                 }
                 type="text"
                 className="form-control mt-1"
@@ -124,9 +119,9 @@ const Signupcomp = () => {
           <div class="form-group mt-3">
             <label>Alamat Cafe</label>
             <textarea
-              defaultValue={user.alamatCafe}
+              defaultValue={Update.alamatCafe}
               onChange={(e) =>
-                setUser((data) => ({ ...data, alamatCafe: e.target.value }))
+                setUpdate((data) => ({ ...data, alamatCafe: e.target.value }))
               }
               type="text"
               className="form-control mt-1"
@@ -136,9 +131,12 @@ const Signupcomp = () => {
           <div class="form-group mt-3">
             <label>Deskripsi Cafe</label>
             <textarea
-              defaultValue={user.deskripsiCafe}
+              defaultValue={Update.deskripsiCafe}
               onChange={(e) =>
-                setUser((data) => ({ ...data, deskripsiCafe: e.target.value }))
+                setUpdate((data) => ({
+                  ...data,
+                  deskripsiCafe: e.target.value,
+                }))
               }
               type="text"
               className="form-control mt-1"
@@ -150,9 +148,9 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>Nama Pemilik Cafe</label>
               <input
-                defaultValue={user.namaPemilikCafe}
+                defaultValue={Update.namaPemilikCafe}
                 onChange={(e) =>
-                  setUser((data) => ({
+                  setUpdate((data) => ({
                     ...data,
                     namaPemilikCafe: e.target.value,
                   }))
@@ -165,9 +163,9 @@ const Signupcomp = () => {
             <div className="col-sm">
               <label>No Telepon</label>
               <input
-                value={user.noHpCafe}
+                value={Update.noHpCafe}
                 onChange={(e) =>
-                  setUser((data) => ({
+                  setUpdate((data) => ({
                     ...data,
                     noHpCafe: e.target.value,
                   }))
@@ -183,9 +181,8 @@ const Signupcomp = () => {
           <div class="form-group mt-3">
             <label>Foto Cafe</label>
             <input
-              // value={fotoCafe}
               onChange={(e) =>
-                setUser((data) => ({
+                setUpdate((data) => ({
                   ...data,
                   image: e.target.files[0],
                 }))
@@ -194,18 +191,20 @@ const Signupcomp = () => {
               className="form-control mt-1"
             />
           </div>
+
           <div class="d-grid gap-2 mt-3">
             <button
               type="submit"
               class="btn btn-secondary"
               onClick={handleSubmit}
             >
-              Daftar
+              Update
             </button>
           </div>
         </div>
       </form>
     </div>
   );
-};
-export default Signupcomp;
+}
+
+export default Update;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "../../Utils/Crud.css";
 import "../Profile/ProfileAdmin.css";
 
@@ -56,12 +56,10 @@ const ProfileAdmincomp = () => {
                   </div>
                 </div>
                 <div class="col-md-2">
-                  <input
-                    type="submit"
-                    class="profil-edit-btn"
-                    name="btnAddMore"
-                    value="Edit Profile"
-                  />
+                  <Link
+                    className="text-decoration-none btn btn-sm btn-success"
+                    to={`/Update/${arr[0]?.idAdmin}`}
+                  >Update</Link>
                 </div>
               </div>
               <div class="row">
