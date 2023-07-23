@@ -29,19 +29,19 @@ function Logincomp() {
 
   const submitLogin = async (e) => {
     if ((username != "") & (password != "")) {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Login Berhasil!',
-        showConfirmButton: false,
-        timer: 1500
-      })
       e.preventDefault();
       var login = await axios.post(process.env.REACT_APP_API_URL + "/login", {
         username: username.toString(),
         password: password.toString(),
       });
       if (!cookies.get("secretLogToken")) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Login Berhasil!',
+          showConfirmButton: false,
+          timer: 1500
+        })
         if (login.data.message == "sukses") {
           cookies.set("secretLogToken", login.data.secretLogToken);
           var idAdminToken = cookies.get("secretLogToken");
