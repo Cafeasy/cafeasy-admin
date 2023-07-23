@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -41,13 +42,23 @@ function Update() {
         formData
       )
       .then((res) => {
-        alert("Pendaftaran Berhasil");
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Update Berhasil!',
+          showConfirmButton: false,
+          timer: 1500
+        })
         Navigate("/ProfileAdmin/:idAdmin");
         console.log(res.formData);
         setUpdate(USER_UPDATE);
       })
       .catch((err) => {
-        alert("Pendaftaran Gagal");
+        Swal.fire({
+          icon: "error",
+          title: "Update Gagal!",
+          text: "Nama Pengguna atau Sandi salah!!!",
+        });
       });
   };
 
@@ -82,6 +93,7 @@ function Update() {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Pengguna"
+                required
               />
             </div>
           </div>
@@ -99,6 +111,7 @@ function Update() {
                 type="password"
                 className="form-control mt-1"
                 placeholder="Masukan Sandi"
+                required
               />
               <i class="bi bi-eye-slash" id="togglePassword"></i>
             </div>
@@ -112,6 +125,7 @@ function Update() {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Cafe"
+                required
               />
             </div>
           </div>
@@ -126,6 +140,7 @@ function Update() {
               type="text"
               className="form-control mt-1"
               placeholder="Masukan Alamat"
+              required
             />
           </div>
           <div class="form-group mt-3">
@@ -141,6 +156,7 @@ function Update() {
               type="text"
               className="form-control mt-1"
               placeholder="Masukan Deskripsi"
+              required
             />
           </div>
 
@@ -158,6 +174,7 @@ function Update() {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Pemilik"
+                required
               />
             </div>
             <div className="col-sm">
@@ -174,6 +191,7 @@ function Update() {
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                 className="form-control mt-1"
                 placeholder="Masukan Nomor Telepon"
+                required
               />
             </div>
           </div>
@@ -189,6 +207,7 @@ function Update() {
               }
               type="file"
               className="form-control mt-1"
+              required
             />
           </div>
 
@@ -198,7 +217,7 @@ function Update() {
               class="btn btn-secondary"
               onClick={handleSubmit}
             >
-              Update
+              Perbaharui
             </button>
           </div>
         </div>

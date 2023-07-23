@@ -29,6 +29,13 @@ function Logincomp() {
 
   const submitLogin = async (e) => {
     if ((username != "") & (password != "")) {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Login Berhasil!',
+        showConfirmButton: false,
+        timer: 1500
+      })
       e.preventDefault();
       var login = await axios.post(process.env.REACT_APP_API_URL + "/login", {
         username: username.toString(),
@@ -44,8 +51,8 @@ function Logincomp() {
         } else {
           Swal.fire({
             icon: "error",
-            title: "Oops...",
-            text: "Username atau Password salah!!!",
+            title: "Login Gagal!",
+            text: "Nama Pengguna atau Sandi salah!!!",
           });
         }
       }

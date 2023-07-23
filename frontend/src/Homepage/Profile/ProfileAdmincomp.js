@@ -57,9 +57,10 @@ const ProfileAdmincomp = () => {
                 </div>
                 <div class="col-md-2">
                   <Link
-                    className="text-decoration-none btn btn-sm btn-success"
-                    to={`/Update/${arr[0]?.idAdmin}`}
-                  >Update</Link>
+                    className="text-decoration-none btn btn-sm btn-primary"
+                    to={`/Update/${arr[0]?.idAdmin}`}>
+                    Perbaharui
+                  </Link>
                 </div>
               </div>
               <div class="row">
