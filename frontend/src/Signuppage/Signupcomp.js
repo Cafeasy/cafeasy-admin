@@ -43,6 +43,7 @@ const Signupcomp = () => {
         )
         Navigate("/LoginAdmin");
         console.log(res.formData);
+        setUser(USER_DEFAULT);
       })
       .catch((err) => {
         Swal.fire({
@@ -71,7 +72,7 @@ const Signupcomp = () => {
           </div>
           <br></br>
 
-          <div className="row">
+          <div className="row ">
             <div className="col-sm">
               <label>Email</label>
               <input
@@ -116,8 +117,8 @@ const Signupcomp = () => {
                 placeholder="Masukan Sandi"
                 required
               />
-              <i class="bi bi-eye-slash" id="togglePassword"></i>
             </div>
+
             <div className="col-sm">
               <label>Nama Cafe</label>
               <input

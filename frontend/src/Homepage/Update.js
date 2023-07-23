@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const USER_UPDATE = {
@@ -21,10 +21,13 @@ function Update() {
   const urlParams = params.idAdmin;
   const [Update, setUpdate] = useState(USER_UPDATE);
   const Navigate = useNavigate();
+  const profl = () => {
+    window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
+  };
 
   const handleSubmit = async (e) => {
     const formData = new FormData();
-    
+
     formData.append("username", Update.username);
     formData.append("emailCafe", Update.emailCafe);
     formData.append("password", Update.password);
@@ -43,13 +46,13 @@ function Update() {
       )
       .then((res) => {
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Update Berhasil!',
+          position: "top-end",
+          icon: "success",
+          title: "Update Berhasil!",
           showConfirmButton: false,
-          timer: 1500
-        })
-        Navigate("/ProfileAdmin/:idAdmin");
+          timer: 1500,
+        });
+        Navigate("/ProfileAdmin/" + urlParams);
         console.log(res.formData);
         setUpdate(USER_UPDATE);
       })
@@ -74,7 +77,10 @@ function Update() {
               <input
                 defaultValue={Update.emailCafe}
                 onChange={(e) =>
-                  setUpdate((data) => ({ ...data, emailCafe: e.target.value }))
+                  setUpdate((data) => ({
+                    ...data,
+                    emailCafe: e.target.value,
+                  }))
                 }
                 type="email"
                 id="email"
@@ -113,7 +119,6 @@ function Update() {
                 placeholder="Masukan Sandi"
                 required
               />
-              <i class="bi bi-eye-slash" id="togglePassword"></i>
             </div>
             <div className="col-sm">
               <label>Nama Cafe</label>
@@ -211,14 +216,26 @@ function Update() {
             />
           </div>
 
-          <div class="d-grid gap-2 mt-3">
-            <button
-              type="submit"
-              class="btn btn-secondary"
-              onClick={handleSubmit}
-            >
-              Perbaharui
-            </button>
+          <div className="row">
+            <div class="col-sm d-grid">
+            <Link
+                type="button"
+                className="text-decoration-none btn btn-success"
+                onClick={handleSubmit}
+              >
+                Simpan
+              </Link>
+            </div>
+
+            <div class="col-sm d-grid">
+              <Link
+                type="button"
+                className="text-decoration-none btn btn-secondary"
+                to={"/ProfileAdmin/" + urlParams}
+              >
+                Batal
+              </Link>
+            </div>
           </div>
         </div>
       </form>
