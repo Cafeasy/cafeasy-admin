@@ -83,7 +83,6 @@ function Sidebarcomp() {
           <li className="sidebar-toggle">
             <img src={logodannama} alt="Logo" />
           </li>
-          
         </ul>
 
         <div className="sidebar-content">
@@ -113,7 +112,6 @@ function Sidebarcomp() {
           </div>
         </div>
       </nav>
-      
     </>
   );
 }

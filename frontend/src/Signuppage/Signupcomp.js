@@ -21,6 +21,16 @@ const Signupcomp = () => {
   const Navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    if (user.username.trim() === "") {
+      // Input is empty
+      Swal.fire({
+        icon: "error",
+        title: "Register Gagal!",
+        text: "Nama Pengguna atau Sandi tidak cocok!!!",
+      });
+
+      return;
+    }
     const formData = new FormData();
     formData.append("username", user.username);
     formData.append("emailCafe", user.emailCafe);
@@ -36,11 +46,7 @@ const Signupcomp = () => {
     await axios
       .post(`${process.env.REACT_APP_API_URL}/registerAdmin`, formData)
       .then((res) => {
-        Swal.fire(
-          'Daftar Berhasil!',
-          'Kamu Berhasil Daftar!',
-          'success'
-        )
+        Swal.fire("Daftar Berhasil!", "Kamu Berhasil Daftar!", "success");
         Navigate("/LoginAdmin");
         console.log(res.formData);
         setUser(USER_DEFAULT);
