@@ -99,7 +99,7 @@ function Update() {
                 type="email"
                 id="email"
                 className="form-control mt-1"
-                placeholder={arr[0].emailCafe}
+                placeholder={arr[0]?.emailCafe}
                 required
               />
             </div>
