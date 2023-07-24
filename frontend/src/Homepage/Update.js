@@ -31,6 +31,7 @@ function Update() {
 
   let arr = data.result ?? [];
   console.log(arr[0]);
+
   const handleSubmit = async (e) => {
     if (Update.username.trim() === "") {
       Swal.fire({
@@ -112,7 +113,7 @@ function Update() {
                 }
                 type="text"
                 className="form-control mt-1"
-                placeholder="Masukan Nama Pengguna"
+                placeholder={arr[0]?.username}
                 required
               />
             </div>
@@ -130,7 +131,7 @@ function Update() {
                 }
                 type="password"
                 className="form-control mt-1"
-                placeholder="Masukan Sandi"
+                placeholder={arr[0]?.emailCafe}
                 required
               />
             </div>
@@ -143,7 +144,7 @@ function Update() {
                 }
                 type="text"
                 className="form-control mt-1"
-                placeholder="Masukan Nama Cafe"
+                placeholder={arr[0]?.namaCafe}
                 required
               />
             </div>
@@ -158,7 +159,7 @@ function Update() {
               }
               type="text"
               className="form-control mt-1"
-              placeholder="Masukan Alamat"
+              placeholder={arr[0]?.alamatCafe}
               required
             />
           </div>
@@ -174,7 +175,7 @@ function Update() {
               }
               type="text"
               className="form-control mt-1"
-              placeholder="Masukan Deskripsi"
+              placeholder={arr[0]?.deskripsiCafe}
               required
             />
           </div>
@@ -192,7 +193,7 @@ function Update() {
                 }
                 type="text"
                 className="form-control mt-1"
-                placeholder="Masukan Nama Pemilik"
+                placeholder={arr[0]?.namaPemilikCafe}
                 required
               />
             </div>
@@ -209,7 +210,7 @@ function Update() {
                 type="tel"
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                 className="form-control mt-1"
-                placeholder="Masukan Nomor Telepon"
+                placeholder={arr[0]?.noHpCafe}
                 required
               />
             </div>
@@ -232,7 +233,7 @@ function Update() {
 
           <div className="row">
             <div class="col-sm d-grid mt-3">
-              <Link
+            <Link
                 type="button"
                 className="text-decoration-none btn btn-primary"
                 onClick={handleSubmit}
