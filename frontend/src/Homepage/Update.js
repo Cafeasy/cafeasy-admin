@@ -21,7 +21,16 @@ function Update() {
   const urlParams = params.idAdmin;
   const [Update, setUpdate] = useState(USER_UPDATE);
   const Navigate = useNavigate();
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/profile/` + urlParams)
+      .then((res) => setData(res.data.data));
+  }, [data]);
+
+  let arr = data.result ?? [];
+  console.log(arr[0]);
   const handleSubmit = async (e) => {
     if (Update.username.trim() === "") {
       Swal.fire({
@@ -90,7 +99,7 @@ function Update() {
                 type="email"
                 id="email"
                 className="form-control mt-1"
-                placeholder="Masukan Email"
+                placeholder={arr[0].emailCafe}
                 required
               />
             </div>
@@ -223,7 +232,7 @@ function Update() {
 
           <div className="row">
             <div class="col-sm d-grid mt-3">
-            <Link
+              <Link
                 type="button"
                 className="text-decoration-none btn btn-primary"
                 onClick={handleSubmit}
