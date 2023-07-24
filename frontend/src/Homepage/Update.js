@@ -21,13 +21,18 @@ function Update() {
   const urlParams = params.idAdmin;
   const [Update, setUpdate] = useState(USER_UPDATE);
   const Navigate = useNavigate();
-  const profl = () => {
-    window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
-  };
 
   const handleSubmit = async (e) => {
-    const formData = new FormData();
+    if (Update.username.trim() === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Update Gagal!",
+        text: "Data tidak boleh kosong!!!",
+      });
+      return;
+    }
 
+    const formData = new FormData();
     formData.append("username", Update.username);
     formData.append("emailCafe", Update.emailCafe);
     formData.append("password", Update.password);
@@ -220,7 +225,7 @@ function Update() {
             <div class="col-sm d-grid mt-3">
             <Link
                 type="button"
-                className="text-decoration-none btn btn-success"
+                className="text-decoration-none btn btn-primary"
                 onClick={handleSubmit}
               >
                 Simpan

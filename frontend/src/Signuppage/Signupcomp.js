@@ -51,13 +51,7 @@ const Signupcomp = () => {
         console.log(res.formData);
         setUser(USER_DEFAULT);
       })
-      .catch((err) => {
-        Swal.fire({
-          icon: "error",
-          title: "Register Gagal!",
-          text: "Nama Pengguna atau Sandi tidak cocok!!!",
-        });
-      });
+      .catch((err) => {});
   };
 
   return (
@@ -90,7 +84,6 @@ const Signupcomp = () => {
                 id="email"
                 className="form-control mt-1"
                 placeholder="Masukan Email"
-                required
               />
             </div>
             <div className="col-sm">
@@ -103,7 +96,6 @@ const Signupcomp = () => {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Pengguna"
-                required
               />
             </div>
           </div>
@@ -121,7 +113,6 @@ const Signupcomp = () => {
                 type="password"
                 className="form-control mt-1"
                 placeholder="Masukan Sandi"
-                required
               />
             </div>
 
@@ -135,7 +126,6 @@ const Signupcomp = () => {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Cafe"
-                required
               />
             </div>
           </div>
@@ -150,7 +140,6 @@ const Signupcomp = () => {
               type="text"
               className="form-control mt-1"
               placeholder="Masukan Alamat"
-              required
             />
           </div>
           <div class="form-group mt-3">
@@ -163,7 +152,6 @@ const Signupcomp = () => {
               type="text"
               className="form-control mt-1"
               placeholder="Masukan Deskripsi"
-              required
             />
           </div>
 
@@ -181,7 +169,6 @@ const Signupcomp = () => {
                 type="text"
                 className="form-control mt-1"
                 placeholder="Masukan Nama Pemilik"
-                required
               />
             </div>
             <div className="col-sm">
@@ -198,7 +185,6 @@ const Signupcomp = () => {
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                 className="form-control mt-1"
                 placeholder="Masukan Nomor Telepon"
-                required
               />
             </div>
           </div>
@@ -215,7 +201,6 @@ const Signupcomp = () => {
               }
               type="file"
               className="form-control mt-1"
-              required
             />
           </div>
           <div class="d-grid gap-2 mt-3">
