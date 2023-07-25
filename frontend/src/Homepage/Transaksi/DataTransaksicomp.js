@@ -116,21 +116,17 @@ const DataTransaksicomp = ({ data = [] }) => {
     let dataPesana = [];
     for (var i = 0; i < dataTransaksi.length; i++) {
       dataTransaksi.map((value) => {
-        dat1 = {
-          data: [
-            [
-              value.idTransaksi,
-              value.namaPelanggan,
-              value.tanggal,
-              value.totalHarga,
-              value.statusBayar,
-            ],
-          ],
-        };
-        dataPesana[i] = [value];
+        dataPesana.push([
+          value.idTransaksi,
+          value.namaPelanggan,
+          value.tanggal,
+          value.totalHarga,
+          value.statusBayar,])
       });
     }
-
+    dat1 = {
+      data: dataPesana
+    };
     console.log(dat1);
 
     await axios
