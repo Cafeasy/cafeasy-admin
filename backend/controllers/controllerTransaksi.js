@@ -1,4 +1,5 @@
 const TransaksiPelanggan = require("../models/modelTransaksi");
+const Menu = require("../models/modelMenu");
 
 exports.getAllTransaksiPelanggan = async (req, res, next) => {
     TransaksiPelanggan.find({})
@@ -76,6 +77,32 @@ exports.updateStatusBayarCash = async (req, res, next) => {
     var ndate = new Date().toLocaleString('en-US', {
         timeZone: 'Asia/Jakarta'
     })
+
+    //mendefinisi var length looping untuk update otomatis stok menu
+    var checkTransaksi = await TransaksiPelanggan.findOne({idTransaksi: `${idTransaksiCheck}`});
+    var obyekTransaksi = checkTransaksi.toObject();
+    var len = obyekTransaksi.dataPesanan.length;
+
+    //looping update (stok menu - qty datapesanan)
+    for (var i = 0; i < len; i++) {
+        //menyimpan setiap id menu pada data pesanan ke sebuah variable
+        var checkIdMenuDataPesanan = await TransaksiPelanggan.findOne({idTransaksi: `${idTransaksiCheck}`});
+        var obyekIdMenu = checkIdMenuDataPesanan.toObject();
+        var saveIdMenu = obyekIdMenu.dataPesanan[i].idMenu;
+
+        //menyimpan data setiap stok menu per id menu ke sebuah variable 
+        var saveStokMenu = await Menu.findOne({idMenu: `${saveIdMenu}`});
+        var obyekStokMenu = saveStokMenu.toObject();
+
+        //otomatis update stok menu setelah transaksi berhasil
+        var kalkulasiStokMenu = obyekStokMenu.stokMenu-obyekIdMenu.dataPesanan[i].qty;
+
+        await Menu.findOneAndUpdate(
+            {idMenu: `${saveIdMenu}`},
+            { $set: {stokMenu: kalkulasiStokMenu}},
+            {new: true}
+            )
+    }
 
     TransaksiPelanggan.findOneAndUpdate({idTransaksi: `${idTransaksiCheck}`}, {$set: { statusBayar: "Sukses Bayar Cash", tanggal: ndate }}, {new: true})
     .then(result => {
