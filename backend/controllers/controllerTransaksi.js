@@ -78,6 +78,20 @@ exports.updateStatusBayarCash = async (req, res, next) => {
         timeZone: 'Asia/Jakarta'
     })
 
+    TransaksiPelanggan.findOneAndUpdate({idTransaksi: `${idTransaksiCheck}`}, {$set: { statusBayar: "Sukses Bayar Cash", tanggal: ndate }}, {new: true})
+    .then(result => {
+        res.status(200).json({
+            message: 'Status bayar berhasil diupdate - Pembayaran Cash Sukses',
+            data: result
+        })
+    })
+    .catch(error => {
+        res.status(404).json({
+            message: "Status bayar gagal diupdate - Pembayaran Cash Gagal",
+            error: error
+        })
+    })
+
     //mendefinisi var length looping untuk update otomatis stok menu
     var checkTransaksi = await TransaksiPelanggan.findOne({idTransaksi: `${idTransaksiCheck}`});
     var obyekTransaksi = checkTransaksi.toObject();
@@ -103,18 +117,4 @@ exports.updateStatusBayarCash = async (req, res, next) => {
             {new: true}
             )
     }
-
-    TransaksiPelanggan.findOneAndUpdate({idTransaksi: `${idTransaksiCheck}`}, {$set: { statusBayar: "Sukses Bayar Cash", tanggal: ndate }}, {new: true})
-    .then(result => {
-        res.status(200).json({
-            message: 'Status bayar berhasil diupdate - Pembayaran Cash Sukses',
-            data: result
-        })
-    })
-    .catch(error => {
-        res.status(404).json({
-            message: "Status bayar gagal diupdate - Pembayaran Cash Gagal",
-            error: error
-        })
-    })
 }
