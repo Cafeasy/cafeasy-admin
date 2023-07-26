@@ -88,14 +88,14 @@ const ProfileAdmincomp = () => {
                           <p>{arr[0]?.username}</p>
                         </div>
                       </div>
-                      <div class="row">
+                      {/* <div class="row">
                         <div class="col-md-6">
                           <label>Password</label>
                         </div>
                         <div class="col-md-6">
                           <p>{arr[0]?.password}</p>
                         </div>
-                      </div>
+                      </div> */}
                       <div class="row">
                         <div class="col-md-6">
                           <label>Alamat Cafe</label>
