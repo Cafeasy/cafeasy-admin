@@ -76,11 +76,8 @@ exports.createAdmin = async (req, res, next) => {
                         message: "Berhasil mendaftar",
                         data: result
                     })
-                }).catch(error => {
-                    res.status(404).json({
-                        message: "Gagal mendaftar",
-                        error: error
-                    })
+                }).catch(err => {
+                    next(err);
                 })
             })
         } else if (admin) {
@@ -99,11 +96,8 @@ exports.getProfileAdmin = async (req, res, next) => {
             message: "Data profil admin berhasil dipanggil",
             data: {result}
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Data profil admin gagal dipanggil",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -116,11 +110,8 @@ exports.getProfileAdminByName = async (req, res, next) => {
             message: "Data profil admin berdasarkan username gagal dipanggil",
             data: {result}
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Data profil admin berdasarkan username gagal dipanggil",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -225,11 +216,8 @@ exports.updateProfileAdmin = async (req, res, next) => {
                     data: result
                 })
             })
-            .catch(error => {
-                res.status(404).json({
-                    message: "Gagal update data profile admin",
-                    error: error
-                })
+            .catch(err => {
+                next(err);
             })
         } else if (!req.file) {
             DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
@@ -249,11 +237,8 @@ exports.updateProfileAdmin = async (req, res, next) => {
                     data: result
                 })
             })
-            .catch(error => {
-                res.status(404).json({
-                    message: "Gagal update data profile admin",
-                    error: error
-                })
+            .catch(err => {
+                next(err);
             })
         }
     // } else if (admin) {

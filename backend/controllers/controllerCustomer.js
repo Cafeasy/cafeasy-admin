@@ -7,11 +7,8 @@ exports.getAllCustomer = (req, res, next) => {
             message: "Berhasil memanggil semua data customer",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Gagal memanggil semua data customer",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -23,11 +20,8 @@ exports.deleteCustomerById = (req, res, next) => {
             message: "Berhasil menghapus data customer berdasarkan id",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Gagal menghapus data customer berdasarkan id",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -37,10 +31,7 @@ exports.deleteAllCustomer = (req, res, next) => {
             message: "Berhasil menghapus semua data customer",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Gagal menghapus semua data customer",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }

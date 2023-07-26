@@ -18,11 +18,8 @@ exports.getAllBanner = (req, res, next) => {
             message: "Data semua banner berhasil dipanggil",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Data semua banner gagal dipanggil",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -33,11 +30,8 @@ exports.getBannerById = (req, res, next) => {
             message: "Data banner berdasarkan id berhasil dipanggil",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Data banner berdasarkan id gagal dipanggil",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -81,11 +75,8 @@ exports.insertNewBanner = async (req, res, next) => {
             message: "Banner berhasil ditambahkan",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Banner gagal ditambahkan",
-            data: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -104,25 +95,34 @@ exports.deleteBannerById = async (req, res, next) => {
     }).catch(error => {
         if(error.code === 'storage/object-not-found'){
             res.status(404).json({
-                message: "Gagal menghapus banner berdasarkan id",
+                message: "Gagal menghapus banner berdasarkan id, gambar tidak terdapat pada cloud storage",
                 error: error
             })
         } else {
-            next(err);
+            next(error);
         }
     })
 }
 
 exports.deleteAllBanner = (req, res, next) => {
-    dataBanner.deleteMany({}).then(result => {
-        res.status(200).json({
-            message: "Berhasil menghapus semua banner",
-            data: result
+    const storageRef = ref(storage, `bannerPict/`);
+
+    getDownloadURL(storageRef).then(() => {
+        deleteObject(storageRef);
+        dataBanner.deleteMany({}).then(result => {
+            res.status(200).json({
+                message: "Berhasil menghapus semua banner",
+                data: result
+            })
         })
     }).catch(error => {
-        res.status(200).json({
-            message: "Gagal menghapus semua banner",
-            error: error
-        })
+        if(error.code === 'storage/object-not-found'){
+            res.status(404).json({
+                message: "Gagal menghapus semua banner, gambar tidak terdapat pada cloud storage",
+                error: error
+            })
+        } else {
+            next(err);
+        }
     })
 }

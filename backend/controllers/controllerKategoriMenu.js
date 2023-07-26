@@ -7,11 +7,8 @@ exports.getAllKategoriMenu = (req, res, next) => {
             message: 'Data semua kategori menu berhasil dipanggil',
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Data semua kategori menu gagal dipanggil",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -42,15 +39,12 @@ exports.insertKategoriMenu = async (req, res, next) => {
                     message: "Kategori menu berhasil ditambahkan",
                     data: result
                 })
-            }).catch(error => {
-                res.status(404).json({
-                    message: "Kategori menu gagal ditambahkan",
-                    error: error
-                })
+            }).catch(er => {
+                next(err);
             })
         } else if (ktMenu) {
             res.json({
-                message: "Nama kategori menu sudah ada, coba menu lain"
+                message: "Nama kategori menu sudah ada, coba nama lain"
             })
         }
 }
@@ -77,11 +71,8 @@ exports.updateKategoriMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(error => {
-            res.status(404).json({
-                message: "Gagal update data kategori menu",
-                error: error
-            })
+        .catch(err => {
+            next(err);
         })
 }
 
@@ -93,11 +84,8 @@ exports.deleteKategoriMenuById = (req, res, next) => {
             message: "Berhasil menghapus kategori menu berdasarkan id",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Gagal menghapus kategori menu berdasarkan id",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -107,10 +95,7 @@ exports.deleteAllKategoriMenu = (req, res, next) => {
             message: "Berhasil menghapus semua kategori menu",
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Gagal menghapus semua kategori menu",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }

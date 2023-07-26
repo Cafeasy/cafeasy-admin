@@ -9,11 +9,8 @@ exports.getAllTransaksiPelanggan = async (req, res, next) => {
             data: result
         })
     })
-    .catch(error => {
-        res.status(404).json({
-            message: "Semua data transaksi gagal dipanggil",
-            error: error
-        })
+    .catch(err => {
+        next(err);
     })
 }
 
@@ -27,11 +24,8 @@ exports.getDetailTransaksi = async (req, res, next) => {
             data: {result}
         })      
     })
-    .catch(error => {
-        res.status(404).json({
-            message: "Data detail transaksi gagal dipanggil",
-            error: error
-        })
+    .catch(err => {
+        next(err);
     })
 }
 
@@ -44,11 +38,8 @@ exports.deleteAllTransaksi = async (req, res, next) => {
             message: 'Semua transaksi berhasil dihapus',
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Semua transaksi gagal dihapus",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -61,11 +52,8 @@ exports.deleteTransaksiById = async (req, res, next) => {
             message: 'Gagal menghapus, idTransaksi tidak ditemukan',
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Gagal menghapus, idTransaksi tidak ditemukan",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -85,11 +73,8 @@ exports.updateStatusBayarCash = async (req, res, next) => {
             data: result
         })
     })
-    .catch(error => {
-        res.status(404).json({
-            message: "Status bayar gagal diupdate - Pembayaran Cash Gagal",
-            error: error
-        })
+    .catch(err => {
+        next(err);
     })
 
     //mendefinisi var length looping untuk update otomatis stok menu

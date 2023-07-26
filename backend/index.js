@@ -63,6 +63,7 @@ app.use((error, req, res, next) => {
     const message = error.message;
     const data = error.data;
     res.status(status).json({
+        success: false,
         message: message,
         data: data
     })

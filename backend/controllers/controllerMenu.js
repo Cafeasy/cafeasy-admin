@@ -18,11 +18,8 @@ exports.getAllMenu = (req, res, next) => {
             message: 'Data semua menu berhasil dipanggil',
             data: result
         })
-    }).catch(error => {
-        res.status(404).json({
-            message: "Data semua menu gagal dipanggil",
-            error: error
-        })
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -33,11 +30,8 @@ exports.getAvailableMenu = (req, res, next) => {
                 message: 'Data menu available berhasil dipanggil',
                 data: result
             })
-        }).catch(error => {
-            res.status(404).json({
-                message: "Data menu available gagal dipanggil",
-                error: error
-            })
+        }).catch(err => {
+            next(err);
         })
 }
 
@@ -48,11 +42,8 @@ exports.getNotAvailableMenu = (req, res, next) => {
                 message: 'Data menu not available berhasil dipanggil',
                 data: result
             })
-        }).catch(error => {
-            res.status(404).json({
-                message: "Data menu not available gagal dipanggil",
-                error: error
-            })
+        }).catch(err => {
+            next(err);
         })
 }
 
@@ -65,11 +56,8 @@ exports.getMenuByCategory = (req, res, next) => {
                     data: result
                 })
         })
-        .catch(error => {
-            res.status(404).json({
-                message: "Data menu berdasarkan kategori gagal dipanggil",
-                error: error
-            })
+        .catch(err => {
+            next(err);
         })
 }
 
@@ -82,11 +70,8 @@ exports.getMenuDetail = (req, res, next) => {
                 data: result
             })
         })
-        .catch(error => {
-            res.status(404).json({
-                message: "Data detail menu gagal dipanggil",
-                error: error
-            })
+        .catch(err => {
+            next(err);
         })
 }
 
@@ -139,15 +124,12 @@ exports.insertNewMenu = async (req, res, next) => {
                     data: result
                 })
                 
-            }).catch(error => {
-                res.status(404).json({
-                    message: "Menu gagal ditambahkan",
-                    data: error
-                })
+            }).catch(err => {
+                next(err);
             })
         } else if (menu) {
             res.json({
-                message: "nama menu sudah ada, coba menu lain"
+                message: "nama menu sudah ada, coba nama lain"
             })
         }
 }
@@ -198,11 +180,8 @@ exports.updateDataMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(error => {
-            res.status(404).json({
-                message: "Gagal update data menu",
-                error: error
-            })
+        .catch(err => {
+            next(err);
         })
     } else if (!req.file) {
         Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
@@ -219,11 +198,8 @@ exports.updateDataMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(error => {
-            res.status(404).json({
-                message: "Gagal update data menu",
-                error: error
-            })
+        .catch(err => {
+            next(err);
         })
     }
 }
@@ -254,7 +230,7 @@ exports.deleteMenuById = async (req, res, next) => {
 }
 
 exports.deleteAllMenu = async (req, res, next) => {
-    const storageRef = ref(storage, `bannerPict/`);
+    const storageRef = ref(storage, `menuPict/`);
 
     getDownloadURL(storageRef).then(() => {
         deleteObject(storageRef);
@@ -267,7 +243,7 @@ exports.deleteAllMenu = async (req, res, next) => {
     }).catch(error => {
         if(error.code === 'storage/object-not-found'){
             res.status(404).json({
-                message: "Gagal menghapus semua menu, tidak ditemukan di cloud",
+                message: "Gagal menghapus semua menu, gambar tidak terdapat pada cloud storage",
                 error: error
             })
         } else {
