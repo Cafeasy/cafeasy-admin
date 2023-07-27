@@ -32,7 +32,14 @@ router.post('/logout', adminController.logoutAdmin);
 
 //routes kelola data profile
 router.get('/profile/:idAdmin', adminController.getProfileAdmin);
-router.put('/updateProfile/:idAdmin', adminController.updateProfileAdmin);
+router.put('/updateProfile/:idAdmin', [
+    body('username').isLength({ min: 4 }).withMessage('Username minimal 4 karakter'),
+    body('password').isLength({ min: 8 }).withMessage('Password minimal 8 karakter'),
+    body('namaCafe').isLength({ min: 2 }).withMessage('Nama Cafe minimal 2 karakter'),
+    body('alamatCafe').isLength({ min: 4 }).withMessage('Alamat Cafe minimal 4 karakter'),
+    body('namaPemilikCafe').isLength({ min: 3 }).withMessage('Nama Pemilik minimal 3 karakter'),
+    body('noHpCafe').isLength({ min: 9 }).withMessage('Nomor Hp terkait minimal 9 karakter')],
+    adminController.updateProfileAdmin);
 
 router.get('/getAdminByName/:username', adminController.getProfileAdminByName);
 
