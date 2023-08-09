@@ -8,6 +8,7 @@ const {ref} = require('firebase/storage');
 const {getDownloadURL} = require('firebase/storage');
 const {uploadBytesResumable} = require('firebase/storage');
 const {deleteObject} = require('firebase/storage');
+const {listAll} = require('firebase/storage');
 
 initializeApp(config.firebaseConfig);
 const storage = getStorage();
@@ -231,9 +232,11 @@ exports.deleteMenuById = async (req, res, next) => {
 
 exports.deleteAllMenu = async (req, res, next) => {
     const storageRef = ref(storage, `menuPict/`);
-
-    getDownloadURL(storageRef).then(() => {
-        deleteObject(storageRef);
+    listAll(storageRef).then((listResults) => {
+        const promises = listResults.items.map((item) => {
+          return deleteObject(item);
+        });
+        Promise.all(promises);
         Menu.deleteMany({}).then(result => {
             res.status(200).json({
                 message: "Berhasil menghapus semua menu",
@@ -241,13 +244,6 @@ exports.deleteAllMenu = async (req, res, next) => {
             })
         })
     }).catch(error => {
-        if(error.code === 'storage/object-not-found'){
-            res.status(404).json({
-                message: "Gagal menghapus semua menu, gambar tidak terdapat pada cloud storage",
-                error: error
-            })
-        } else {
-            next(err);
-        }
+        next(error);
     })
 }
