@@ -1,6 +1,24 @@
 const TransaksiPelanggan = require("../models/modelTransaksi");
 const Menu = require("../models/modelMenu");
 
+exports.getTransaksiPerhari = async (req, res, next) => {
+    var ndate = new Date().toLocaleString("id-ID", {
+        timeZone: 'Asia/Jakarta', hour12: false
+    })
+    ndate = ndate.split(' ')[0];
+
+    TransaksiPelanggan.find({tanggal: { $regex: ndate }})
+    .then(result => {
+        res.status(200).json({
+            message: 'Semua data transaksi berhasil dipanggil',
+            data: result
+        })
+    })
+    .catch(err => {
+        next(err);
+    })
+}
+
 exports.getAllTransaksiPelanggan = async (req, res, next) => {
     TransaksiPelanggan.find({})
     .then(result => {
@@ -62,7 +80,7 @@ exports.updateStatusBayarCash = async (req, res, next) => {
     const idTransaksiCheck = req.params.idTransaksi;
 
     //date gmt
-    var ndate = new Date().toLocaleString('en-US', {
+    var ndate = new Date().toLocaleString('id-ID', {
         timeZone: 'Asia/Jakarta'
     })
 

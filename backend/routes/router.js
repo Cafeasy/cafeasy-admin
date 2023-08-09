@@ -45,6 +45,7 @@ router.get('/getAdminByName/:username', adminController.getProfileAdminByName);
 
 //routes kelola data transaksi
 router.get('/transaksi', transaksiController.getAllTransaksiPelanggan);
+router.get('/transaksiPerhari', transaksiController.getTransaksiPerhari);
 router.get('/detailTransaksi/:idTransaksi', transaksiController.getDetailTransaksi);
 router.delete('/deleteAllTransaksi', transaksiController.deleteAllTransaksi);
 router.delete('/deleteTransaksiById/:idTransaksi', transaksiController.deleteTransaksiById);
