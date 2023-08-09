@@ -81,7 +81,7 @@ exports.updateStatusBayarCash = async (req, res, next) => {
 
     //date gmt
     var ndate = new Date().toLocaleString('id-ID', {
-        timeZone: 'Asia/Jakarta'
+        timeZone: 'Asia/Jakarta', hour12: false
     })
 
     TransaksiPelanggan.findOneAndUpdate({idTransaksi: `${idTransaksiCheck}`}, {$set: { statusBayar: "Sukses Bayar Cash", tanggal: ndate }}, {new: true})
