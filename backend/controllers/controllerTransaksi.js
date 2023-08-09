@@ -1,7 +1,7 @@
 const TransaksiPelanggan = require("../models/modelTransaksi");
 const Menu = require("../models/modelMenu");
 
-exports.getTransaksiPerhari = async (req, res, next) => {
+exports.getTransaksiHariIni = async (req, res, next) => {
     var ndate = new Date().toLocaleString("id-ID", {
         timeZone: 'Asia/Jakarta', hour12: false
     })
