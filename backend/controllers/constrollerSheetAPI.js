@@ -1,6 +1,5 @@
 require('dotenv');
 const path = require('path');
-const process = require('process');
 
 const { google } = require('googleapis');
 

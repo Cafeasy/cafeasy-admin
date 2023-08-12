@@ -7,7 +7,7 @@ WORKDIR /usr/src/app/
 COPY package*.json ./
 
 #INSTALL PACKAGE
-RUN npm install --force
+RUN npm install --legacy-peer-deps
 
 #COPY SOURCE FILES
 COPY . .
