@@ -4,31 +4,25 @@ const cors = require("cors");
 const passport = require("passport");
 const router = require("./routes/router");
 const cookieSession = require("cookie-session");
-const port = process.env.PORT || 8000
+const port = process.env.PORT
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 
 const multer = require('multer');
 
-// const fileStorage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, '../images');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, new Date().getTime() + '-' + file.originalname)
-//     }
-// })
-
+app.use(
+    cors()
+);
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
         cb(null, true);
     } else {
         cb(null, false);
     }
 }
 
-app.use(multer({storage: multer.memoryStorage(), fileFilter: fileFilter}).single('image'));
+app.use(multer({ storage: multer.memoryStorage(), fileFilter: fileFilter }).single('image'));
 
 //connect ke db
 require('./config/database');
@@ -48,13 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use(
-    cors({
-        origin: process.env.CLIENT_URL,
-        methods: "GET,POST,PUT,DELETE",
-        credentials: true,
-    })
-);
+
 
 app.use(express.json());
 

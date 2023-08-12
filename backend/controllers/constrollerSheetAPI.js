@@ -1,4 +1,4 @@
-require('dotenv');
+require("dotenv").config({ path: "../.env" });
 const path = require('path');
 
 const { google } = require('googleapis');
@@ -7,13 +7,13 @@ const { google } = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 
-const keyFile = process.env.SPREADSHEET_SERVICE_ACCOUNT_KEY;
+const keyFile = process.env.GOOGLE_CREDENTIALS;
 const spreadsheetId = process.env.SPREADSHEET_ID;
 const rangeSheet = process.env.SPREADSHEET_RANGE;
 
 async function authentication() {
     const auth = new google.auth.GoogleAuth({
-        keyFile: keyFile.toString(),
+        keyFile: '../backend/credentials.json',
         scopes: SCOPES,
     });
     const authClient = await auth.getClient();
@@ -23,6 +23,12 @@ async function authentication() {
     });
 }
 
+async function getSheetList(client, sheetId) {
+    const response = await client.spreadsheets.get({
+        spreadsheetId: sheetId,
+    })
+    return response;
+}
 async function readSpreadsheet(client, sheetId, range) {
     const res = await client.spreadsheets.values.get({
         spreadsheetId: sheetId,
@@ -68,30 +74,17 @@ async function createNewSpreadsheet(client, sheetsId, title) {
 
 }
 
-async function getSpreadSheet(client, sheetsId, sheetName) {
+async function getSpreadSheet(client, sheetsId) {
     const response = await client.spreadsheets.get({
         spreadsheetId: sheetsId,
-        ranges: [sheetName]
     })
     return response;
 }
-exports.getSheets = async (req, res) => {
-    const client = await authentication();
-    const sheetName = req.params.sheetName;
-    try {
-        const result = await getSpreadSheet(client, spreadsheetId, sheetName);
 
-        res.status(200).json({ message: "Success Retreive data", data: result })
-
-    } catch (err) {
-        res.status(404).json({ message: "Failed Retreive data", data: err })
-    }
-}
 exports.createSpreadsheet = async (req, res) => {
     const client = await authentication();
     const sheetName = req.body.sheetName;
     const data = req.body.data
-    console.log(sheetName, data)
     try {
         await getSpreadSheet(client, spreadsheetId, sheetName);
         const responseWrite = await _writeSpreadsheet(client, spreadsheetId, sheetName, data)
@@ -113,10 +106,10 @@ exports.createSpreadsheet = async (req, res) => {
 exports.getSpreadsheet = async (req, res) => {
     const client = await authentication();
     try {
-        const result = await readSpreadsheet(client, spreadsheetId, rangeSheet);
-        res.status(200).json({ message: "Success Retreive data", data: result, auth: client })
+        const result = await getSheetList(client, spreadsheetId);
+        res.status(200).json({ message: "Success Retreive data", data: result.data.sheets, auth: client })
     } catch (err) {
-        res.status(404).json({ message: "Failed Retreive data", data: err })
+        res.status(404).json({ message: "Failed Retreive data", data: client })
     }
 
 }
@@ -131,4 +124,32 @@ exports.writeSpreadsheet = async (req, res) => {
         res.status(400).json({ message: "Failed Insert data", data: err })
     }
 
+}
+
+exports.readSpreadsheets = async (req, res) => {
+    const client = await authentication();
+
+    try {
+        const sheetList = await getSheetList(client, spreadsheetId);
+        let sheetListValue = [];
+        let sheetValues = [];
+        let response;
+        let sheetRanges;
+        for (var i = 0; i < sheetList.data.sheets.length; i++) {
+            sheetRanges = sheetList.data.sheets[i].properties.title.toString() + '!A:Z';
+            response = await readSpreadsheet(client, spreadsheetId, sheetRanges);
+            sheetListValue[i] = sheetRanges;
+            sheetValues[i] = response;
+        }
+
+        res.status(200).json({
+            message: "Get Sheet Data", data: {
+                sheet: sheetListValue,
+                values: sheetValues
+            }
+        })
+
+    } catch (err) {
+        res.status(400).json({ message: "Failed Read Data", err: err })
+    }
 }

@@ -1,9 +1,10 @@
+require("dotenv").config({path: '../.env'});
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
 
-
-mongoose.connect(process.env.MONGO_SERVER_URL,{
+const url = process.env.MONGO_SERVER_URL;
+mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

@@ -96,7 +96,7 @@ router.delete('/deleteBannerById/:idBanner', bannerController.deleteBannerById);
 router.delete('/deleteAllBanner', bannerController.deleteAllBanner);
 
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
-router.get('/getSheet/:sheetName', Spreadsheet.getSheets);
+router.get('/readSpreadsheet', Spreadsheet.readSpreadsheets);
 router.post('/createNewSpreadsheet', Spreadsheet.createSpreadsheet);
 router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);
 module.exports = router;

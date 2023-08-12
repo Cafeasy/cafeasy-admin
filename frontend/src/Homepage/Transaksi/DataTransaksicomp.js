@@ -127,7 +127,6 @@ const DataTransaksicomp = ({ data = [] }) => {
     dat1 = {
       data: dataPesana
     };
-    console.log(dat1);
 
     await axios
       .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, dat1)

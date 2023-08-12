@@ -15,7 +15,7 @@ const TopNav = () => {
   }, [data]);
 
   let arr = data.result ?? [];
-  console.log(urlParams);
+
 
   return (
     <div className="topnav">

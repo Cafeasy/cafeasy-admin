@@ -97,7 +97,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
       await axios
         .post(`${process.env.REACT_APP_API_URL}/insertMenu/`, formData)
         .then((response) => {
-          console.log(response);
+     
           setMenus((prevData) => [...prevData, response.data.data]);
           setProductDialog(false);
           toast.current.show({
@@ -142,10 +142,10 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
         ]);
       });
     }
-    console.log(dataMenuArray);
+
 
     data = { sheetName: sheetName, data: dataMenuArray };
-    console.log(data);
+
     await axios
       .post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data)
       .then(() => {

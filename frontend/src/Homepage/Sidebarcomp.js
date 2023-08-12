@@ -22,7 +22,7 @@ function Sidebarcomp() {
   useEffect(() => {
     if (!cookies.get("secretLogToken")) {
       nextNavigate("/LoginAdmin");
-      return () => {};
+      return () => { };
     }
   }, []);
 
@@ -30,7 +30,7 @@ function Sidebarcomp() {
   var decoded = jwt_decode(secretLogToken);
   var decodedIdAdmin = decoded.idAdmin;
 
-  console.log(decoded);
+ 
 
   const Sidebardata = [
     {
@@ -72,7 +72,8 @@ function Sidebarcomp() {
   ];
   const logout = () => {
     cookies.remove("secretLogToken");
-    window.location.href = "http://localhost:3000/LoginAdmin";
+    nextNavigate('/LoginAdmin');
+
   };
 
   return (
