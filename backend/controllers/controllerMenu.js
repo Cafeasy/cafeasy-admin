@@ -19,8 +19,8 @@ exports.getAllMenu = (req, res, next) => {
             message: 'Data semua menu berhasil dipanggil',
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -31,8 +31,8 @@ exports.getAvailableMenu = (req, res, next) => {
                 message: 'Data menu available berhasil dipanggil',
                 data: result
             })
-        }).catch(err => {
-            next(err);
+        }).catch(error => {
+            next(error);
         })
 }
 
@@ -43,8 +43,8 @@ exports.getNotAvailableMenu = (req, res, next) => {
                 message: 'Data menu not available berhasil dipanggil',
                 data: result
             })
-        }).catch(err => {
-            next(err);
+        }).catch(error => {
+            next(error);
         })
 }
 
@@ -57,8 +57,8 @@ exports.getMenuByCategory = (req, res, next) => {
                     data: result
                 })
         })
-        .catch(err => {
-            next(err);
+        .catch(error => {
+            next(error);
         })
 }
 
@@ -71,8 +71,8 @@ exports.getMenuDetail = (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
+        .catch(error => {
+            next(error);
         })
 }
 
@@ -125,8 +125,8 @@ exports.insertNewMenu = async (req, res, next) => {
                     data: result
                 })
                 
-            }).catch(err => {
-                next(err);
+            }).catch(error => {
+                next(error);
             })
         } else if (menu) {
             res.json({
@@ -181,8 +181,8 @@ exports.updateDataMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
+        .catch(error => {
+            next(error);
         })
     } else if (!req.file) {
         Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
@@ -199,8 +199,8 @@ exports.updateDataMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
+        .catch(error => {
+            next(error);
         })
     }
 }
@@ -225,7 +225,7 @@ exports.deleteMenuById = async (req, res, next) => {
                 error: error
             })
         } else {
-            next(err);
+            next(error);
         }
     })
 }

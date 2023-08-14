@@ -7,8 +7,8 @@ exports.getAllKategoriMenu = (req, res, next) => {
             message: 'Data semua kategori menu berhasil dipanggil',
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -39,8 +39,8 @@ exports.insertKategoriMenu = async (req, res, next) => {
                     message: "Kategori menu berhasil ditambahkan",
                     data: result
                 })
-            }).catch(er => {
-                next(err);
+            }).catch(error => {
+                next(error);
             })
         } else if (ktMenu) {
             res.json({
@@ -71,8 +71,8 @@ exports.updateKategoriMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(err => {
-            next(err);
+        .catch(error => {
+            next(error);
         })
 }
 
@@ -84,8 +84,8 @@ exports.deleteKategoriMenuById = (req, res, next) => {
             message: "Berhasil menghapus kategori menu berdasarkan id",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -95,7 +95,7 @@ exports.deleteAllKategoriMenu = (req, res, next) => {
             message: "Berhasil menghapus semua kategori menu",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }

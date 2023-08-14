@@ -14,8 +14,8 @@ exports.getTransaksiHariIni = async (req, res, next) => {
             data: result
         })
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        next(error);
     })
 }
 
@@ -27,8 +27,8 @@ exports.getAllTransaksiPelanggan = async (req, res, next) => {
             data: result
         })
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        next(error);
     })
 }
 
@@ -42,8 +42,8 @@ exports.getDetailTransaksi = async (req, res, next) => {
             data: {result}
         })      
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        next(error);
     })
 }
 
@@ -56,8 +56,8 @@ exports.deleteAllTransaksi = async (req, res, next) => {
             message: 'Semua transaksi berhasil dihapus',
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -70,8 +70,8 @@ exports.deleteTransaksiById = async (req, res, next) => {
             message: 'Gagal menghapus, idTransaksi tidak ditemukan',
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -91,8 +91,8 @@ exports.updateStatusBayarCash = async (req, res, next) => {
             data: result
         })
     })
-    .catch(err => {
-        next(err);
+    .catch(error => {
+        next(error);
     })
 
     //mendefinisi var length looping untuk update otomatis stok menu

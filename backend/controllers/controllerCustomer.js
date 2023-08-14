@@ -7,8 +7,8 @@ exports.getAllCustomer = (req, res, next) => {
             message: "Berhasil memanggil semua data customer",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -20,8 +20,8 @@ exports.deleteCustomerById = (req, res, next) => {
             message: "Berhasil menghapus data customer berdasarkan id",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -31,7 +31,7 @@ exports.deleteAllCustomer = (req, res, next) => {
             message: "Berhasil menghapus semua data customer",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }

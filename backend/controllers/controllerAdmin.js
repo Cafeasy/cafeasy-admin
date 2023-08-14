@@ -37,8 +37,9 @@ exports.createAdmin = async (req, res, next) => {
     var idAdmin = "adm-" + uniqueid;
     var username = req.body.username;
 
+    try {
     //check username admin exist
-    const admin = await DataAdmin.findOne({username:username});
+        const admin = await DataAdmin.findOne({username:username});
         if(!admin){
             const dateTime = new Date().getTime();
             const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
@@ -76,8 +77,8 @@ exports.createAdmin = async (req, res, next) => {
                         message: "Berhasil mendaftar",
                         data: result
                     })
-                }).catch(err => {
-                    next(err);
+                }).catch(error => {
+                    next(error);
                 })
             })
         } else if (admin) {
@@ -85,6 +86,9 @@ exports.createAdmin = async (req, res, next) => {
                 message: "username sudah ada, coba username lain"
             })
         }
+    } catch (error) {
+        res.status(400).json({ message: "gagal register", data: error })
+    }
 }
 
 exports.getProfileAdmin = async (req, res, next) => {
@@ -96,8 +100,8 @@ exports.getProfileAdmin = async (req, res, next) => {
             message: "Data profil admin berhasil dipanggil",
             data: {result}
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -110,8 +114,8 @@ exports.getProfileAdminByName = async (req, res, next) => {
             message: "Data profil admin berdasarkan username gagal dipanggil",
             data: {result}
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -121,40 +125,44 @@ exports.loginAdmin = (req, res, next) => {
     // var username = "cafeasy123";
     // var password = "01122001";
 
-    DataAdmin.findOne({username: `${username}`})
-    .then(admin => {
-        if(admin) {
-            bcrypt.compare(password, admin.password, function(err, result) {
-                if(err) {
-                    res.json({
-                        error: err
-                    })
-                }
-                if(result) {
-                    // let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET, {expiresIn: '12h'});
-                    let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET);
-                    res.json({
-                        status:'ok',
-                        message: 'sukses',
-                        secretLogToken
-                    })
-                    // res
-                    // .status(200)
-                    // .cookie('token', token,{ httpOnly: true });
-                    // res.redirect("/")
-                } else {
-                    res.json({
-                        status:'failed',
-                        message: 'password salah!'
-                    })
-                }
-            })
-        } else {
-            res.json({
-                message: "username tidak ditemukan"
-            })
-        }
-    })
+    try {
+        DataAdmin.findOne({username: `${username}`})
+        .then(admin => {
+            if(admin) {
+                bcrypt.compare(password, admin.password, function(err, result) {
+                    if(err) {
+                        res.json({
+                            error: err
+                        })
+                    }
+                    if(result) {
+                        // let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET, {expiresIn: '12h'});
+                        let secretLogToken = jwt.sign({username: username, idAdmin: admin.idAdmin}, process.env.JWT_SECRET);
+                        res.json({
+                            status:'ok',
+                            message: 'sukses',
+                            secretLogToken
+                        })
+                        // res
+                        // .status(200)
+                        // .cookie('token', token,{ httpOnly: true });
+                        // res.redirect("/")
+                    } else {
+                        res.json({
+                            status:'failed',
+                            message: 'password salah!'
+                        })
+                    }
+                })
+            } else {
+                res.json({
+                    message: "username tidak ditemukan"
+                })
+            }
+        })
+    } catch (error) {
+        res.status(400).json({ message: "gagal login admin", data: error })
+    }
 }
 
 exports.logoutAdmin = (req,res,next) => {
@@ -216,8 +224,8 @@ exports.updateProfileAdmin = async (req, res, next) => {
                     data: result
                 })
             })
-            .catch(err => {
-                next(err);
+            .catch(error => {
+                next(error);
             })
         } else if (!req.file) {
             DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
@@ -237,8 +245,8 @@ exports.updateProfileAdmin = async (req, res, next) => {
                     data: result
                 })
             })
-            .catch(err => {
-                next(err);
+            .catch(error => {
+                next(error);
             })
         }
     // } else if (admin) {

@@ -19,8 +19,8 @@ exports.getAllBanner = (req, res, next) => {
             message: "Data semua banner berhasil dipanggil",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -31,8 +31,8 @@ exports.getBannerById = (req, res, next) => {
             message: "Data banner berdasarkan id berhasil dipanggil",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -76,8 +76,8 @@ exports.insertNewBanner = async (req, res, next) => {
             message: "Banner berhasil ditambahkan",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
