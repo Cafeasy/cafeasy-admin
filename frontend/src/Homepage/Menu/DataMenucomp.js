@@ -11,10 +11,9 @@ import { Toast } from "primereact/toast";
 import { Dialog } from "primereact/dialog";
 import { Toolbar } from "primereact/toolbar";
 import { InputTextarea } from "primereact/inputtextarea";
-import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
 import { Dropdown } from "primereact/dropdown";
-import { Menu } from "@mui/material";
+import { Card } from "primereact/card";
 
 const DEFAULT_MENU = {
   imageFile: "",
@@ -31,6 +30,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
   const [deleteMenuDialog, setDeleteMenuDialog] = useState(false);
   const [deleteAllDialog, setDeleteAllDialog] = useState(false);
   const [productDialog, setProductDialog] = useState(false);
+  const [detailDialog, setDetailDialog] = useState(false);
   const [menu, setMenu] = useState(DEFAULT_MENU);
   const [menus, setMenus] = useState([]);
 
@@ -43,10 +43,26 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
     setProductDialog(false);
   };
 
+  const hideDetailDialog = () => {
+    setDetailDialog(false);
+  };
+
   // open form
   const openForm = (selectedMenu = {}) => {
     setMenu((data) => ({ ...data, ...selectedMenu }));
     setProductDialog(true);
+  };
+
+  // open form
+  const openDetail = (selectedMenu = {}) => {
+    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setDetailDialog(true);
+  };
+
+  // confirm delete
+  const confirmDeleteSelected = (selectedMenu) => {
+    setMenu((data) => ({ ...data, ...selectedMenu }));
+    setDeleteMenuDialog(true);
   };
 
   // submit
@@ -168,11 +184,6 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
   const invoiceUploadHandler = (e) => {
     setMenu((data) => ({ ...data, imageFile: e.files[0] }));
   };
-  // confirm delete
-  const confirmDeleteSelected = (selectedMenu) => {
-    setMenu((data) => ({ ...data, ...selectedMenu }));
-    setDeleteMenuDialog(true);
-  };
 
   const confirmDeleteAll = () => {
     setDeleteAllDialog(true);
@@ -292,6 +303,20 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
     </React.Fragment>
   );
 
+  const detailDialogFooter = (
+    <React.Fragment>
+      <Button
+        label="Batal"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={() => {
+          hideDetailDialog();
+          setMenu(DEFAULT_MENU);
+        }}
+      />
+    </React.Fragment>
+  );
+
   const imageBody = (data) => (
     <img
       src={data.imageUrl}
@@ -330,7 +355,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
         <span className="p-input-icon-left search-i ">
           <i className="pi pi-search" />
           <InputText
-                    className="button-cari"
+            className="button-cari"
             type="search"
             onInput={(e) => setGlobalFilter(e.target.value)}
             placeholder="Cari..."
@@ -343,9 +368,18 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
   const actionTemplate = (menu) => (
     <>
       <Button
+        label="Detail"
+        className="mx-2"
+        icon="pi pi-info-circle"
+        severity="info"
+        rounded
+        onClick={() => openDetail(menu)}
+      />
+      <Button
         label="Edit"
         className="mx-2"
         icon="pi pi-pencil"
+        saverity="primary"
         rounded
         onClick={() => openForm(menu)}
       />
@@ -610,6 +644,24 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
               </span>
             </div>
           </Dialog>
+
+          <div className="card flex justify-content-center">
+            <Card
+              visible={detailDialog}
+              title="Title"
+              subTitle="Subtitle"
+              footer={detailDialogFooter}
+              header={imageBody}
+              className="md:w-25rem"
+            >
+              <p className="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Inventore sed consequuntur error repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa
+                ratione quam perferendis esse, cupiditate neque quas!
+              </p>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../Utils/Crud.css";
 import axios from "axios";
+import TransaksiPerhari from "./TransaksiPerhari";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
@@ -407,6 +408,8 @@ const DataTransaksicomp = ({ data = [] }) => {
               ></Column>
             </DataTable>
           </div>
+          <br></br>
+          <TransaksiPerhari />
 
           <ConfirmPopup
             visible={TransaksiDialog}
