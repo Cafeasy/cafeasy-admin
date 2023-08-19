@@ -180,10 +180,10 @@ exports.writeBookkeepingSpreadsheet = async (req, res) => {
     const data = req.body.data;
     const rangeSheet = 'Pembukuan Harian!A:Z';
     let dataHarian = [];
-    let tglCek, tgl, bln, tahun, tahunCek, blnCek, saveData;
-
+    let tglCek, tgl, bln, tahun, tahunCek, blnCek, saveData, tglCek2, blnCek2, tahunCek2, saveData2;
+    var count = 0;
     const spreadSheetHeader = ['Id Transaksi', 'Nama Pelanggan', 'Tanggal Transaksi', 'Total Pembayaran', 'Status Transaksi'];
-    let ssDateHeader = [];
+
     var totalPendapatan = 0;
     let dataSummary = [];
 
@@ -191,27 +191,39 @@ exports.writeBookkeepingSpreadsheet = async (req, res) => {
         const langganan = modusPelanggan(data).split("+");
         for (let i = 0; i < data.length; i++) {
             saveData = data[i][2].split("/");
-            tglCek = saveData[0];
-            blnCek = saveData[1];
-            tahunCek = saveData[2];
-            tahun = `${tglCek}/${blnCek}/${tahunCek}`;
-            if (tahun = "12/8/2023") {
+            if (data[i + 1] != null) {
+                saveData2 = data[i + 1][2].split("/");
+            } else {
+                saveData2 = data[i][2].split("/");
+            }
+            tglCek = parseInt(saveData[0], 10);
+            blnCek = parseInt(saveData[1], 10);
+            tahunCek = parseInt(saveData2[2], 10);
+            tglCek2 = parseInt(saveData2[0], 10);
+            blnCek2 = parseInt(saveData2[1], 10);
+            tahunCek2 = parseInt(saveData2[2], 10);
+            if (tglCek == tglCek2 && blnCek == blnCek2 && tahunCek == tahunCek2) {
                 dataHarian.push(data[i]);
+                count = count + 1;
+            } else {
+                tahun = `${tglCek}/${blnCek}/${tahunCek}`;
                 tgl = tahun;
+                dataHarian.splice(dataHarian.length - count, 0, ["Data Transaksi Pada Tanggal " + tgl]);
+                dataHarian.splice(dataHarian.length - count, 0, spreadSheetHeader);
+                dataHarian.push(data[i]);
+                count = 0;
             }
             totalPendapatan = parseFloat(data[i][3]) + totalPendapatan;
         }
-        dataHarian.unshift(spreadSheetHeader);
-        ssDateHeader.push("Data Transaksi Pada Tanggal " + tgl)
-        dataHarian.unshift(ssDateHeader);
-        dataSummary.push(['Summary Bookkeeping'], ["Total Pendapatan", totalPendapatan], ["Pelanggan Paling Sering Memesan", langganan[0].toString()], [`Total Pelanggan ${langganan[0]} Melakukan Pemesanan`, langganan[1]])
-        const response = await _writeSpreadsheet(client, spreadsheetId, rangeSheet, dataHarian);
-        const responseSummary = await pembukuanHarian(client, spreadsheetId, bookkeepingRange, dataSummary);
-        res.status(200).json({ message: "Success Create New Spreadsheet", data: { dataTransaksi: JSON.stringify(response), dataSummmary: JSON.stringify(responseSummary) } });
+        dataSummary.push(['Summary Bookkeeping'], ["Total Pendapatan", "=", totalPendapatan], ["Pelanggan Paling Sering Memesan", "=", langganan[0].toString()], [`Total Pelanggan ${langganan[0]} Melakukan Pemesanan`, "=", langganan[1]])
+        await _writeSpreadsheet(client, spreadsheetId, rangeSheet, dataHarian);
+        await pembukuanHarian(client, spreadsheetId, bookkeepingRange, dataSummary);
+        res.status(200).json({
+            message: "OK"
+        });
     } catch (err) {
         res.status(400).json({ message: "Failed Insert data", data: err })
     }
-
 
 }
 exports.readSpreadsheets = async (req, res) => {
