@@ -14,14 +14,19 @@ initializeApp(config.firebaseConfig);
 const storage = getStorage();
 
 exports.getAllBanner = (req, res, next) => {
-    dataBanner.find({}).then(result => {
-        res.status(200).json({
-            message: "Data semua banner berhasil dipanggil",
-            data: result
+
+    try {
+        dataBanner.find({}).then(result => {
+            res.status(200).json({
+                message: "Data semua banner berhasil dipanggil",
+                data: result
+            })
+        }).catch(error => {
+            next(error);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch (error) {
+        res.status(401).send({ message: "gagal mengambil data banner", data: error });
+    }
 }
 
 exports.getBannerById = (req, res, next) => {
@@ -31,8 +36,8 @@ exports.getBannerById = (req, res, next) => {
             message: "Data banner berdasarkan id berhasil dipanggil",
             data: result
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -78,11 +83,11 @@ exports.insertNewBanner = async (req, res, next) => {
                 message: "Banner berhasil ditambahkan",
                 data: result
             })
-        }).catch(err => {
-            next(err);
+        }).catch(error => {
+            next(error);
         })
-    } catch (err) {
-        res.status(401).send({ message: "error", data: err });
+    } catch (error) {
+        res.status(401).send({ message: "gagal insert banner", data: error });
     }
 }
 
@@ -90,40 +95,49 @@ exports.deleteBannerById = async (req, res, next) => {
     const idBanner = req.params.idBanner;
     const storageRef = ref(storage, `bannerPict/${idBanner}`);
 
-    getDownloadURL(storageRef).then(() => {
-        deleteObject(storageRef);
-        dataBanner.deleteOne({idBanner: `${idBanner}`}).then(result => {
-            res.status(200).json({
-                message: "Berhasil menghapus banner berdasarkan id",
-                data: result
+    try {
+        getDownloadURL(storageRef).then(() => {
+            deleteObject(storageRef);
+            dataBanner.deleteOne({idBanner: `${idBanner}`}).then(result => {
+                res.status(200).json({
+                    message: "Berhasil menghapus banner berdasarkan id",
+                    data: result
+                })
             })
+        }).catch(error => {
+            if(error.code === 'storage/object-not-found'){
+                res.status(404).json({
+                    message: "Gagal menghapus banner berdasarkan id, gambar tidak terdapat pada cloud storage",
+                    error: error
+                })
+            } else {
+                next(error);
+            }
         })
-    }).catch(error => {
-        if(error.code === 'storage/object-not-found'){
-            res.status(404).json({
-                message: "Gagal menghapus banner berdasarkan id, gambar tidak terdapat pada cloud storage",
-                error: error
-            })
-        } else {
-            next(error);
-        }
-    })
+    } catch (error) {
+        res.status(401).send({ message: "gagal hapus banner", data: error });
+    }
 }
 
 exports.deleteAllBanner = async (req, res, next) => {
     const storageRef = ref(storage, `bannerPict/`);
-    listAll(storageRef).then((listResults) => {
-        const promises = listResults.items.map((item) => {
-          return deleteObject(item);
-        });
-        Promise.all(promises);
-        dataBanner.deleteMany({}).then(result => {
-            res.status(200).json({
-                message: "Berhasil menghapus semua banner",
-                data: result
+
+    try{
+        listAll(storageRef).then((listResults) => {
+            const promises = listResults.items.map((item) => {
+            return deleteObject(item);
+            });
+            Promise.all(promises);
+            dataBanner.deleteMany({}).then(result => {
+                res.status(200).json({
+                    message: "Berhasil menghapus semua banner",
+                    data: result
+                })
             })
+        }).catch(err => {
+            next(err);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch (error) {
+        res.status(401).send({ message: "gagal hapus banner", data: error });
+    }
 }

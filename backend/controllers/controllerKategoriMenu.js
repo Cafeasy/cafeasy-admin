@@ -2,14 +2,19 @@ const kategoriMenu = require("../models/modelKategoriMenu");
 const {validationResult} = require('express-validator');
 
 exports.getAllKategoriMenu = (req, res, next) => {
-    kategoriMenu.find({}).then(result => {
-        res.status(200).json({
-            message: 'Data semua kategori menu berhasil dipanggil',
-            data: result
+
+    try {
+        kategoriMenu.find({}).then(result => {
+            res.status(200).json({
+                message: 'Data semua kategori menu berhasil dipanggil',
+                data: result
+            })
+        }).catch(error => {
+            next(error);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch (error) {
+        res.status(401).send({ message: "gagal mengambil data kategori", data: error });
+    }
 }
 
 exports.insertKategoriMenu = async (req, res, next) => {
@@ -41,16 +46,16 @@ exports.insertKategoriMenu = async (req, res, next) => {
                         message: "Kategori menu berhasil ditambahkan",
                         data: result
                     })
-                }).catch(err => {
-                    next(err);
+                }).catch(error => {
+                    next(error);
                 })
             } else if (ktMenu) {
                 res.json({
                     message: "Nama kategori menu sudah ada, coba nama lain"
                 })
             }
-    } catch (err) {
-        res.status(401).send({ message: "error", data: err });
+    } catch (error) {
+        res.status(401).send({ message: "gagal insert kategori", data: error });
     }
 }
 
@@ -66,41 +71,55 @@ exports.updateKategoriMenu = async (req, res, next) => {
     const idKategori = req.params.idKategori;
     const namaKategori = req.body.namaKategori;
 
-    kategoriMenu.findOneAndUpdate({idKategori: `${idKategori}`}, 
-    { $set: { 
-        namaKategori: `${namaKategori}`
-        } }, { new: true })
-        .then(result => {
-            res.status(200).json({
-                message: 'Berhasil update data kategori menu',
-                data: result
+    try {
+
+        kategoriMenu.findOneAndUpdate({idKategori: `${idKategori}`}, 
+        { $set: { 
+            namaKategori: `${namaKategori}`
+            } }, { new: true })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Berhasil update data kategori menu',
+                    data: result
+                })
             })
-        })
-        .catch(err => {
-            next(err);
-        })
+            .catch(error => {
+                next(error);
+            })
+    } catch (error) {
+        res.status(401).send({ message: "gagal update kategori", data: error });
+    }
 }
 
 exports.deleteKategoriMenuById = (req, res, next) => {
     const idKategori = req.params.idKategori;
-
-    kategoriMenu.deleteOne({idKategori: `${idKategori}`}).then(result => {
-        res.status(200).json({
-            message: "Berhasil menghapus kategori menu berdasarkan id",
-            data: result
+    
+    try {
+        kategoriMenu.deleteOne({idKategori: `${idKategori}`}).then(result => {
+            res.status(200).json({
+                message: "Berhasil menghapus kategori menu berdasarkan id",
+                data: result
+            })
+        }).catch(error => {
+            next(error);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch (error) {
+        res.status(401).send({ message: "gagal hapus kategori", data: error });
+    }
 }
 
 exports.deleteAllKategoriMenu = (req, res, next) => {
-    kategoriMenu.deleteMany({}).then(result => {
-        res.status(200).json({
-            message: "Berhasil menghapus semua kategori menu",
-            data: result
+
+    try {
+        kategoriMenu.deleteMany({}).then(result => {
+            res.status(200).json({
+                message: "Berhasil menghapus semua kategori menu",
+                data: result
+            })
+        }).catch(error => {
+            next(error);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch(error) {
+        res.status(401).send({ message: "gagal hapus kategori", data: error });
+    }
 }

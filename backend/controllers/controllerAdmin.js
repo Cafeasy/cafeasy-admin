@@ -77,8 +77,8 @@ exports.createAdmin = async (req, res, next) => {
                         message: "Berhasil mendaftar",
                         data: result
                     })
-                }).catch(err => {
-                    next(err);
+                }).catch(error => {
+                    next(error);
                 })
             })
         } else if (admin) {
@@ -94,15 +94,20 @@ exports.createAdmin = async (req, res, next) => {
 exports.getProfileAdmin = (req, res, next) => {
     const idAdmin = req.params.idAdmin;
 
-    DataAdmin.find({idAdmin: `${idAdmin}`})
-    .then(result => {
-        res.status(200).json({
-            message: "Data profil admin berhasil dipanggil",
-            data: {result}
+    try {
+
+        DataAdmin.find({idAdmin: `${idAdmin}`})
+        .then(result => {
+            res.status(200).json({
+                message: "Data profil admin berhasil dipanggil",
+                data: {result}
+            })
+        }).catch(error => {
+            next(error);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch (error) {
+        res.status(400).json({ message: "gagal memanggil data admin", data: error })
+    }
 }
 
 exports.getProfileAdminByName = (req, res, next) => {
@@ -114,8 +119,8 @@ exports.getProfileAdminByName = (req, res, next) => {
             message: "Data profil admin berdasarkan username gagal dipanggil",
             data: {result}
         })
-    }).catch(err => {
-        next(err);
+    }).catch(error => {
+        next(error);
     })
 }
 
@@ -225,8 +230,8 @@ exports.updateProfileAdmin = async (req, res, next) => {
                         data: result
                     })
                 })
-                .catch(err => {
-                    next(err);
+                .catch(error => {
+                    next(error);
                 })
             } else if (!req.file) {
                 DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
@@ -246,12 +251,12 @@ exports.updateProfileAdmin = async (req, res, next) => {
                         data: result
                     })
                 })
-                .catch(err => {
-                    next(err);
+                .catch(error => {
+                    next(error);
                 })
             }
-        } catch (err) {
-            res.status(401).send({ message: "error", data: err });
+        } catch (error) {
+            res.status(401).send({ message: "error", data: error });
         }
     // } else if (admin) {
     //     res.status(400).json({

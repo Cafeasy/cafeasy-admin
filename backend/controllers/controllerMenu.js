@@ -14,29 +14,41 @@ initializeApp(config.firebaseConfig);
 const storage = getStorage();
 
 exports.getAllMenu = (req, res, next) => {
-    Menu.find({}).then(result => {
-        res.status(200).json({
-            message: 'Data semua menu berhasil dipanggil',
-            data: result
-        })
-    }).catch(err => {
-        next(err);
-    })
-}
 
-exports.getAvailableMenu = (req, res, next) => {
-    Menu.find({ stokMenu: {$gt: 0} })
-        .then(result => {
+    try {
+        Menu.find({}).then(result => {
             res.status(200).json({
-                message: 'Data menu available berhasil dipanggil',
+                message: 'Data semua menu berhasil dipanggil',
                 data: result
             })
         }).catch(err => {
             next(err);
         })
+    } catch(error) {
+        res.status(401).send({ message: "gagal mengambil data menu", data: error });
+    }
+}
+
+exports.getAvailableMenu = (req, res, next) => {
+
+    try {
+        Menu.find({ stokMenu: {$gt: 0} })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Data menu available berhasil dipanggil',
+                    data: result
+                })
+            }).catch(err => {
+                next(err);
+            })
+    } catch (error) {
+        res.status(401).send({ message: "gagal mengambil data menu", data: error });
+    }
 }
 
 exports.getNotAvailableMenu = (req, res, next) => {
+
+    try {
     Menu.find({ stokMenu: {$lt: 1} })
         .then(result => {
             res.status(200).json({
@@ -46,34 +58,47 @@ exports.getNotAvailableMenu = (req, res, next) => {
         }).catch(err => {
             next(err);
         })
+    } catch(error) {
+        res.status(401).send({ message: "gagal mengambil data menu", data: error });
+    }
 }
 
 exports.getMenuByCategory = (req, res, next) => {
     const kategoriMenu = req.params.kategoriMenu;
-    Menu.find({ kategoriMenu: `${kategoriMenu}` })
-        .then(result => {
-                res.status(200).json({
-                    message: 'Data menu berdasarkan kategori berhasil dipanggil',
-                    data: result
-                })
-        })
-        .catch(err => {
-            next(err);
-        })
+
+    try{
+        Menu.find({ kategoriMenu: `${kategoriMenu}` })
+            .then(result => {
+                    res.status(200).json({
+                        message: 'Data menu berdasarkan kategori berhasil dipanggil',
+                        data: result
+                    })
+            })
+            .catch(err => {
+                next(err);
+            })
+    } catch (error) {
+        res.status(401).send({ message: "gagal mengambil data menu", data: error });
+    }
 }
 
 exports.getMenuDetail = (req, res, next) => {
     const idMenu = req.params.idMenu;
-    Menu.find({ idMenu: `${idMenu}` })
-        .then(result => {
-            res.status(200).json({
-                message: 'Data detail menu berhasil dipanggil',
-                data: result
+
+    try {
+        Menu.find({ idMenu: `${idMenu}` })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Data detail menu berhasil dipanggil',
+                    data: result
+                })
             })
-        })
-        .catch(err => {
-            next(err);
-        })
+            .catch(err => {
+                next(err);
+            })
+    } catch (error) {
+        res.status(401).send({ message: "gagal mengambil data menu", data: error });
+    }
 }
 
 exports.insertNewMenu = async (req, res, next) => { 
@@ -135,7 +160,7 @@ exports.insertNewMenu = async (req, res, next) => {
                 })
         }
     } catch (err) {
-        res.status(401).send({ message: "error", data: err });
+        res.status(401).send({ message: "gagal insert menu", data: err });
     }
 }
 
@@ -209,7 +234,7 @@ exports.updateDataMenu = async (req, res, next) => {
             })
         }
     } catch (err) {
-        res.status(401).send({ message: "error", data: err });
+        res.status(401).send({ message: "gagal update menu", data: err });
     }
 }
 
@@ -218,40 +243,49 @@ exports.deleteMenuById = async (req, res, next) => {
 
     const storageRef = ref(storage, `menuPict/${idMenu}`);
 
-    getDownloadURL(storageRef).then(() => {
-        deleteObject(storageRef);
-        Menu.deleteOne({idMenu: `${idMenu}`}).then(result => {
-            res.status(200).json({
-                message: "Berhasil menghapus menu",
-                data: result
+    try {
+        getDownloadURL(storageRef).then(() => {
+            deleteObject(storageRef);
+            Menu.deleteOne({idMenu: `${idMenu}`}).then(result => {
+                res.status(200).json({
+                    message: "Berhasil menghapus menu",
+                    data: result
+                })
             })
+        }).catch(error => {
+            if(error.code === 'storage/object-not-found'){
+                res.status(404).json({
+                    message: "Gagal menghapus menu",
+                    error: error
+                })
+            } else {
+                next(error);
+            }
         })
-    }).catch(error => {
-        if(error.code === 'storage/object-not-found'){
-            res.status(404).json({
-                message: "Gagal menghapus menu",
-                error: error
-            })
-        } else {
-            next(error);
-        }
-    })
+    } catch(error) {
+        res.status(401).send({ message: "gagal menghapus menu", data: error });
+    }
 }
 
 exports.deleteAllMenu = async (req, res, next) => {
     const storageRef = ref(storage, `menuPict/`);
-    listAll(storageRef).then((listResults) => {
-        const promises = listResults.items.map((item) => {
-          return deleteObject(item);
-        });
-        Promise.all(promises);
-        Menu.deleteMany({}).then(result => {
-            res.status(200).json({
-                message: "Berhasil menghapus semua menu",
-                data: result
+
+    try{
+        listAll(storageRef).then((listResults) => {
+            const promises = listResults.items.map((item) => {
+            return deleteObject(item);
+            });
+            Promise.all(promises);
+            Menu.deleteMany({}).then(result => {
+                res.status(200).json({
+                    message: "Berhasil menghapus semua menu",
+                    data: result
+                })
             })
+        }).catch(err => {
+            next(err);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch(error) {
+        res.status(401).send({ message: "gagal menghapus menu", data: error });
+    }
 }

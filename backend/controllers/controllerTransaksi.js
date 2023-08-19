@@ -20,64 +20,80 @@ exports.getTransaksiHariIni = (req, res, next) => {
             next(err);
         })
     } catch (error) {
-        res.status(401).send({ message: "error", data: error });
+        res.status(401).send({ message: "gagal mengambil data transakasi", data: error });
     }
 }
 
 exports.getAllTransaksiPelanggan = (req, res, next) => {
-    TransaksiPelanggan.find({})
-    .then(result => {
-        res.status(200).json({
-            message: 'Semua data transaksi berhasil dipanggil',
-            data: result
+
+    try {
+        TransaksiPelanggan.find({})
+        .then(result => {
+            res.status(200).json({
+                message: 'Semua data transaksi berhasil dipanggil',
+                data: result
+            })
         })
-    })
-    .catch(err => {
-        next(err);
-    })
+        .catch(err => {
+            next(err);
+        })
+    } catch (error) {
+        res.status(401).send({ message: "gagal mengambil data transakasi", data: error });
+    }
 }
 
 exports.getDetailTransaksi = (req, res, next) => {
     const idTransaksi = req.params.idTransaksi;
-    
-    TransaksiPelanggan.find({idTransaksi: `${idTransaksi}`})
-    .then((result) => {
-        return res.status(200).json({
-            message: 'Data detail transaksi berhasil dipanggil',
-            data: {result}
-        })      
-    })
-    .catch(err => {
-        next(err);
-    })
+
+    try {
+        TransaksiPelanggan.find({idTransaksi: `${idTransaksi}`})
+        .then((result) => {
+            return res.status(200).json({
+                message: 'Data detail transaksi berhasil dipanggil',
+                data: {result}
+            })      
+        })
+        .catch(err => {
+            next(err);
+        })
+    } catch(error) {
+        res.status(401).send({ message: "gagal mengambil data transakasi", data: error });
+    }
 }
 
 exports.deleteAllTransaksi = (req, res, next) => {
     // const idTransaksi = req.params.idTransaksi;
-
-    TransaksiPelanggan.deleteMany({})
-    .then(result => {
-        res.status(200).json({
-            message: 'Semua transaksi berhasil dihapus',
-            data: result
+    try{
+        TransaksiPelanggan.deleteMany({})
+        .then(result => {
+            res.status(200).json({
+                message: 'Semua transaksi berhasil dihapus',
+                data: result
+            })
+        }).catch(err => {
+            next(err);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch(error) {
+        res.status(401).send({ message: "gagal menghapus data transakasi", data: error });
+    }
 }
 
 exports.deleteTransaksiById = (req, res, next) => {
     const idTransaksi = req.params.idTransaksi;
 
-    TransaksiPelanggan.deleteOne({idTransaksi: `${idTransaksi}`})
-    .then(result => {
-        res.status(404).json({
-            message: 'Gagal menghapus, idTransaksi tidak ditemukan',
-            data: result
+    try {
+        TransaksiPelanggan.deleteOne({idTransaksi: `${idTransaksi}`})
+        .then(result => {
+            res.status(404).json({
+                message: 'Gagal menghapus, idTransaksi tidak ditemukan',
+                data: result
+            })
+        }).catch(err => {
+            next(err);
         })
-    }).catch(err => {
-        next(err);
-    })
+    } catch (error) {
+        res.status(401).send({ message: "gagal menghapus transakasi", data: error });
+    }
 }
 
 exports.updateStatusBayarCash = async (req, res, next) => {
@@ -127,7 +143,7 @@ exports.updateStatusBayarCash = async (req, res, next) => {
                 {new: true}
                 )
         }
-    } catch (err) {
-        res.status(401).send({ message: "error", data: err });
+    } catch (error) {
+        res.status(401).send({ message: "gagal menghapus transakasi", data: error });
     }
 }
