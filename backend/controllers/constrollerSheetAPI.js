@@ -13,7 +13,7 @@ const spreadsheetId = process.env.SPREADSHEET_ID;
 const bookkeepingRange = process.env.BOOKKEEPING_SS_RANGE;
 async function authentication() {
     const auth = new google.auth.GoogleAuth({
-        keyFile: '../backend/credentials.json',
+        keyFile: 'credentials.json',
         scopes: SCOPES,
     });
     const authClient = await auth.getClient();

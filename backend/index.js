@@ -63,4 +63,4 @@ app.use((err, req, res, next) => {
   })
 
 app.listen(port, () => console.log(`Listenting on port ${port}..., server up n running`));
-app.use("/", router);
+app.use("/api", router);
