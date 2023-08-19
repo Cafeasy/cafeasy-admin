@@ -98,5 +98,5 @@ router.delete('/deleteAllBanner', bannerController.deleteAllBanner);
 router.get('/getSpreadsheet', Spreadsheet.getSpreadsheet);
 router.get('/readSpreadsheet', Spreadsheet.readSpreadsheets);
 router.post('/createNewSpreadsheet', Spreadsheet.createSpreadsheet);
-router.post('/writeSpreadsheet', Spreadsheet.writeSpreadsheet);
+router.post('/writeSpreadsheet', Spreadsheet.writeBookkeepingSpreadsheet);
 module.exports = router;

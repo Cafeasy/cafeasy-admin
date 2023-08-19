@@ -113,24 +113,24 @@ const DataTransaksicomp = ({ data = [] }) => {
   };
 
   const exportSpreadsheet = async () => {
-    let dat1;
-    let dataPesana = [];
-    for (var i = 0; i < dataTransaksi.length; i++) {
-      dataTransaksi.map((value) => {
-        dataPesana.push([
-          value.idTransaksi,
-          value.namaPelanggan,
-          value.tanggal,
-          value.totalHarga,
-          value.statusBayar,])
-      });
-    }
-    dat1 = {
-      data: dataPesana
-    };
+    let data1;
+    let dataPesanan = [];
 
+    dataTransaksi.map((value) => {
+      dataPesanan.push([
+        value.idTransaksi,
+        value.namaPelanggan,
+        value.tanggal,
+        value.totalHarga,
+        value.statusBayar,])
+    });
+
+    data1 = {
+      data: dataPesanan
+    };
+    console.log(data1);
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, dat1)
+      .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, data1)
       .then(() => {
         var win = window.open(
           "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",

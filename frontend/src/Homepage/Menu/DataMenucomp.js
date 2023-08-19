@@ -113,7 +113,7 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
       await axios
         .post(`${process.env.REACT_APP_API_URL}/insertMenu/`, formData)
         .then((response) => {
-     
+
           setMenus((prevData) => [...prevData, response.data.data]);
           setProductDialog(false);
           toast.current.show({
@@ -137,31 +137,22 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
   const EksporToSpreadsheet = async () => {
     let dataMenuArray = [];
     let data;
-    dataMenuArray[0] = [
-      "Id Menu",
-      "Nama Menu",
-      "Deskripsi Menu",
-      "Harga Menu",
-      "Stok Menu",
-      "Image",
-    ];
-    const sheetName = "Data Menu";
-    for (var i = 0; i < menus.length; i++) {
-      menus.map((value) => {
-        dataMenuArray.push([
-          value.idMenu,
-          value.namaMenu,
-          value.deskripsiMenu,
-          value.hargaMenu,
-          value.stokMenu,
-          value.imageUrl,
-        ]);
-      });
-    }
 
+    const sheetName = "Data Menu";
+
+    menus.map((value) => {
+      dataMenuArray.push([
+        value.idMenu,
+        value.namaMenu,
+        value.deskripsiMenu,
+        value.hargaMenu,
+        value.stokMenu,
+        value.updatedAt.substring(0, 10) + " : " + value.updatedAt.substring(11, 16),
+      ]);
+    });
 
     data = { sheetName: sheetName, data: dataMenuArray };
-
+  
     await axios
       .post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data)
       .then(() => {
