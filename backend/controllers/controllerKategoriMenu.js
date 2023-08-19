@@ -7,8 +7,8 @@ exports.getAllKategoriMenu = (req, res, next) => {
             message: 'Data semua kategori menu berhasil dipanggil',
             data: result
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -27,26 +27,31 @@ exports.insertKategoriMenu = async (req, res, next) => {
     var idKategori = "kt-" + uniqueid;
     var namaKategori = req.body.namaKategori;
 
-    const ktMenu = await kategoriMenu.findOne({namaKategori: namaKategori})
-        if(!ktMenu) {
-            const insertKategoriMenu = new kategoriMenu({
-                idKategori: idKategori,
-                namaKategori: namaKategori,
-            })
-        
-            insertKategoriMenu.save().then(result => {
-                res.status(200).json({
-                    message: "Kategori menu berhasil ditambahkan",
-                    data: result
+    try {
+
+        const ktMenu = await kategoriMenu.findOne({namaKategori: namaKategori})
+            if(!ktMenu) {
+                const insertKategoriMenu = new kategoriMenu({
+                    idKategori: idKategori,
+                    namaKategori: namaKategori,
                 })
-            }).catch(error => {
-                next(error);
-            })
-        } else if (ktMenu) {
-            res.json({
-                message: "Nama kategori menu sudah ada, coba nama lain"
-            })
-        }
+            
+                insertKategoriMenu.save().then(result => {
+                    res.status(200).json({
+                        message: "Kategori menu berhasil ditambahkan",
+                        data: result
+                    })
+                }).catch(err => {
+                    next(err);
+                })
+            } else if (ktMenu) {
+                res.json({
+                    message: "Nama kategori menu sudah ada, coba nama lain"
+                })
+            }
+    } catch (err) {
+        res.status(401).send({ message: "error", data: err });
+    }
 }
 
 exports.updateKategoriMenu = async (req, res, next) => {
@@ -71,8 +76,8 @@ exports.updateKategoriMenu = async (req, res, next) => {
                 data: result
             })
         })
-        .catch(error => {
-            next(error);
+        .catch(err => {
+            next(err);
         })
 }
 
@@ -84,8 +89,8 @@ exports.deleteKategoriMenuById = (req, res, next) => {
             message: "Berhasil menghapus kategori menu berdasarkan id",
             data: result
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -95,7 +100,7 @@ exports.deleteAllKategoriMenu = (req, res, next) => {
             message: "Berhasil menghapus semua kategori menu",
             data: result
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }

@@ -19,8 +19,8 @@ exports.getAllBanner = (req, res, next) => {
             message: "Data semua banner berhasil dipanggil",
             data: result
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -31,8 +31,8 @@ exports.getBannerById = (req, res, next) => {
             message: "Data banner berdasarkan id berhasil dipanggil",
             data: result
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -61,24 +61,29 @@ exports.insertNewBanner = async (req, res, next) => {
         contentType: req.file.mimetype,
     };
 
-    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-    const downloadURL = await getDownloadURL(snapshot.ref);
+    try {
 
-    const insertNewBanner = new dataBanner({
-        idBanner: idBanner,
-        namaBanner: req.body.namaBanner,
-        image: `bannerPict/${idBanner}`,
-        imageUrl: downloadURL
-    })
+        const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+        const downloadURL = await getDownloadURL(snapshot.ref);
 
-    insertNewBanner.save().then(result => {
-        res.status(200).json({
-            message: "Banner berhasil ditambahkan",
-            data: result
+        const insertNewBanner = new dataBanner({
+            idBanner: idBanner,
+            namaBanner: req.body.namaBanner,
+            image: `bannerPict/${idBanner}`,
+            imageUrl: downloadURL
         })
-    }).catch(error => {
-        next(error);
-    })
+
+        insertNewBanner.save().then(result => {
+            res.status(200).json({
+                message: "Banner berhasil ditambahkan",
+                data: result
+            })
+        }).catch(err => {
+            next(err);
+        })
+    } catch (err) {
+        res.status(401).send({ message: "error", data: err });
+    }
 }
 
 exports.deleteBannerById = async (req, res, next) => {
@@ -118,7 +123,7 @@ exports.deleteAllBanner = async (req, res, next) => {
                 data: result
             })
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }

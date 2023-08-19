@@ -77,8 +77,8 @@ exports.createAdmin = async (req, res, next) => {
                         message: "Berhasil mendaftar",
                         data: result
                     })
-                }).catch(error => {
-                    next(error);
+                }).catch(err => {
+                    next(err);
                 })
             })
         } else if (admin) {
@@ -91,7 +91,7 @@ exports.createAdmin = async (req, res, next) => {
     }
 }
 
-exports.getProfileAdmin = async (req, res, next) => {
+exports.getProfileAdmin = (req, res, next) => {
     const idAdmin = req.params.idAdmin;
 
     DataAdmin.find({idAdmin: `${idAdmin}`})
@@ -100,12 +100,12 @@ exports.getProfileAdmin = async (req, res, next) => {
             message: "Data profil admin berhasil dipanggil",
             data: {result}
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
-exports.getProfileAdminByName = async (req, res, next) => {
+exports.getProfileAdminByName = (req, res, next) => {
     const username = req.params.username;
 
     DataAdmin.find({username: `${username}`})
@@ -114,8 +114,8 @@ exports.getProfileAdminByName = async (req, res, next) => {
             message: "Data profil admin berdasarkan username gagal dipanggil",
             data: {result}
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -191,63 +191,67 @@ exports.updateProfileAdmin = async (req, res, next) => {
 
     // const admin = await DataAdmin.find({username: username});
     // if(!admin) {
-        if(req.file) {
-            const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
-            deleteObject(storageRef);
-        
-            const metadata = {
-                contentType: req.file.mimetype,
-            };
-        
-            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-            const downloadURL = await getDownloadURL(snapshot.ref);
-        
-            const image = `profilePictAdmin/${idAdmin}`;
-            const imageUrl = downloadURL;
+        try {
+            if(req.file) {
+                const storageRef = ref(storage, `profilePictAdmin/${idAdmin}`);
+                deleteObject(storageRef);
+            
+                const metadata = {
+                    contentType: req.file.mimetype,
+                };
+            
+                const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+                const downloadURL = await getDownloadURL(snapshot.ref);
+            
+                const image = `profilePictAdmin/${idAdmin}`;
+                const imageUrl = downloadURL;
 
-            DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
-            { $set: { 
-                emailCafe: `${emailCafe}`, 
-                username: `${username}`, 
-                password: `${password}`,
-                namaCafe: `${namaCafe}`,
-                alamatCafe: `${alamatCafe}`,
-                deskripsiCafe: `${deskripsiCafe}`,
-                namaPemilikCafe: `${namaPemilikCafe}`,
-                noHpCafe: `${noHpCafe}`,
-                image: `${image}`,
-                imageUrl: `${imageUrl}`
-            } }, { new: true })
-            .then(result => {
-                res.status(200).json({
-                    message: 'Berhasil update data profile admin',
-                    data: result
+                DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
+                { $set: { 
+                    emailCafe: `${emailCafe}`, 
+                    username: `${username}`, 
+                    password: `${password}`,
+                    namaCafe: `${namaCafe}`,
+                    alamatCafe: `${alamatCafe}`,
+                    deskripsiCafe: `${deskripsiCafe}`,
+                    namaPemilikCafe: `${namaPemilikCafe}`,
+                    noHpCafe: `${noHpCafe}`,
+                    image: `${image}`,
+                    imageUrl: `${imageUrl}`
+                } }, { new: true })
+                .then(result => {
+                    res.status(200).json({
+                        message: 'Berhasil update data profile admin',
+                        data: result
+                    })
                 })
-            })
-            .catch(error => {
-                next(error);
-            })
-        } else if (!req.file) {
-            DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
-            { $set: { 
-                emailCafe: `${emailCafe}`, 
-                username: `${username}`, 
-                password: `${password}`,
-                namaCafe: `${namaCafe}`,
-                alamatCafe: `${alamatCafe}`,
-                deskripsiCafe: `${deskripsiCafe}`,
-                namaPemilikCafe: `${namaPemilikCafe}`,
-                noHpCafe: `${noHpCafe}`
-            } }, { new: true })
-            .then(result => {
-                res.status(200).json({
-                    message: 'Berhasil update data profile admin',
-                    data: result
+                .catch(err => {
+                    next(err);
                 })
-            })
-            .catch(error => {
-                next(error);
-            })
+            } else if (!req.file) {
+                DataAdmin.findOneAndUpdate({idAdmin: `${idAdmin}`}, 
+                { $set: { 
+                    emailCafe: `${emailCafe}`, 
+                    username: `${username}`, 
+                    password: `${password}`,
+                    namaCafe: `${namaCafe}`,
+                    alamatCafe: `${alamatCafe}`,
+                    deskripsiCafe: `${deskripsiCafe}`,
+                    namaPemilikCafe: `${namaPemilikCafe}`,
+                    noHpCafe: `${noHpCafe}`
+                } }, { new: true })
+                .then(result => {
+                    res.status(200).json({
+                        message: 'Berhasil update data profile admin',
+                        data: result
+                    })
+                })
+                .catch(err => {
+                    next(err);
+                })
+            }
+        } catch (err) {
+            res.status(401).send({ message: "error", data: err });
         }
     // } else if (admin) {
     //     res.status(400).json({

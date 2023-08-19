@@ -19,8 +19,8 @@ exports.getAllMenu = (req, res, next) => {
             message: 'Data semua menu berhasil dipanggil',
             data: result
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }
 
@@ -31,8 +31,8 @@ exports.getAvailableMenu = (req, res, next) => {
                 message: 'Data menu available berhasil dipanggil',
                 data: result
             })
-        }).catch(error => {
-            next(error);
+        }).catch(err => {
+            next(err);
         })
 }
 
@@ -43,8 +43,8 @@ exports.getNotAvailableMenu = (req, res, next) => {
                 message: 'Data menu not available berhasil dipanggil',
                 data: result
             })
-        }).catch(error => {
-            next(error);
+        }).catch(err => {
+            next(err);
         })
 }
 
@@ -57,8 +57,8 @@ exports.getMenuByCategory = (req, res, next) => {
                     data: result
                 })
         })
-        .catch(error => {
-            next(error);
+        .catch(err => {
+            next(err);
         })
 }
 
@@ -71,8 +71,8 @@ exports.getMenuDetail = (req, res, next) => {
                 data: result
             })
         })
-        .catch(error => {
-            next(error);
+        .catch(err => {
+            next(err);
         })
 }
 
@@ -97,42 +97,46 @@ exports.insertNewMenu = async (req, res, next) => {
     var idMenu = "menu-" + uniqueid;
     var namaMenu = req.body.namaMenu;
 
-    const menu = await Menu.findOne({namaMenu: namaMenu})
-        if(!menu) {
-            const storageRef = ref(storage, `menuPict/${idMenu}`);
+    try {
+        const menu = await Menu.findOne({namaMenu: namaMenu})
+            if(!menu) {
+                const storageRef = ref(storage, `menuPict/${idMenu}`);
 
-            const metadata = {
-                contentType: req.file.mimetype,
-            };
+                const metadata = {
+                    contentType: req.file.mimetype,
+                };
 
-            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-            const downloadURL = await getDownloadURL(snapshot.ref);
+                const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+                const downloadURL = await getDownloadURL(snapshot.ref);
 
-            const insertNewMenu = new Menu({
-                idMenu: idMenu,
-                namaMenu: namaMenu,
-                hargaMenu: req.body.hargaMenu,
-                stokMenu: req.body.stokMenu,
-                deskripsiMenu: req.body.deskripsiMenu,
-                kategoriMenu: req.body.kategoriMenu,
-                image: `menuPict/${idMenu}`,
-                imageUrl: downloadURL
-            })
-        
-            insertNewMenu.save().then(result => {
-                res.status(200).json({
-                    message: "Menu berhasil ditambahkan",
-                    data: result
+                const insertNewMenu = new Menu({
+                    idMenu: idMenu,
+                    namaMenu: namaMenu,
+                    hargaMenu: req.body.hargaMenu,
+                    stokMenu: req.body.stokMenu,
+                    deskripsiMenu: req.body.deskripsiMenu,
+                    kategoriMenu: req.body.kategoriMenu,
+                    image: `menuPict/${idMenu}`,
+                    imageUrl: downloadURL
                 })
-                
-            }).catch(error => {
-                next(error);
-            })
-        } else if (menu) {
-            res.json({
-                message: "nama menu sudah ada, coba nama lain"
-            })
+            
+                insertNewMenu.save().then(result => {
+                    res.status(200).json({
+                        message: "Menu berhasil ditambahkan",
+                        data: result
+                    })
+                    
+                }).catch(err => {
+                    next(err);
+                })
+            } else if (menu) {
+                res.json({
+                    message: "nama menu sudah ada, coba nama lain"
+                })
         }
+    } catch (err) {
+        res.status(401).send({ message: "error", data: err });
+    }
 }
 
 exports.updateDataMenu = async (req, res, next) => {
@@ -151,57 +155,61 @@ exports.updateDataMenu = async (req, res, next) => {
     const deskripsiMenu = req.body.deskripsiMenu;
     const kategoriMenu = req.body.kategoriMenu;
 
-    if(req.file) {
-        const storageRef = ref(storage, `menuPict/${idMenu}`);
-        deleteObject(storageRef);
-    
-        const metadata = {
-            contentType: req.file.mimetype,
-        };
-    
-        const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-        const downloadURL = await getDownloadURL(snapshot.ref);
-    
-        const image = `menuPict/${idMenu}`;
-        const imageUrl = downloadURL;
-    
-        Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
-        { $set: { 
-            namaMenu: `${namaMenu}`, 
-            hargaMenu: `${hargaMenu}`, 
-            stokMenu: `${stokMenu}`,
-            deskripsiMenu: `${deskripsiMenu}`,
-            kategoriMenu: `${kategoriMenu}`,
-            image: `${image}`,
-            imageUrl: `${imageUrl}`
-        } }, { new: true })
-        .then(result => {
-            res.status(200).json({
-                message: 'Berhasil update data menu',
-                data: result
+    try {
+        if(req.file) {
+            const storageRef = ref(storage, `menuPict/${idMenu}`);
+            deleteObject(storageRef);
+        
+            const metadata = {
+                contentType: req.file.mimetype,
+            };
+        
+            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+        
+            const image = `menuPict/${idMenu}`;
+            const imageUrl = downloadURL;
+        
+            Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
+            { $set: { 
+                namaMenu: `${namaMenu}`, 
+                hargaMenu: `${hargaMenu}`, 
+                stokMenu: `${stokMenu}`,
+                deskripsiMenu: `${deskripsiMenu}`,
+                kategoriMenu: `${kategoriMenu}`,
+                image: `${image}`,
+                imageUrl: `${imageUrl}`
+            } }, { new: true })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Berhasil update data menu',
+                    data: result
+                })
             })
-        })
-        .catch(error => {
-            next(error);
-        })
-    } else if (!req.file) {
-        Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
-        { $set: { 
-            namaMenu: `${namaMenu}`, 
-            hargaMenu: `${hargaMenu}`, 
-            stokMenu: `${stokMenu}`,
-            deskripsiMenu: `${deskripsiMenu}`,
-            kategoriMenu: `${kategoriMenu}`
-        } }, { new: true })
-        .then(result => {
-            res.status(200).json({
-                message: 'Berhasil update data menu',
-                data: result
+            .catch(err => {
+                next(err);
             })
-        })
-        .catch(error => {
-            next(error);
-        })
+        } else if (!req.file) {
+            Menu.findOneAndUpdate({idMenu: `${idMenu}`}, 
+            { $set: { 
+                namaMenu: `${namaMenu}`, 
+                hargaMenu: `${hargaMenu}`, 
+                stokMenu: `${stokMenu}`,
+                deskripsiMenu: `${deskripsiMenu}`,
+                kategoriMenu: `${kategoriMenu}`
+            } }, { new: true })
+            .then(result => {
+                res.status(200).json({
+                    message: 'Berhasil update data menu',
+                    data: result
+                })
+            })
+            .catch(err => {
+                next(err);
+            })
+        }
+    } catch (err) {
+        res.status(401).send({ message: "error", data: err });
     }
 }
 
@@ -243,7 +251,7 @@ exports.deleteAllMenu = async (req, res, next) => {
                 data: result
             })
         })
-    }).catch(error => {
-        next(error);
+    }).catch(err => {
+        next(err);
     })
 }

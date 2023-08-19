@@ -57,5 +57,10 @@ app.use((error, req, res, next) => {
     })
 })
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send('Error!, cek console')
+  })
+
 app.listen(port, () => console.log(`Listenting on port ${port}..., server up n running`));
 app.use("/", router);
