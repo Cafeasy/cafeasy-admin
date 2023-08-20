@@ -57,13 +57,13 @@ const DataTransaksicomp = ({ data = [] }) => {
     setDeleteTransaksiDialog(false);
   };
 
-  const hideDeleteAllTransaksiDialog = () => {
-    setDeleteAllTransaksiDialog(false);
-  };
+  // const hideDeleteAllTransaksiDialog = () => {
+  //   setDeleteAllTransaksiDialog(false);
+  // };
 
-  const confirmDeleteAllTransaksi = () => {
-    setDeleteAllTransaksiDialog(true);
-  };
+  // const confirmDeleteAllTransaksi = () => {
+  //   setDeleteAllTransaksiDialog(true);
+  // };
 
   const SubmitTransaksi = async () => {
     const formData = new FormData();
@@ -140,31 +140,31 @@ const DataTransaksicomp = ({ data = [] }) => {
       });
   };
 
-  const deleteAllTransaksi = async () => {
-    await axios
-      .delete(`${process.env.REACT_APP_API_URL}/deleteAllTransaksi`)
-      .then((response) => {
-        toast.current.show({
-          severity: "success",
-          summary: "Success",
-          detail: "Data Berhasil Dihapus",
-          life: 3000,
-        });
-        setTransaksi(DEFAULT_TRANSAKSI);
-        setDeleteTransaksiDialog(false);
-      })
-      .catch((response) => {
-        toast.current.show({
-          severity: "error",
-          summary: "Failed",
-          detail: "Data Gagal Dihapus",
-          life: 3000,
-        });
-      });
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
-  };
+  // const deleteAllTransaksi = async () => {
+  //   await axios
+  //     .delete(`${process.env.REACT_APP_API_URL}/deleteAllTransaksi`)
+  //     .then((response) => {
+  //       toast.current.show({
+  //         severity: "success",
+  //         summary: "Success",
+  //         detail: "Data Berhasil Dihapus",
+  //         life: 3000,
+  //       });
+  //       setTransaksi(DEFAULT_TRANSAKSI);
+  //       setDeleteTransaksiDialog(false);
+  //     })
+  //     .catch((response) => {
+  //       toast.current.show({
+  //         severity: "error",
+  //         summary: "Failed",
+  //         detail: "Data Gagal Dihapus",
+  //         life: 3000,
+  //       });
+  //     });
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 1000);
+  // };
 
   const deleteTransaksi = async () => {
     await axios
@@ -231,22 +231,22 @@ const DataTransaksicomp = ({ data = [] }) => {
     </>
   );
 
-  const deleteAllTransaksiDialogFooter = (
-    <>
-      <Button
-        label="Tidak"
-        icon="pi pi-times"
-        outlined
-        onClick={hideDeleteAllTransaksiDialog}
-      />
-      <Button
-        label="Iya"
-        icon="pi pi-check"
-        severity="danger"
-        onClick={deleteAllTransaksi}
-      />
-    </>
-  );
+  // const deleteAllTransaksiDialogFooter = (
+  //   <>
+  //     <Button
+  //       label="Tidak"
+  //       icon="pi pi-times"
+  //       outlined
+  //       onClick={hideDeleteAllTransaksiDialog}
+  //     />
+  //     <Button
+  //       label="Iya"
+  //       icon="pi pi-check"
+  //       severity="danger"
+  //       onClick={deleteAllTransaksi}
+  //     />
+  //   </>
+  // );
 
   const getSeverity = (data) => {
     switch (data.statusBayar) {
@@ -302,13 +302,13 @@ const DataTransaksicomp = ({ data = [] }) => {
           raised
           onClick={exportSpreadsheet}
         />
-        <Button
+        {/* <Button
           label="Hapus Semua"
           icon="pi pi-trash"
           severity="danger"
           raised
           onClick={confirmDeleteAllTransaksi}
-        />
+        /> */}
         <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
