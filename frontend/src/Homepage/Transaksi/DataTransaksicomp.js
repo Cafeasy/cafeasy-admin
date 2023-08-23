@@ -450,10 +450,10 @@ const DataTransaksicomp = ({ data = [] }) => {
             style={{ width: "32rem" }}
             breakpoints={{ "960px": "75vw", "641px": "90vw" }}
             header="Konfirmasi"
-            modal
-            footer={deleteAllTransaksiDialogFooter}
-            onHide={hideDeleteAllTransaksiDialog}
-          >
+          //   modal
+          //   footer={deleteAllTransaksiDialogFooter}
+          //   onHide={hideDeleteAllTransaksiDialog}
+           >
             <div className="confirmation-content">
               <i
                 className="pi pi-exclamation-triangle mr-3"
