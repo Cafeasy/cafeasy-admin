@@ -152,15 +152,15 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
     });
 
     data = { sheetName: sheetName, data: dataMenuArray };
-  
+
     await axios
       .post(`${process.env.REACT_APP_API_URL}/createNewSpreadsheet`, data)
       .then(() => {
-        var win = window.open(
+        window.open(
           "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",
           "_blank"
         );
-        win.focus();
+
       });
   };
 
@@ -358,14 +358,6 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
 
   const actionTemplate = (menu) => (
     <>
-      <Button
-        label="Detail"
-        className="mx-2"
-        icon="pi pi-info-circle"
-        severity="info"
-        rounded
-        onClick={() => openDetail(menu)}
-      />
       <Button
         label="Edit"
         className="mx-2"
@@ -635,24 +627,6 @@ const DataMenucomp = ({ data = [], kategori = [] }) => {
               </span>
             </div>
           </Dialog>
-
-          <div className="card flex justify-content-center">
-            <Card
-              visible={detailDialog}
-              title="Title"
-              subTitle="Subtitle"
-              footer={detailDialogFooter}
-              header={imageBody}
-              className="md:w-25rem"
-            >
-              <p className="m-0">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Inventore sed consequuntur error repudiandae numquam deserunt
-                quisquam repellat libero asperiores earum nam nobis, culpa
-                ratione quam perferendis esse, cupiditate neque quas!
-              </p>
-            </Card>
-          </div>
         </div>
       </div>
     </div>

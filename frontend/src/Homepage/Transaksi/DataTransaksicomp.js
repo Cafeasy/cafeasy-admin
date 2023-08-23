@@ -132,11 +132,11 @@ const DataTransaksicomp = ({ data = [] }) => {
     await axios
       .post(`${process.env.REACT_APP_API_URL}/writeSpreadsheet`, data1)
       .then(() => {
-        var win = window.open(
+        window.open(
           "https://docs.google.com/spreadsheets/d/1suDps63BnNPDeIDAHZ07leYFnbihjoatWByahkd41lk/edit?usp=sharing",
           "_blank"
         );
-        win.focus();
+
       });
   };
 
@@ -453,7 +453,7 @@ const DataTransaksicomp = ({ data = [] }) => {
           //   modal
           //   footer={deleteAllTransaksiDialogFooter}
           //   onHide={hideDeleteAllTransaksiDialog}
-           >
+          >
             <div className="confirmation-content">
               <i
                 className="pi pi-exclamation-triangle mr-3"
